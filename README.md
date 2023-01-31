@@ -2,21 +2,6 @@
 
 [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
-## To use
-
-Install [degit](https://github.com/Rich-Harris/degit)
-
-```bash
-npm i -g degit
-```
-
-```bash
-degit git@github.com:CUexter/next-template.git#mantine
-rm CHANGELOG.md
-```
-
-and edit the `package.json` to change the package name and the version number to `0.0.0`
-
 ## Technologies used
 
 - ⚛️ [React 18](https://reactjs.org/)
