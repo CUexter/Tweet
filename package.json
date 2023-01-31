@@ -4,12 +4,18 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"next dev\" \"pb/pocketbase serve\"",
+    "dev:debug": "concurrently \"cross-env NODE_OPTIONS='--inspect' next dev\" \"pb/pocketbase serve\"",
+    "start": "concurrently \"next start\" \"pb/pocketbase serve\"",
     "build": "next build",
-    "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "prepare": "is-ci || husky install",
+    "stylelint": "stylelint --cache **/*.css",
+    "stylelint:fix": "stylelint --fix --cache **/*.css",
+    "prettier": "prettier --write --ignore-unknown .",
     "test:e2e": "playwright test",
+    "installDB": "./pb-setup.sh",
+    "codegen:e2e": "pnpm run dev & playwright codegen",
     "test": "jest",
     "test:watch": "jest --watch",
     "clean": "rimraf pb/pb_data && rimraf .next",
@@ -75,6 +81,7 @@
     "@types/jest": "^29.2.6",
     "@types/testing-library__jest-dom": "^5.14.5",
     "concurrently": "^7.6.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.7.3",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-storybook": "^0.6.10",
@@ -105,8 +112,8 @@
     "url": "https://github.com/CUexter/next-template.git"
   },
   "engines": {
-    "node": ">=18",
-    "pnpm": ">=7",
+    "node": ">=18.13.0",
+    "pnpm": ">=7.26.2",
     "npm": "please use pnpm",
     "yarn": "please use pnpm"
   },
