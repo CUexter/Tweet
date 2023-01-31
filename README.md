@@ -1,4 +1,4 @@
-# <p align="center"> Next.js + Pocketbase + React Query template</p>
+# <p align="center"> Tweet - a Twitter clone</p>
 
 [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
