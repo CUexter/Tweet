@@ -31,6 +31,7 @@ const config: PlaywrightTestConfig = {
     // Use baseURL so to make navigations relative.
     // More information: https://playwright.dev/docs/api/class-testoptions#test-options-base-url
     baseURL,
+    video: "on-first-retry",
 
     // Retry a test if its failing with enabled tracing. This allows you to analyse the DOM, console logs, network traffic etc.
     // More information: https://playwright.dev/docs/trace-viewer
