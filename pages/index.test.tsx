@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Index from "./_index";
+import Index from "./index";
 import "@testing-library/jest-dom";
 
 describe.skip("Home", () => {
