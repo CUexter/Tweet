@@ -6,6 +6,7 @@ import {
   ColorScheme,
   ColorSchemeProvider,
 } from "@mantine/core";
+import { getCookie, setCookie } from "cookies-next";
 import { NotificationsProvider } from "@mantine/notifications";
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {

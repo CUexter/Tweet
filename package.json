@@ -1,5 +1,5 @@
 {
-  "name": "my-nextjs-template",
+  "name": "tweet",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -41,6 +41,7 @@
     "@types/node": "18.11.18",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
+    "cookies-next": "^2.1.1",
     "dayjs": "^1.11.7",
     "embla-carousel-react": "^7.0.9",
     "eslint": "8.32.0",
@@ -102,6 +103,12 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/CUexter/next-template.git"
+  },
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=7",
+    "npm": "please use pnpm",
+    "yarn": "please use pnpm"
   },
   "publishConfig": {
     "access": "restricted"
