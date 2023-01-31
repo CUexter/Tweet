@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "vivaxy.vscode-conventional-commits",
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint"
+  ]
+}
