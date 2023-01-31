@@ -50,7 +50,7 @@
     "cookies-next": "^2.1.1",
     "dayjs": "^1.11.7",
     "embla-carousel-react": "^7.0.9",
-    "eslint": "8.32.0",
+    "eslint": "8.33.0",
     "eslint-config-next": "13.1.4",
     "next": "13.1.4",
     "pocketbase": "^0.10.1",
