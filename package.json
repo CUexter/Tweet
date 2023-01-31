@@ -112,8 +112,8 @@
     "url": "https://github.com/CUexter/next-template.git"
   },
   "engines": {
-    "node": ">=18.13.0",
-    "pnpm": ">=7.26.0",
+    "node": ">=18",
+    "pnpm": ">=7",
     "npm": "please use pnpm",
     "yarn": "please use pnpm"
   },
