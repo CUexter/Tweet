@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import Index from "@/pages/index";
 import "@testing-library/jest-dom";
 
-describe.skip("Home", () => {
+describe("Home", () => {
   it("renders a heading", () => {
     render(<Index />);
 

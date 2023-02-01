@@ -1,9 +1,5 @@
 import Head from "next/head";
-import { Inter } from "@next/font/google";
-import styles from "@/styles/Home.module.css";
 import Link from "next/link";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
@@ -15,9 +11,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Link href="/about" className={styles.card}>
-          <h2 className={inter.className}>Testing</h2>
-          <p className={inter.className}>with playwright</p>
+        <Link href="/about">
+          <h2>Testing</h2>
+          <p>with playwright</p>
         </Link>
       </main>
     </>
