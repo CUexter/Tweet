@@ -87,6 +87,7 @@ jobs:
       - name: Download PocketBase
         if: steps.cache-pocketbase.outputs.cache-hit != 'true'
         run: |
+          apt-get update
           apt-get install unzip
           ./pb-setup.sh
 
