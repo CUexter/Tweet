@@ -31,7 +31,7 @@ jobs:
     name: Do playwright testing
     runs-on: ubuntu-latest
     needs: check-files
-    if: success() && ${{ needs.check-files.outputs.changed }} == true
+    if: success() && needs.check-files.outputs.changed == 'true'
     permissions:
       # only required for workflows in private repositories
       contents: write
