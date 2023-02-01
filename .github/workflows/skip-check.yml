@@ -1,0 +1,33 @@
+name: skip
+
+on:
+  push:
+    paths:
+      - "**.md"
+      - "**.yml"
+  pull_request:
+    paths:
+      - "**.md"
+      - "**.yml"
+
+jobs:
+  playwright:
+    name: Do playwright testing
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No e2e testing required"'
+  test:
+    name: Do testing
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No testing required"'
+  build:
+    name: build and upload with cache
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No building required"'
+  lint:
+    name: lint and format
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No linting required"'
