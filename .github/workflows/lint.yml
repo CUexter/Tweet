@@ -15,13 +15,16 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
 
-      - name: Get changed files in the docs folder
+      - name: Get changed code files
         id: changed-files-specific
         uses: tj-actions/changed-files@v35
         with:
           files: |
             ./**/*.{js, jsx, json, css, scss, tsx, ts}
             pnpm-lock.yaml
+
+      - name: print out changed
+        run: echo ${{ steps.changed-files-specific.outputs.any_changed }}
 
   lint:
     name: lint and format
@@ -32,6 +35,9 @@ jobs:
       # only required for workflows in private repositories
       contents: write
     steps:
+      - name: print out changed
+        run: echo ${{ needs.check-files.outputs.changed }}
+
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
