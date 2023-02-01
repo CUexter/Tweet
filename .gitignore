@@ -45,3 +45,4 @@ build.tar.gz
 .stylelintcache
 
 /pb
+/playwright-report
