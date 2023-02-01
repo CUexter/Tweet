@@ -1,20 +1,32 @@
 name: Lint
 
-on:
-  push:
-    paths:
-      - "**.js"
-      - "**.jsx"
-      - "**.json"
-      - "**.css"
-      - "**.scss"
-      - "**.tsx"
-      - "**.ts"
-      - "pnpm-lock.yaml"
+on: [push]
 
 jobs:
+  check-files:
+    name: check files change
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.changed-files-specific.outputs.any_changed }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Get changed files in the docs folder
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v35
+        with:
+          files: |
+            ./**/*.{js, jsx, json, css, scss, tsx, ts}
+            pnpm-lock.yaml
+
   lint:
     name: lint and format
+    needs: check-files
+    if: success() && ${{ needs.check-files.outputs.changed }} == true
     runs-on: ubuntu-latest
     permissions:
       # only required for workflows in private repositories
