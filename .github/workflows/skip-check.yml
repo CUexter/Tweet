@@ -2,9 +2,15 @@ name: skip
 
 on:
   push:
-    paths:
-      - "**.md"
-      - "**.yml"
+    paths-ignore:
+      - "**.js"
+      - "**.jsx"
+      - "**.json"
+      - "**.css"
+      - "**.scss"
+      - "**.tsx"
+      - "**.ts"
+      - "pnpm-lock.yaml"
 
 jobs:
   playwright:
