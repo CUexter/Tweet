@@ -117,6 +117,7 @@ jobs:
     permissions:
       # only required for workflows in private repositories
       id-token: write
+      pages: write
 
     steps:
       - name: Setup Pages
