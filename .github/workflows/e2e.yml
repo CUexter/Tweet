@@ -15,6 +15,7 @@ jobs:
       contents: write
     container:
       image: mcr.microsoft.com/playwright:v1.29.2-focal
+      options: "--ipc=host"
     # strategy:
     #   fail-fast: false
     #   matrix:
@@ -92,7 +93,7 @@ jobs:
           ./pb-setup.sh
 
       - name: Run your tests
-        run: pnpm run test:e2e
+        run: HOME=/root pnpm run test:e2e
 
       - name: Upload test results
         if: always()
