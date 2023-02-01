@@ -1,18 +1,13 @@
 name: Test
 
-on:
-  push:
-    paths-ignore:
-      - "**.md"
-      - "**.yml"
-  pull_request:
-    paths-ignore:
-      - "**.md"
-      - "**.yml"
-
+on: [push]
 jobs:
+  check-files:
+    uses: ./.github/workflows/changed-files.yml
   test:
     name: Do testing
+    needs: check-files
+    if: success() && needs.check-files.outputs.code_changed == 'true'
     runs-on: ubuntu-latest
     permissions:
       # only required for workflows in private repositories

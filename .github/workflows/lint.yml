@@ -1,23 +1,23 @@
 name: Lint
 
-on:
-  push:
-    paths-ignore:
-      - "**.md"
-      - "**.yml"
-  pull_request:
-    paths-ignore:
-      - "**.md"
-      - "**.yml"
+on: [push]
 
 jobs:
+  check-files:
+    uses: ./.github/workflows/changed-files.yml
+
   lint:
     name: lint and format
+    needs: check-files
+    if: success() && needs.check-files.outputs.code_changed == 'true'
     runs-on: ubuntu-latest
     permissions:
       # only required for workflows in private repositories
       contents: write
     steps:
+      - name: print out changed
+        run: echo ${{ needs.check-files.outputs.changed }}
+
       - name: Checkout repository
         uses: actions/checkout@v3
         with:

@@ -1,0 +1,40 @@
+name: check-files
+
+on:
+  workflow_call:
+    outputs:
+      code_changed:
+        description: "true if the source code changed"
+        value: ${{ jobs.check-files.outputs.changed }}
+
+jobs:
+  check-files:
+    name: check files change
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.cfs.outputs.any_changed }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Get changed files in the docs folder
+        id: cfs
+        uses: tj-actions/changed-files@v35
+        with:
+          files: |
+            ./**/*.{js, jsx, json, css, scss, tsx, ts}
+            pnpm-lock.yaml
+
+      - name: print output
+        run: echo ${{ steps.cfs.outputs.any_changed }}
+
+  print-across-job:
+    name: check files change
+    needs: check-files
+    runs-on: ubuntu-latest
+    steps:
+      - name: print
+        run: echo ${{ needs.check-files.outputs.changed }}
