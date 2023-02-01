@@ -12,6 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
+          token: ${{ secrets.PAT }}
           ref: ${{ github.head_ref }}
 
       - name: Install Node.js
@@ -47,5 +48,12 @@ jobs:
         run: pnpm exec prettier --write --ignore-unknown .
 
       - uses: stefanzweifel/git-auto-commit-action@v4
+        if: success() && github.ref == 'refs/heads/main'
+        with:
+          commit_message: "style: :robot: prettier code by github action"
+          push_options: --force
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        if: success() && github.ref != 'refs/heads/main'
         with:
           commit_message: "style: :robot: prettier code by github action"

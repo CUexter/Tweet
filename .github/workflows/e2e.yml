@@ -14,7 +14,8 @@ jobs:
       # only required for workflows in private repositories
       contents: write
     container:
-      image: mcr.microsoft.com/playwright:latest
+      image: mcr.microsoft.com/playwright:v1.29.2-focal
+      options: "--ipc=host"
     # strategy:
     #   fail-fast: false
     #   matrix:
@@ -56,26 +57,26 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
-
-      - name: Store Playwright's Version
-        run: |
-          PLAYWRIGHT_VERSION=$(pnpm ls @playwright/test | grep @playwright | sed 's/.*@//')
-          echo "Playwright's Version: $PLAYWRIGHT_VERSION"
-          echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
-
-      - name: Cache Playwright Browsers for Playwright's Version
-        id: cache-playwright-browsers
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
-
-      - name: Setup Playwright
-        if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
-        run: pnpm exec playwright install --with-deps
-
-      - run: npx playwright install-deps
-        if: steps.cache-playwright-browsers.outputs.cache-hit == 'true'
+      #
+      # - name: Store Playwright's Version
+      #   run: |
+      #     PLAYWRIGHT_VERSION=$(pnpm ls @playwright/test | grep @playwright | sed 's/.*@//')
+      #     echo "Playwright's Version: $PLAYWRIGHT_VERSION"
+      #     echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
+      #
+      # - name: Cache Playwright Browsers for Playwright's Version
+      #   id: cache-playwright-browsers
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ~/.cache/ms-playwright
+      #     key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
+      #
+      # - name: Setup Playwright
+      #   if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
+      #   run: pnpm exec playwright install --with-deps
+      #
+      # - run: npx playwright install-deps
+      #   if: steps.cache-playwright-browsers.outputs.cache-hit == 'true'
 
       - name: Cache pocketbase
         id: cache-pocketbase
@@ -86,10 +87,13 @@ jobs:
 
       - name: Download PocketBase
         if: steps.cache-pocketbase.outputs.cache-hit != 'true'
-        run: ./pb-setup.sh
+        run: |
+          apt-get update
+          apt-get install unzip
+          ./pb-setup.sh
 
       - name: Run your tests
-        run: pnpm run test:e2e
+        run: HOME=/root pnpm run test:e2e
 
       - name: Upload test results
         if: always()
@@ -113,6 +117,7 @@ jobs:
     permissions:
       # only required for workflows in private repositories
       id-token: write
+      pages: write
 
     steps:
       - name: Setup Pages
