@@ -29,7 +29,7 @@ jobs:
   lint:
     name: lint and format
     needs: check-files
-    if: success() && ${{ needs.check-files.outputs.changed }} == true
+    if: success() && ${{ needs.check-files.outputs.changed }} == "true"
     runs-on: ubuntu-latest
     permissions:
       # only required for workflows in private repositories
