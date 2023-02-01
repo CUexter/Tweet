@@ -13,7 +13,15 @@ jobs:
     permissions:
       # only required for workflows in private repositories
       contents: write
-      id-token: write
+    container:
+      image: mcr.microsoft.com/playwright:latest
+    # strategy:
+    #   fail-fast: false
+    #   matrix:
+    #     project: [chromium, webkit]
+    #     shardIndex: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    #     shardTotal: [10]
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -102,6 +110,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test]
     if: success() && github.ref == 'refs/heads/main'
+    permissions:
+      # only required for workflows in private repositories
+      id-token: write
+
     steps:
       - name: Setup Pages
         uses: actions/configure-pages@v2
