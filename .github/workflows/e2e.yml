@@ -1,11 +1,6 @@
 name: E2E
 
-on:
-  workflow_dispatch:
-  workflow_run:
-    workflows: Test
-    types:
-      - completed
+on: [push, workflow_dispatch]
 jobs:
   check-files:
     uses: ./.github/workflows/changed-files.yml
