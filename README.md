@@ -6,8 +6,8 @@
 
 - ⚛️ [React 18](https://reactjs.org/)
 - 💎 [Typescript](https://www.typescriptlang.org/)
-- [React Query](https://react-query-v3.tanstack.com/)
-- [Playwright](https://playwright.dev)
+- [React Query](https://tanstack.com/query/latest)
+- [Playwright](https://playwright.dev): ([E2E Testing Result](https://cuexter.github.io/Tweet/))
 - [Jest](https://jestjs.io)
 - [React Testing Library](https://testing-library.com/)
 - [NEXT.js](https://nextjs.org)
