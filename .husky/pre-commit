@@ -4,5 +4,3 @@
 mkdir -p husky-logs
 
 pnpm exec lint-staged
-pnpm test
-pnpm test:e2e

@@ -18,6 +18,7 @@
     "codegen:e2e": "pnpm run dev & playwright codegen",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:staged": "jest --bail --findRelatedTests",
     "clean": "rimraf pb/pb_data && rimraf .next",
     "semantic-release": "semantic-release",
     "storybook": "storybook dev -p 6006",
@@ -104,8 +105,13 @@
     "stylelint-config-standard": "^29.0.0"
   },
   "lint-staged": {
-    "*.{js,ts,tsx,jsx}": "eslint --cache --fix",
-    "*.{css,scss}": "stylelint --fix",
+    "*.{js,ts,tsx,jsx}": [
+      "eslint --cache --fix",
+      "npm run test:staged"
+    ],
+    "*.css": "stylelint --fix",
+    "*.scss": "stylelint --syntax=scss --fix",
+    "*.{js,ts,tsx,jsx,css,scss,html}": "npm run test:e2e",
     "*": "prettier --write --ignore-unknown"
   },
   "repository": {
