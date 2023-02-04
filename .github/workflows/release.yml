@@ -10,10 +10,13 @@ on:
       - main
 
 jobs:
+  check-files:
+    uses: ./.github/workflows/changed-files.yml
   release:
     name: release
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    needs: check-files
+    if: success() && needs.check-files.outputs.code_changed == 'true'
     permissions: write-all
     steps:
       - uses: actions/checkout@v3
