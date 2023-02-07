@@ -37,7 +37,7 @@ specifiers:
   "@tanstack/react-query": ^4.24.4
   "@testing-library/jest-dom": ^5.16.5
   "@testing-library/react": ^13.4.0
-  "@tiptap/extension-link": 2.0.0-beta.209
+  "@tiptap/extension-link": 2.0.0-beta.212
   "@tiptap/react": 2.0.0-beta.212
   "@tiptap/starter-kit": 2.0.0-beta.212
   "@types/jest": ^29.2.6
@@ -94,11 +94,11 @@ dependencies:
   "@mantine/nprogress": 5.10.2_yzf4d63xstafd7ya36kewhvvjm
   "@mantine/prism": 5.10.2_yzf4d63xstafd7ya36kewhvvjm
   "@mantine/spotlight": 5.10.2_yzf4d63xstafd7ya36kewhvvjm
-  "@mantine/tiptap": 5.10.2_akd2maugxsgq2hbwb7qto73jze
+  "@mantine/tiptap": 5.10.2_lvvb4pdmeklalm3pkswufk655i
   "@next/font": 13.1.4
   "@tabler/icons": 1.119.0_biqbaboplfbrettd7655fr4n2y
   "@tanstack/react-query": 4.24.4_biqbaboplfbrettd7655fr4n2y
-  "@tiptap/extension-link": 2.0.0-beta.209_7a3gz3e4kr2v2vzx7y22e4zfhq
+  "@tiptap/extension-link": 2.0.0-beta.212_7rz66h33fpkvqmmazdnqczeig4
   "@tiptap/react": 2.0.0-beta.212_r6rbbwfuabbns7wxcjossdisce
   "@tiptap/starter-kit": 2.0.0-beta.212_@tiptap+pm@2.0.0-beta.213
   "@types/node": 18.11.19
@@ -3229,7 +3229,7 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /@mantine/tiptap/5.10.2_akd2maugxsgq2hbwb7qto73jze:
+  /@mantine/tiptap/5.10.2_lvvb4pdmeklalm3pkswufk655i:
     resolution:
       {
         integrity: sha512-EiQ9gVMHUHZlgJ/EovEgng8YNIlUq2kEiejaEiyOF2fxUgaYShfIgGrATB43aBhCmR0EfZomfcF7ZSR8ewD9Ag==,
@@ -3246,7 +3246,7 @@ packages:
       "@mantine/hooks": 5.10.2_react@18.2.0
       "@mantine/utils": 5.10.2_react@18.2.0
       "@tabler/icons": 1.119.0_biqbaboplfbrettd7655fr4n2y
-      "@tiptap/extension-link": 2.0.0-beta.209_7a3gz3e4kr2v2vzx7y22e4zfhq
+      "@tiptap/extension-link": 2.0.0-beta.212_7rz66h33fpkvqmmazdnqczeig4
       "@tiptap/react": 2.0.0-beta.212_r6rbbwfuabbns7wxcjossdisce
       react: 18.2.0
     dev: false
@@ -5802,20 +5802,18 @@ packages:
       "@tiptap/core": 2.0.0-beta.213_@tiptap+pm@2.0.0-beta.213
     dev: false
 
-  /@tiptap/extension-link/2.0.0-beta.209_7a3gz3e4kr2v2vzx7y22e4zfhq:
+  /@tiptap/extension-link/2.0.0-beta.212_7rz66h33fpkvqmmazdnqczeig4:
     resolution:
       {
-        integrity: sha512-X+iPnKWTb8nuZ7xieemPxZOiCQiaQw4z3RVJ7Hz4/T+ujxfxu7MJhBzjyw9htGPmUijyN4zt0NPjZ089yMzAxQ==,
+        integrity: sha512-FRhJHBIYpObrZXWvLgLW3lx+GYnkOJsJrkrKqkS5t5MdGDpsreKgqkxA06tQjNYx13xkt2HeaeUIuQENiB1d4Q==,
       }
     peerDependencies:
-      "@tiptap/core": ^2.0.0-beta.193
-      prosemirror-model: ^1.18.1
-      prosemirror-state: ^1.4.1
+      "@tiptap/core": ^2.0.0-beta.209
+      "@tiptap/pm": ^2.0.0-beta.209
     dependencies:
       "@tiptap/core": 2.0.0-beta.213_@tiptap+pm@2.0.0-beta.213
+      "@tiptap/pm": 2.0.0-beta.213_wiv5r4wfgzjxfsgm7t2efmiisu
       linkifyjs: 3.0.5
-      prosemirror-model: 1.19.0
-      prosemirror-state: 1.4.2
     dev: false
 
   /@tiptap/extension-list-item/2.0.0-beta.213_wiv5r4wfgzjxfsgm7t2efmiisu:
