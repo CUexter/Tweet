@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"next dev\" \"pb/pocketbase serve\"",
+    "db": "pb/pocketbase serve",
     "dev:debug": "concurrently \"cross-env NODE_OPTIONS='--inspect' next dev\" \"pb/pocketbase serve\"",
     "start": "concurrently \"next start\" \"pb/pocketbase serve\"",
     "build": "next build",
@@ -18,7 +19,7 @@
     "codegen:e2e": "pnpm run dev & playwright codegen",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:staged": "jest --bail --findRelatedTests",
+    "test:staged": "jest --bail --findRelatedTests --passWithNoTests",
     "clean": "rimraf pb/pb_data && rimraf .next",
     "semantic-release": "semantic-release",
     "storybook": "storybook dev -p 6006",
@@ -44,9 +45,9 @@
     "@tabler/icons": "1.119.0",
     "@tanstack/react-query": "^4.24.4",
     "@tiptap/extension-link": "2.0.0-beta.212",
-    "@tiptap/react": "2.0.0-beta.209",
-    "@tiptap/starter-kit": "2.0.0-beta.209",
-    "@types/node": "18.11.18",
+    "@tiptap/react": "2.0.0-beta.212",
+    "@tiptap/starter-kit": "2.0.0-beta.212",
+    "@types/node": "18.11.19",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
     "cookies-next": "^2.1.1",
@@ -92,6 +93,7 @@
     "jest": "^29.3.1",
     "jest-environment-jsdom": "^29.3.1",
     "lint-staged": "^13.1.0",
+    "micromatch": "^4.0.5",
     "postcss": "^8.4.21",
     "postcss-loader": "^7.0.2",
     "prettier": "^2.8.3",
@@ -104,19 +106,9 @@
     "stylelint-config-recommended": "^9.0.0",
     "stylelint-config-standard": "^29.0.0"
   },
-  "lint-staged": {
-    "*.{js,ts,tsx,jsx}": [
-      "eslint --cache --fix",
-      "npm run test:staged"
-    ],
-    "*.css": "stylelint --fix",
-    "*.scss": "stylelint --syntax=scss --fix",
-    "*.{js,ts,tsx,jsx,css,scss,html}": "npm run test:e2e",
-    "*": "prettier --write --ignore-unknown"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/CUexter/next-template.git"
+    "url": "https://github.com/CUexter/Tweet.git"
   },
   "engines": {
     "node": ">=18",

@@ -1,6 +1,12 @@
 name: E2E
 
-on: [push, workflow_dispatch]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
 jobs:
   check-files:
     uses: ./.github/workflows/changed-files.yml
@@ -120,7 +126,7 @@ jobs:
 
     steps:
       - name: Setup Pages
-        uses: actions/configure-pages@v2
+        uses: actions/configure-pages@v3
 
       - name: Download report
         uses: actions/download-artifact@v3
