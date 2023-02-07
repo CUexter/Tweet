@@ -46,7 +46,7 @@
     "@tanstack/react-query": "^4.24.4",
     "@tiptap/extension-link": "2.0.0-beta.209",
     "@tiptap/react": "2.0.0-beta.209",
-    "@tiptap/starter-kit": "2.0.0-beta.209",
+    "@tiptap/starter-kit": "2.0.0-beta.212",
     "@types/node": "18.11.18",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
