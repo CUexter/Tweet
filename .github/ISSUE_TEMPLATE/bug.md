@@ -5,23 +5,32 @@ about: Create a report of bugs
 
 ## Bug Report
 
-**Which part of the project does this belongs to ?**
+### Description
 
-#### Issue Description
+Briefly describe the bug that you have encountered.
 
-- When Issue Happens
+### Steps to Reproduce
 
-- Steps To Reproduce
+1. Step 1
+2. Step 2
+3. Step 3
 
-#### Browser Information
+### Expected Result
 
-- Browser Name, Version
-- Operating System
+Describe what you expected to happen.
 
-#### Your Code (Optional)
+### Actual Result
 
-```
-If relevant, paste all of your test code in here
-```
+Describe what actually happened.
 
-#### Screenshot
+### Screenshots or Error Logs
+
+Include any relevant screenshots or error logs.
+
+### Additional Information
+
+Provide any additional information that may be useful in fixing the bug.
+
+### Version Information
+
+List the version of the software you are using and any other relevant information.
