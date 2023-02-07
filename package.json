@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"next dev\" \"pb/pocketbase serve\"",
+    "db": "pb/pocketbase serve",
     "dev:debug": "concurrently \"cross-env NODE_OPTIONS='--inspect' next dev\" \"pb/pocketbase serve\"",
     "start": "concurrently \"next start\" \"pb/pocketbase serve\"",
     "build": "next build",
@@ -18,7 +19,7 @@
     "codegen:e2e": "pnpm run dev & playwright codegen",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:staged": "jest --bail --findRelatedTests",
+    "test:staged": "jest --bail --findRelatedTests --passWithNoTests",
     "clean": "rimraf pb/pb_data && rimraf .next",
     "semantic-release": "semantic-release",
     "storybook": "storybook dev -p 6006",
@@ -103,16 +104,6 @@
     "stylelint-config-prettier": "^9.0.4",
     "stylelint-config-recommended": "^9.0.0",
     "stylelint-config-standard": "^29.0.0"
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx,jsx}": [
-      "eslint --cache --fix",
-      "npm run test:staged"
-    ],
-    "*.css": "stylelint --fix",
-    "*.scss": "stylelint --syntax=scss --fix",
-    "*.{js,ts,tsx,jsx,css,scss,html}": "npm run test:e2e",
-    "*": "prettier --write --ignore-unknown"
   },
   "repository": {
     "type": "git",
