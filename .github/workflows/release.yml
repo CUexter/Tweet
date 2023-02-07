@@ -20,6 +20,8 @@ jobs:
     permissions: write-all
     steps:
       - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
 
       - name: Install Node.js
         uses: actions/setup-node@v3
@@ -66,7 +68,7 @@ jobs:
 
       - run: pnpm exec semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
 
       - name: Run Prettier to format
         run: pnpm exec prettier --write --ignore-unknown CHANGELOG.md
