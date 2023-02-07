@@ -44,5 +44,6 @@ build.tar.gz
 .eslintcache
 .stylelintcache
 
-/pb
+/pb/*
+!/pb/pb_migrations
 /playwright-report
