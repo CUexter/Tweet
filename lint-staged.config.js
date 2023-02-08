@@ -2,12 +2,13 @@
 import micromatch from "micromatch";
 
 export default (allStagedFile) => {
-  let jsFiles = micromatch(allStagedFile, ["**/*.{js,ts,tsx,jsx}"]);
-  jsFiles = micromatch.not(jsFiles, "**/pb/pb_migrations/*.js");
-  let codeFiles = micromatch(allStagedFile, [
-    "**/*.{js,ts,tsx,jsx,html,css,scss}",
+  let jsFiles = micromatch(allStagedFile, ["**/*.{cjs,mjs,js,ts,tsx,jsx}"]);
+  let e2eFiles = micromatch(allStagedFile, [
+    "**/e2e/**",
+    "**/src/**",
+    "**/public/**",
+    "**/prisma/**",
   ]);
-  codeFiles = micromatch.not(jsFiles, "**/pb/pb_migrations/*.js");
 
   const cssFiles = micromatch(allStagedFile, ["**/*.css"]);
   const scssFiles = micromatch(allStagedFile, ["**/*.scss"]);
@@ -16,7 +17,7 @@ export default (allStagedFile) => {
     `prettier --write --ignore-unknown ${allStagedFile.join(" ")}`,
   ];
 
-  if (codeFiles.length > 0) {
+  if (e2eFiles.length > 0) {
     operations.push("pnpm run test:e2e");
   }
 
