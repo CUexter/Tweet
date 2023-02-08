@@ -15,6 +15,7 @@ husky-logs/*
 # next.js
 /.next/
 /out/
+next-env.d.ts
 
 # production
 /build
@@ -31,6 +32,9 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
+
+*.tsbuildinfo
 
 # vercel
 .vercel
@@ -44,6 +48,8 @@ build.tar.gz
 .eslintcache
 .stylelintcache
 
-/pb/*
-!/pb/pb_migrations
+# database
+/prisma/db.sqlite
+/prisma/db.sqlite-journal
+
 /playwright-report

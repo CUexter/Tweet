@@ -25,7 +25,7 @@ jobs:
         uses: tj-actions/changed-files@v35
         with:
           files: |
-            ./**/*.{js, jsx, json, css, scss, tsx, ts}
+            ./src/*.{js, jsx, json, css, scss, tsx, ts}
             pnpm-lock.yaml
 
       - name: print output
