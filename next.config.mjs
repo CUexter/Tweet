@@ -9,10 +9,6 @@
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: false,
-  webpack(config) {
-    config.experiments = { ...config.experiments, topLevelAwait: true };
-    return config;
-  },
 
   /**
    * If you have the "experimental: { appDir: true }" setting enabled, then you
