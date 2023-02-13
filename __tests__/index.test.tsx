@@ -1,4 +1,4 @@
-import Index from "@/pages/index";
+import Index from "@/pages/index.page";
 import { api } from "@/utils/api";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
