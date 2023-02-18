@@ -16,7 +16,7 @@
   },
   "plugins": ["@typescript-eslint"],
   "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
-  "ignorePatterns": ["./lint-staged.config.mjs", "./jest.config.js"],
+  "ignorePatterns": ["./lint-staged.config.mjs"],
   "rules": {
     "@typescript-eslint/consistent-type-imports": "warn"
   }
