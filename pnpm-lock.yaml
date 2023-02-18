@@ -50,6 +50,7 @@ specifiers:
   '@trpc/server': ^10.11.1
   '@types/micromatch': ^4.0.2
   '@types/node': 18.11.19
+  '@types/prettier': ^2.7.2
   '@types/react': 18.0.27
   '@types/react-dom': 18.0.10
   '@types/testing-library__jest-dom': ^5.14.5
@@ -169,6 +170,7 @@ devDependencies:
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
   '@types/micromatch': 4.0.2
+  '@types/prettier': 2.7.2
   '@types/testing-library__jest-dom': 5.14.5
   '@typescript-eslint/eslint-plugin': 5.52.0_6s3bb65rdf6uanqvr33b5rkfrq
   '@typescript-eslint/parser': 5.52.0_7uibuqfxkfaozanbtbziikiqje
@@ -5083,6 +5085,10 @@ packages:
 
   /@types/parse-json/4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
+
+  /@types/prettier/2.7.2:
+    resolution: {integrity: sha512-KufADq8uQqo1pYKVIYzfKbJfBAc0sOeXqGbFaSpv8MRmC/zXgowNZmFcbngndGk922QDmOASEXUZCaY48gs4cg==}
+    dev: true
 
   /@types/pretty-hrtime/1.0.1:
     resolution: {integrity: sha512-VjID5MJb1eGKthz2qUerWT8+R4b9N+CHvGCzg9fn4kWZgaF9AhdYikQio3R7wV8YY1NsQKPaCwKz1Yff+aHNUQ==}
