@@ -57,7 +57,7 @@ jobs:
         run: pnpm install
 
       - name: Run Linter and fix
-        run: pnpm run lint:fix
+        run: pnpm exec eslint --fix --cache .
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
