@@ -62,26 +62,15 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
-      #
-      # - name: Store Playwright's Version
-      #   run: |
-      #     PLAYWRIGHT_VERSION=$(pnpm ls @playwright/test | grep @playwright | sed 's/.*@//')
-      #     echo "Playwright's Version: $PLAYWRIGHT_VERSION"
-      #     echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
-      #
-      # - name: Cache Playwright Browsers for Playwright's Version
-      #   id: cache-playwright-browsers
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ~/.cache/ms-playwright
-      #     key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
-      #
-      # - name: Setup Playwright
-      #   if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
-      #   run: pnpm exec playwright install --with-deps
-      #
-      # - run: npx playwright install-deps
-      #   if: steps.cache-playwright-browsers.outputs.cache-hit == 'true'
+
+      - name: setup env
+        shell: bash
+        run: |
+          echo DATABASE_URL=${{ vars.DATABASE_URL }} >> ./env
+          echo DICORD_CLIENT_ID=${{ vars.DISCORD_CLIENT_ID }} >> ./env
+          echo NEXTAUTH_URL=${{ vars.NEXTAUTH_URL }} >> ./env
+          echo DISCORD_CLIENT_SECRET=${{ secrets.DISCORD_CLIENT_SECRET }} >> ./env
+          cat ./env
 
       - name: Run your tests
         run: HOME=/root pnpm run test:e2e
