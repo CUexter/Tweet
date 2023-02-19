@@ -4,15 +4,19 @@
 
 ## Technologies used
 
-- ⚛️ [React 18](https://reactjs.org/)
 - 💎 [Typescript](https://www.typescriptlang.org/)
-- [React Query](https://tanstack.com/query/latest)
-- [Playwright](https://playwright.dev): ([E2E Testing Result](https://cuexter.github.io/Tweet/))
-- [Jest](https://jestjs.io)
-- [React Testing Library](https://testing-library.com/)
+- [Create t3 app](https://create.t3.gg/)
 - [NEXT.js](https://nextjs.org)
-- [Pocketbase](https://pocketbase.io)
+- ⚛️ [React 18](https://reactjs.org/)
+- [TailwindCSS](https://tailwindcss.com)
 - [Mantine](https://mantine.dev)
+- [tRPC](https://trpc.io/)
+- [React Query](https://tanstack.com/query/latest)
+- [Prisma](https://www.prisma.io/)
+- [Vitest](https://vitest.dev)
+- [React Testing Library](https://testing-library.com/)
+- [Mock Service Worker](https://mswjs.io/), [msw-trpc](https://github.com/maloguertin/msw-trpc)
+- [Playwright](https://playwright.dev): ([E2E Testing Result](https://cuexter.github.io/Tweet/))
 - [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 - [Prettier](https://prettier.io/), [Stylelint](https://stylelint.io/), [ESLint](https://eslint.org/)
 - [Github Actions](https://github.com/features/actions)
@@ -32,14 +36,6 @@ npm i -g pnpm
 ```bash
 pnpm i
 ```
-
-### Installing Pocketbase
-
-Suppose you are running Linux or Windows subsystem for Linux(WSL)
-
-Install `unzip` and `wget` to automate the installation of pocketbase by running `pb-setup.sh`
-
-For users of other operating systems, please extract the pocketbase zip files in a directory called `pb`
 
 ## Getting Started
 
