@@ -67,10 +67,10 @@ jobs:
       - name: setup env
         shell: bash
         run: |
-          echo DATABASE_URL="${{ vars.DATABASE_URL }}" >> ./env
-          echo DICORD_CLIENT_ID="${{ vars.DISCORD_CLIENT_ID }}" >> ./env
-          echo NEXTAUTH_URL="${{ vars.NEXTAUTH_URL }}" >> ./env
-          echo DISCORD_CLIENT_SECRET="${{ secrets.DISCORD_CLIENT_SECRET }}" >> ./env
+          echo DATABASE_URL=\"${{ vars.DATABASE_URL }}\" >> ./env
+          echo DICORD_CLIENT_ID=\"${{ vars.DISCORD_CLIENT_ID }}\" >> ./env
+          echo NEXTAUTH_URL=\"${{ vars.NEXTAUTH_URL }}\" >> ./env
+          echo DISCORD_CLIENT_SECRET=\"${{ secrets.DISCORD_CLIENT_SECRET }}\" >> ./env
           cat ./env
 
       - name: Run your tests
