@@ -74,7 +74,7 @@ jobs:
           cat ./env
 
       - name: Run your tests
-        run: HOME=/root pnpm run test:e2e
+        run: pnpm run test:e2e
 
       - name: Upload test results
         if: always()
