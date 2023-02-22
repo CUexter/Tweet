@@ -50,6 +50,7 @@ build.tar.gz
 
 # database
 /prisma/db.sqlite
+/prisma/ERD.svg
 /prisma/db.sqlite-journal
 
 /playwright-report
