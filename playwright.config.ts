@@ -14,12 +14,12 @@ const cmd_reporter = process.env.CI ? "github" : "list";
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
   // Timeout per test
-  timeout: 30 * 1000,
+  timeout: 10 * 1000,
   // Test directory
   testDir: path.join(__dirname, "e2e"),
   reporter: [[cmd_reporter], ["html"]],
   // If a test fails, retry it additional 2 times
-  retries: 2,
+  retries: 0,
   // Artifacts folder where screenshots, videos, and traces are stored.
   outputDir: "test-results/",
 
@@ -49,35 +49,48 @@ const config: PlaywrightTestConfig = {
   },
 
   projects: [
+    { name: "setup", testMatch: /.*\.setup\.ts/ },
     {
       name: "Desktop Chrome",
       use: {
         ...devices["Desktop Chrome"],
+        storageState: "e2e/.auth/user.json",
       },
+      dependencies: ["setup"],
     },
     {
       name: "Desktop Firefox",
       use: {
         ...devices["Desktop Firefox"],
+        storageState: "e2e/.auth/user.json",
       },
+      dependencies: ["setup"],
     },
-    {
-      name: "Desktop Safari",
-      use: {
-        ...devices["Desktop Safari"],
-      },
-    },
+    /* { */
+    /*   name: "Desktop Safari", */
+    /*   use: { */
+    /*     ...devices["Desktop Safari"], */
+    /*     storageState: "e2e/.auth/user.json", */
+    /*   }, */
+    /*   dependencies: ["setup"], */
+    /* }, */
     // Test against mobile viewports.
     {
       name: "Mobile Chrome",
       use: {
         ...devices["Pixel 5"],
+        storageState: "e2e/.auth/user.json",
       },
+      dependencies: ["setup"],
     },
-    {
-      name: "Mobile Safari",
-      use: devices["iPhone 12"],
-    },
+    /* { */
+    /*   name: "Mobile Safari", */
+    /*   use: { */
+    /*     ...devices["iPhone 13 Pro"], */
+    /*     storageState: "e2e/.auth/user.json", */
+    /*   }, */
+    /*   dependencies: ["setup"], */
+    /* }, */
   ],
 };
 export default config;

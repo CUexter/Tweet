@@ -53,3 +53,4 @@ build.tar.gz
 /prisma/db.sqlite-journal
 
 /playwright-report
+/e2e/.auth
