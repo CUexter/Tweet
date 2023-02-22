@@ -2,65 +2,235 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "sqlite"
-    // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url      = env("DATABASE_URL")
+  provider = "sqlite"
+  // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
+  // Further reading:
+  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+  url      = env("DATABASE_URL")
 }
 
 model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // Necessary for Next auth
 model Account {
-    id                String  @id @default(cuid())
-    userId            String
-    type              String
-    provider          String
-    providerAccountId String
-    refresh_token     String? // @db.Text
-    access_token      String? // @db.Text
-    expires_at        Int?
-    token_type        String?
-    scope             String?
-    id_token          String? // @db.Text
-    session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? // @db.Text
+  access_token      String? // @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? // @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([provider, providerAccountId])
+  @@unique([provider, providerAccountId])
 }
 
 model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
+  id              String            @id @default(cuid())
+  created_at      DateTime          @default(now())
+  updated_at      DateTime          @updatedAt
+  name            String?
+  email           String?           @unique
+  emailVerified   DateTime?
+  emailVisbility  Boolean           @default(false)
+  accounts        Account[]
+  sessions        Session[]
+  password        String?
+  display_name    String?
+  tag_name        String?           @unique
+  profile_desc    String?
+  profile_picture String?
+  image           String?
+  is_admin        Boolean           @default(false)
+  last_login_time DateTime?
+  Tweet           Tweet[]
+  following       Following[]       @relation("following")
+  being_followed  Following[]       @relation("being_followed")
+  Likes           Like[]
+  Conversations   Conversations[]   @relation("sending")
+  Chatroom_member Chatroom_member[]
 }
 
 model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-    @@unique([identifier, token])
+  @@unique([identifier, token])
+}
+
+model Tweet {
+  id               String             @id @default(cuid())
+  created_at       DateTime           @default(now())
+  updated_at       DateTime           @updatedAt
+  user             User               @relation(fields: [user_id], references: [id])
+  user_id          String
+  is_public        Boolean
+  scheduled_at     DateTime?
+  published_at     DateTime?
+  TweetText        TweetText[]
+  Tweets_hashtags  Tweets_hashtag[]
+  Likes            Like[]
+  Retweeting_to    Retweet[]          @relation("retweet_to")
+  Retweeted_by     Retweet[]          @relation("retweeted_by")
+  Polls            Poll[]
+  TweetAttachments TweetAttachments[]
+}
+
+model TweetText {
+  id         String   @id @default(cuid())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  tweet_text String?
+  tweet_id   String
+  tweet      Tweet    @relation(fields: [tweet_id], references: [id])
+}
+
+model Hashtag {
+  id              String           @id @default(cuid())
+  created_at      DateTime         @default(now())
+  updated_at      DateTime         @updatedAt
+  hashtag_text    String
+  Tweets_hashtags Tweets_hashtag[]
+}
+
+model Tweets_hashtag {
+  id         String   @id @default(cuid())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  tweet_id   String
+  hashtag_id String
+  hashtag    Hashtag  @relation(fields: [hashtag_id], references: [id])
+  tweet      Tweet    @relation(fields: [tweet_id], references: [id])
+}
+
+model Following {
+  id          String   @id @default(cuid())
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  user_id     String //being followed
+  follower_id String //doing the following
+  user        User     @relation("being_followed", fields: [user_id], references: [id])
+  following   User     @relation("following", fields: [follower_id], references: [id])
+}
+
+model Like {
+  id         String   @id @default(cuid())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user_id    String
+  user       User     @relation(fields: [user_id], references: [id])
+  tweet      Tweet    @relation(fields: [tweet_id], references: [id])
+  tweet_id   String
+}
+
+model Retweet {
+  id                String   @id @default(cuid())
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+  original_tweet    Tweet    @relation("retweeted_by", fields: [original_tweet_id], references: [id])
+  original_tweet_id String
+  retweet           Tweet    @relation("retweet_to", fields: [retweet_id], references: [id])
+  retweet_id        String
+  on_profile        Boolean
+
+  @@unique([original_tweet_id, retweet_id])
+}
+
+model Poll {
+  id         String       @id @default(cuid())
+  created_at DateTime     @default(now())
+  updated_at DateTime     @updatedAt
+  tweet      Tweet        @relation(fields: [tweet_id], references: [id])
+  tweet_id   String
+  PollOption PollOption[]
+}
+
+model PollOption {
+  id         String   @id @default(cuid())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  poll_id    String
+  poll       Poll     @relation(fields: [poll_id], references: [id])
+  votes      Votes[]
+}
+
+model Votes {
+  id             String     @id @default(cuid())
+  created_at     DateTime   @default(now())
+  updated_at     DateTime   @updatedAt
+  poll_option    PollOption @relation(fields: [poll_option_id], references: [id])
+  poll_option_id String
+}
+
+model TweetAttachments {
+  id             String   @id @default(cuid())
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+  tweet          Tweet    @relation(fields: [tweet_id], references: [id])
+  tweet_id       String
+  attachent_type String //migrate to enum when setup to use mysql/planetscale
+  attachment_url String
+}
+
+model Conversations {
+  id          String          @id @default(cuid())
+  created_at  DateTime        @default(now())
+  updated_at  DateTime        @updatedAt
+  sender_id   String
+  sender      User            @relation("sending", fields: [sender_id], references: [id])
+  chatroom_id String
+  chatroom    Chatroom        @relation(fields: [chatroom_id], references: [id])
+  content_id  String
+  content     MessageContents @relation(fields: [content_id], references: [id])
+}
+
+model Chatroom {
+  id              String            @id @default(cuid())
+  created_at      DateTime          @default(now())
+  updated_at      DateTime          @updatedAt
+  Conversations   Conversations[]
+  name            String?
+  Chatroom_member Chatroom_member[]
+}
+
+model Chatroom_member {
+  id          String   @id @default(cuid())
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  user_id     String
+  user        User     @relation(fields: [user_id], references: [id])
+  chatroom_id String
+  chatroom    Chatroom @relation(fields: [chatroom_id], references: [id])
+}
+
+model MessageContents {
+  id            String          @id @default(cuid())
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @updatedAt
+  Conversations Conversations[]
+  content       String
+  content_type  String
 }
