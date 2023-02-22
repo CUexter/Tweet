@@ -64,9 +64,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Generate DB schema
-        run: pnpm exec prisma db push
-
       - name: setup env
         shell: bash
         run: |
@@ -76,6 +73,9 @@ jobs:
           echo NEXTAUTH_URL=\"${{ vars.NEXTAUTH_URL }}\" 
           echo DISCORD_CLIENT_SECRET=\"${{ secrets.DISCORD_CLIENT_SECRET }}\" 
           } >> ./.env
+
+      - name: Generate DB schema
+        run: pnpm exec prisma db push
 
       - name: Run your tests
         run: HOME=/root pnpm run test:e2e
