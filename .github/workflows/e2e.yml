@@ -20,7 +20,7 @@ jobs:
       # only required for workflows in private repositories
       contents: write
     container:
-      image: mcr.microsoft.com/playwright:v1.30.0-focal
+      image: mcr.microsoft.com/playwright:v1.31.0-focal
       options: "--ipc=host"
     # strategy:
     #   fail-fast: false
