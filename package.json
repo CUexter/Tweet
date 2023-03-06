@@ -46,7 +46,7 @@
     "@prisma/client": "^4.10.1",
     "@tabler/icons": "1.119.0",
     "@tanstack/react-query": "^4.24.6",
-    "@tiptap/extension-link": "2.0.0-beta.212",
+    "@tiptap/extension-link": "2.0.0-beta.220",
     "@tiptap/react": "2.0.0-beta.212",
     "@tiptap/starter-kit": "2.0.0-beta.212",
     "@trpc/client": "^10.11.1",
