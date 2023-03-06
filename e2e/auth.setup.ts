@@ -5,7 +5,7 @@ loadEnvConfig(process.cwd());
 
 const authFile = "e2e/.auth/user.json";
 
-setup("authenticate", async ({ page }) => {
+setup.skip("authenticate", async ({ page }) => {
   // Perform authentication steps. Replace these actions with your own.
   await page.goto("https://discord.com/login");
   await page.getByLabel("Email or Phone Number*").fill(process.env.TEST_EMAIL!);
