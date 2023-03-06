@@ -10,7 +10,7 @@ specifiers:
   '@mantine/core': ^5.10.3
   '@mantine/dates': ^5.10.3
   '@mantine/dropzone': ^5.10.3
-  '@mantine/form': ^5.10.3
+  '@mantine/form': ^6.0.0
   '@mantine/hooks': ^5.10.3
   '@mantine/modals': ^5.10.3
   '@mantine/next': ^5.10.3
@@ -111,7 +111,7 @@ dependencies:
   '@mantine/core': 5.10.3_ylq7zkqz7uvrjy7wd5cseqyxu4
   '@mantine/dates': 5.10.3_hbx4cmgegpaplaf4wb6njc2lv4
   '@mantine/dropzone': 5.10.3_7qw7iibcf4wkwwwrwp57hnnlya
-  '@mantine/form': 5.10.3_react@18.2.0
+  '@mantine/form': 6.0.0_react@18.2.0
   '@mantine/hooks': 5.10.3_react@18.2.0
   '@mantine/modals': 5.10.3_7qw7iibcf4wkwwwrwp57hnnlya
   '@mantine/next': 5.10.3_6yy5hckxmdojbxxitjpbhgz2re
@@ -2694,8 +2694,8 @@ packages:
       react-dropzone: 14.2.3_react@18.2.0
     dev: false
 
-  /@mantine/form/5.10.3_react@18.2.0:
-    resolution: {integrity: sha512-BvE0X1twmC9KfxdFH5lGCA42fCcNcTmqq8H5grzjCFSl6LP2S7FR8/zzQYhVxfK0bqQEyitp1aiq2EptNeJgig==}
+  /@mantine/form/6.0.0_react@18.2.0:
+    resolution: {integrity: sha512-RQIvQtMqB5rOUzC2LhaQnwii3BNv6J8Btaju/Twqql6mcwnKq8ce+Edw51TuLJ6krAD/iVz6O/Q/HW/0MEUw1A==}
     peerDependencies:
       react: '>=16.8.0'
     dependencies:
