@@ -42,7 +42,7 @@ specifiers:
   '@testing-library/jest-dom': ^5.16.5
   '@testing-library/react': ^13.4.0
   '@tiptap/extension-link': 2.0.0-beta.212
-  '@tiptap/react': 2.0.0-beta.212
+  '@tiptap/react': 2.0.0-beta.220
   '@tiptap/starter-kit': 2.0.0-beta.212
   '@trpc/client': ^10.11.1
   '@trpc/next': ^10.11.1
@@ -119,14 +119,14 @@ dependencies:
   '@mantine/nprogress': 5.10.3_7qw7iibcf4wkwwwrwp57hnnlya
   '@mantine/prism': 5.10.3_7qw7iibcf4wkwwwrwp57hnnlya
   '@mantine/spotlight': 5.10.3_7qw7iibcf4wkwwwrwp57hnnlya
-  '@mantine/tiptap': 5.10.3_g27g3hpai27262aa2egdzxywgm
+  '@mantine/tiptap': 5.10.3_s65s7xau7ydoggacddxj3xe26a
   '@next-auth/prisma-adapter': 1.0.5_qpmskah7lm3ildf4stmwh4q42u
   '@next/font': 13.1.4
   '@prisma/client': 4.10.1_prisma@4.10.1
   '@tabler/icons': 1.119.0_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-query': 4.24.6_biqbaboplfbrettd7655fr4n2y
   '@tiptap/extension-link': 2.0.0-beta.212_p7b6nzxe7qctmzbzapdik3nr64
-  '@tiptap/react': 2.0.0-beta.212_ynkdswu7kzhcpt3m24myhvxkoy
+  '@tiptap/react': 2.0.0-beta.220_ynkdswu7kzhcpt3m24myhvxkoy
   '@tiptap/starter-kit': 2.0.0-beta.212_@tiptap+pm@2.0.0-beta.218
   '@trpc/client': 10.11.1_@trpc+server@10.11.1
   '@trpc/next': 10.11.1_habciho4ourk6jqifigpx5pzna
@@ -2836,7 +2836,7 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /@mantine/tiptap/5.10.3_g27g3hpai27262aa2egdzxywgm:
+  /@mantine/tiptap/5.10.3_s65s7xau7ydoggacddxj3xe26a:
     resolution: {integrity: sha512-RfsbdqX4F2YFMn1HhYmFVZ1zZ2KyB66UNxp9czx9njhzT7pX7a9YtqdBj9LIa22/X4qgjtt9/NNEG6vIzIxSaA==}
     peerDependencies:
       '@mantine/core': 5.10.3
@@ -2851,7 +2851,7 @@ packages:
       '@mantine/utils': 5.10.3_react@18.2.0
       '@tabler/icons': 1.119.0_biqbaboplfbrettd7655fr4n2y
       '@tiptap/extension-link': 2.0.0-beta.212_p7b6nzxe7qctmzbzapdik3nr64
-      '@tiptap/react': 2.0.0-beta.212_ynkdswu7kzhcpt3m24myhvxkoy
+      '@tiptap/react': 2.0.0-beta.220_ynkdswu7kzhcpt3m24myhvxkoy
       react: 18.2.0
     dev: false
 
@@ -4898,8 +4898,8 @@ packages:
       '@tiptap/core': 2.0.0-beta.217_@tiptap+pm@2.0.0-beta.218
     dev: false
 
-  /@tiptap/extension-bubble-menu/2.0.0-beta.217_p7b6nzxe7qctmzbzapdik3nr64:
-    resolution: {integrity: sha512-f52hjIzNbvAJy0P3pTf6sv/65XlMU1LCLXam4VCTkYJ2HHVvW+LZcu+dG1M8YmGkM9l+6dQPs5L2rriAQDXt+w==}
+  /@tiptap/extension-bubble-menu/2.0.0-beta.220_p7b6nzxe7qctmzbzapdik3nr64:
+    resolution: {integrity: sha512-wthyec7s0vZlTSEAAZEgoFfx/1Arwg1zxDUrrE+YAost/Yn+w4xQksz/ts5Bx90iOk2qsJ+jzzttLRV17Ku7lA==}
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.209
       '@tiptap/pm': ^2.0.0-beta.209
@@ -4954,8 +4954,8 @@ packages:
       '@tiptap/pm': 2.0.0-beta.218_xixjdlstfbsoyvyes7aewz3ng4
     dev: false
 
-  /@tiptap/extension-floating-menu/2.0.0-beta.217_p7b6nzxe7qctmzbzapdik3nr64:
-    resolution: {integrity: sha512-mP77UrimZo3sdC+Xam0DsPeYfXn29hl4ixEuZeiQQBMqz7g1K9T7vOEsRMQCBVFS7Hsc7MWBqLa1lL1GtyBB9Q==}
+  /@tiptap/extension-floating-menu/2.0.0-beta.220_p7b6nzxe7qctmzbzapdik3nr64:
+    resolution: {integrity: sha512-+WfcBEedm82ntaVIEQAGz0Om96Rpav7a+4f7e8N4PrLKm6nZ3gBaEkZVQ6vjJ6S/1htiWCv1XosYIwRboPBG0w==}
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.209
       '@tiptap/pm': ^2.0.0-beta.209
@@ -5096,8 +5096,8 @@ packages:
       prosemirror-view: 1.30.1
     dev: false
 
-  /@tiptap/react/2.0.0-beta.212_ynkdswu7kzhcpt3m24myhvxkoy:
-    resolution: {integrity: sha512-g8jSfl0hOAQH/MvqRNfhpdvvVkAx677VHF7eC6CY5xdRwzZsI28mTHe7WG04wd8SJud4z7tFENQJrgeZAFHUfg==}
+  /@tiptap/react/2.0.0-beta.220_ynkdswu7kzhcpt3m24myhvxkoy:
+    resolution: {integrity: sha512-AZWaCGjm2FcJWNl1dxRCHOjGYvUV8R39L7tAcnKxHGajOHdFk8JQHc0XbVZhdBi2YgwvwEr7Tw9G2lzi9e6/fg==}
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.209
       '@tiptap/pm': ^2.0.0-beta.209
@@ -5105,8 +5105,8 @@ packages:
       react-dom: ^17.0.0 || ^18.0.0
     dependencies:
       '@tiptap/core': 2.0.0-beta.218_@tiptap+pm@2.0.0-beta.218
-      '@tiptap/extension-bubble-menu': 2.0.0-beta.217_p7b6nzxe7qctmzbzapdik3nr64
-      '@tiptap/extension-floating-menu': 2.0.0-beta.217_p7b6nzxe7qctmzbzapdik3nr64
+      '@tiptap/extension-bubble-menu': 2.0.0-beta.220_p7b6nzxe7qctmzbzapdik3nr64
+      '@tiptap/extension-floating-menu': 2.0.0-beta.220_p7b6nzxe7qctmzbzapdik3nr64
       '@tiptap/pm': 2.0.0-beta.218_xixjdlstfbsoyvyes7aewz3ng4
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
