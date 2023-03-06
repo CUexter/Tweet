@@ -53,7 +53,7 @@
     "@trpc/next": "^10.11.1",
     "@trpc/react-query": "^10.11.1",
     "@trpc/server": "^10.11.1",
-    "@types/node": "18.11.19",
+    "@types/node": "18.14.6",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
     "cookies-next": "^2.1.1",
