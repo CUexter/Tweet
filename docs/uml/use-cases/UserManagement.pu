@@ -1,0 +1,10 @@
+@startuml user_management
+left to right direction
+actor "Registered User" as user
+package "User Management" {
+  usecase "Block user" as block_user
+  usecase "Follow users" as follow_users
+}
+user --> block_user
+user --> follow_users
+@enduml

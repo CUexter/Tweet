@@ -1,0 +1,13 @@
+@startuml authentication
+left to right direction
+actor "Registered User" as user
+actor "Guest User" as guest
+package "Authentication" {
+  usecase "Log in" as log_in
+  usecase "Log out" as log_out
+  usecase "Sign up" as sign_up
+}
+log_in <-- guest
+user --> log_out
+sign_up <-- guest
+@enduml

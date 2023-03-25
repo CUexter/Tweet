@@ -1,0 +1,14 @@
+@startuml admin_user_action
+left to right direction
+actor "Admin User" as admin
+package "Admin User action" {
+  usecase "Create User" as create_user
+  usecase "List User" as list_user
+  usecase "Delete User" as delete_user
+  usecase "Update User" as update_user
+}
+admin --> create_user
+admin --> list_user
+admin --> delete_user
+admin --> update_user
+@enduml

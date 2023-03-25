@@ -1,0 +1,13 @@
+@startuml browse_tweets
+left to right direction
+actor "Registered User" as user
+actor "Guest User" as guest
+package "Browse Tweets" {
+  usecase "Read timeline" as read_timeline
+  usecase "View profile" as view_profile
+}
+user --> read_timeline
+read_timeline <-- guest
+user --> view_profile
+view_profile <-- guest
+@enduml

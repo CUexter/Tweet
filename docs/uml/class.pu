@@ -1,0 +1,152 @@
+@startuml id="UMLClassDiagram" skinparam classAttributeIconSize 0
+
+!define PACKAGE_STYLE package
+
+package "TweetBrowsing" {
+    class Timeline
+    class HashTag
+}
+
+package "User Management and Info" <<PACKAGE_STYLE>> {
+    class User
+    class Relationship
+    package Admin{
+        class Admin
+    }
+}
+
+package "Tweets" <<PACKAGE_STYLE>> {
+    class Attachment
+    class Reply
+    class Retweet
+    class Tweet
+    class Text
+    class Like
+}
+package "Profile management" {
+    class Profile
+}
+
+class User{
+  +id: String {id}
+  +name: String?
+  +email: String?
+  +emailVerified: DateTime?
+  -password: String?
+  +display_name: String?
+  +tag_name: String
+  -last_login_time: DateTime?
+  -login()
+  ~logout()
+  -signUp(...)
+  -changeSettings()
+}
+class Admin{
+    -init()
+    -createUser()
+    -deleteUser()
+    -updateUser()
+    -listUsers()
+}
+class Profile{
+  +user: User
+  +profile_desc: String?
+  +profile_picture: String?
+  +image: String?
+  +emailVisibility: Boolean
+  +InitProfile(User)
+  +updateDesc(User, String)
+  +updateImage(User, String)
+  +updatePic(User, String)
+  +updateEmailVisibility(User, Boolean)
+  +display()
+}
+class Tweet{
+    + id: String {id}
+    + isPublic: Boolean
+    ~ scheduled_at: DateTime?
+    + published_at: DateTime?
+    + post_on_timeline: True
+    + changeText(Text, User)
+    + postTweet(User, String, DateTime?, Attachment[])
+    + delete(User)
+    + changeVisibility(User)
+    + display()
+    + pin()
+}
+class Retweet{
+    + ref: Tweet
+    + createRetweet(Tweet, Tweet)
+}
+class Timeline{
+    + load_fromProfile(Profile)
+    + load_fromTweets(Tweet[])
+    + load_more(Tweet[])
+    + display()
+    + init()
+}
+class Reply{
+    + ref: Tweet
+    + post_on_timeline: False
+    + createReply(Tweet, Tweet)
+}
+class Text{
+  +created_at: DateTime
+  +text: String
+  + init(String)
+}
+class Attachment{
+    +id: String {id}
+    +url: String
+    +type: String
+    +createAttachment()
+    +deleteAttachment()
+}
+class Relationship{
+    +id: String {id}
+    +actor: User
+    +reactor: User
+    +type: Enum
+    ~createRelationship(User, User, Enum)
+    ~deleteRelationship()
+}
+class HashTag{
+    +tag_name: String
+    +id: String {id}
+    +create_HashTag()
+}
+class Like{
+    +id: String {id}
+    +user: User
+    +positive: Boolean
+    +tweet: Tweet
+    +createLike(Boolean, Tweet, User)
+    +deleteLike(User, Tweet)
+}
+
+Like "1" --* "1" User
+Like "1" --* "1" Tweet
+
+User <|-- Admin
+User "1" *--* "1" Profile
+
+User "1" *-- "*" Tweet: writes/posts
+
+Tweet <|-- Retweet
+Tweet <|-- Reply
+
+Tweet "1" *-- "*" Text : has
+Tweet "1" *-- "*" Attachment : contains
+Tweet "*" o-- "*" HashTag : has
+
+Reply "*" --* "1" Tweet: replies to/is a reply to
+Retweet "*" --* "1" Tweet : retweets/is a retweet of
+
+Relationship "*" --* "1" User : has
+
+
+Timeline -- Profile
+Timeline "M" --* "M" Tweet
+Timeline -- HashTag
+
+@enduml

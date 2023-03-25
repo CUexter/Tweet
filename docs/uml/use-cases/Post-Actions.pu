@@ -1,0 +1,22 @@
+@startuml post_actions
+left to right direction
+actor "Registered User" as user
+package "Post Actions" {
+  usecase "Post a tweet" as post_tweet
+  usecase "Compose tweet content" as compose_content
+  usecase "Add media" as add_media
+  usecase "Mention users " as mention_users
+  usecase "Include hashtags" as include_hashtags
+  usecase "Reply to a tweet" as reply_tweet
+  usecase "Retweet" as retweet
+}
+user --> post_tweet
+post_tweet .> compose_content : include
+post_tweet --|> add_media
+post_tweet --|> mention_users
+post_tweet --|> include_hashtags
+user --> reply_tweet
+user --> retweet
+retweet --|> post_tweet
+reply_tweet --|> post_tweet
+@enduml

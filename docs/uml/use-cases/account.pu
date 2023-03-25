@@ -1,0 +1,10 @@
+@startuml account_management
+left to right direction
+actor "Registered User" as user
+package "Account Management" {
+  usecase "Save user settings" as save_settings
+  usecase "Update account privacy settings" as update_privacy
+}
+user --> save_settings
+user --> update_privacy
+@enduml

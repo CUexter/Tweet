@@ -1,0 +1,22 @@
+@startuml tweet_management
+left to right direction
+actor "Registered User" as user
+actor "Guest User" as guest
+actor "Admin User" as admin
+package "Tweet Management" {
+  usecase "Edit post" as edit_post
+  usecase "Draft tweet" as draft_tweet
+  usecase "view tweet" as view_tweet
+  usecase "Search" as search
+  usecase "Like/Dislike" as like_dislike
+  usecase "Delete tweet" as delete_tweet
+}
+admin --> delete_tweet
+user --> edit_post
+user --> draft_tweet
+user --> view_tweet
+view_tweet <-- guest
+user --> search
+user --> like_dislike
+user --> delete_tweet
+@enduml

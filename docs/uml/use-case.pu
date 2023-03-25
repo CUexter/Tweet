@@ -1,0 +1,102 @@
+@startuml use-case
+left to right direction
+actor "Registered User" as user
+actor "Guest User" as guest
+package Tweet{
+  package "Tweet Management" {
+    usecase "Edit post" as edit_post
+    usecase "Draft tweet" as draft_tweet
+    usecase "view tweet" as view_tweet
+    usecase "Search" as search
+    usecase "Like/Dislike" as like_dislike
+    usecase "Delete tweet" as delete_tweet
+  }
+  package "Post Actions" {
+    usecase "Post a tweet" as post_tweet
+    usecase "Compose tweet content" as compose_content
+    usecase "Add media" as add_media
+    usecase "Mention users " as mention_users
+    usecase "Include hashtags" as include_hashtags
+    usecase "Reply to a tweet" as reply_tweet
+    usecase "Retweet" as retweet
+  }
+}
+
+package "Authentication" {
+  usecase "Log in" as log_in
+  usecase "Log out" as log_out
+  usecase "Sign up" as sign_up
+}
+
+package "Browse Tweets" {
+  usecase "Read timeline" as read_timeline
+  usecase "View profile" as view_profile
+}
+
+package "Profile Management" {
+  usecase "Edit profile" as edit_profile
+  usecase "Pin a tweet to profile" as pin_tweet
+}
+
+
+package "User Management" {
+
+ usecase "Block user" as block_user
+ usecase "Follow users" as follow_users
+}
+
+package "Admin User action" {
+ usecase "Create User" as create_user
+ usecase "List User" as list_user
+ usecase "Delete User" as delete_user
+ usecase "Update User" as update_user
+}
+
+package "Account Management" {
+usecase "Save user settings" as save_settings
+  usecase "Update account privacy settings" as update_privacy
+}
+
+admin --> create_user
+admin --> list_user
+admin --> delete_user
+admin --> delete_tweet
+admin --> update_user
+
+
+user --> post_tweet
+post_tweet .> compose_content : include
+post_tweet --|> add_media
+post_tweet --|> mention_users
+post_tweet --|> include_hashtags
+
+user --> read_timeline
+read_timeline <-- guest
+view_tweet <-- guest
+
+log_in <-- guest
+user --> log_out
+sign_up <-- guest
+
+user --> save_settings
+user --> edit_post
+user --> edit_profile
+user --> reply_tweet
+
+user --> draft_tweet
+user --> view_tweet
+user --> search
+user --> like_dislike
+user --> block_user
+user --> retweet
+user --> view_profile
+view_profile <-- guest
+
+user --> follow_users
+retweet --|> post_tweet
+reply_tweet --|> post_tweet
+
+user --> pin_tweet
+user --> update_privacy
+user --> delete_tweet
+@enduml

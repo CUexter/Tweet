@@ -1,0 +1,10 @@
+@startuml profile_management
+left to right direction
+actor "Registered User" as user
+package "Profile Management" {
+  usecase "Edit profile" as edit_profile
+  usecase "Pin a tweet to profile" as pin_tweet
+}
+user --> edit_profile
+user --> pin_tweet
+@enduml
