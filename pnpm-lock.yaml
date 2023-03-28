@@ -38,6 +38,7 @@ specifiers:
   '@storybook/react': 7.0.0-beta.44
   '@storybook/testing-library': ^0.0.13
   '@tabler/icons': 1.119.0
+  '@tabler/icons-react': ^2.11.0
   '@tanstack/react-query': ^4.24.6
   '@testing-library/jest-dom': ^5.16.5
   '@testing-library/react': ^13.4.0
@@ -124,6 +125,7 @@ dependencies:
   '@next/font': 13.1.4
   '@prisma/client': 4.10.1_prisma@4.10.1
   '@tabler/icons': 1.119.0_biqbaboplfbrettd7655fr4n2y
+  '@tabler/icons-react': 2.11.0_react@18.2.0
   '@tanstack/react-query': 4.24.6_biqbaboplfbrettd7655fr4n2y
   '@tiptap/extension-link': 2.0.0-beta.212_p7b6nzxe7qctmzbzapdik3nr64
   '@tiptap/react': 2.0.0-beta.212_ynkdswu7kzhcpt3m24myhvxkoy
@@ -3665,7 +3667,7 @@ packages:
       '@storybook/csf-plugin': 7.0.0-beta.44
       '@storybook/csf-tools': 7.0.0-beta.44
       '@storybook/global': 5.0.0
-      '@storybook/mdx2-csf': 1.0.0-next.5
+      '@storybook/mdx2-csf': 1.0.0-next.6
       '@storybook/node-logger': 7.0.0-beta.44
       '@storybook/postinstall': 7.0.0-beta.44
       '@storybook/preview-api': 7.0.0-beta.44
@@ -4443,8 +4445,8 @@ packages:
     resolution: {integrity: sha512-hTO6tmAlA5dZQwyeBcV2Ie8tR8jzPORCAOPc5ocoC/M8vUKvPSkTyS6BOZSwF6cdUwvnXs/GjZC/xvEQwYAkAA==}
     dev: true
 
-  /@storybook/mdx2-csf/1.0.0-next.5:
-    resolution: {integrity: sha512-02w0sgGZaK1agT050yCVhJ+o4rLHANWvLKWjQjeAsYbjneLC5ITt+3GDB4jRiWwJboZ8dHW1fGSK1Vg5fA34aQ==}
+  /@storybook/mdx2-csf/1.0.0-next.6:
+    resolution: {integrity: sha512-m6plojocU/rmrqWd26yvm8D+oHZPZ6PtSSFmZIgpNDEPVmc8s4fBD6LXOAB5MiPI5f8KLUr2HVhOMZ97o5pDTw==}
     dev: true
 
   /@storybook/nextjs/7.0.0-beta.44_ghpjr5d5k2ashbkoes5lqn5zgm:
@@ -4776,6 +4778,16 @@ packages:
     dependencies:
       tslib: 2.5.0
 
+  /@tabler/icons-react/2.11.0_react@18.2.0:
+    resolution: {integrity: sha512-Mbie8IFLrtI0sGm802Bmierle0ixIi7FVczShoLjPZwRM0da1HcD588TF7oMuQ09zd241BY+L7M/f0Q6lquBng==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@tabler/icons': 2.11.0
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
+
   /@tabler/icons/1.119.0_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-Fk3Qq4w2SXcTjc/n1cuL5bccPkylrOMo7cYpQIf/yw6zP76LQV9dtLcHQUjFiUnaYuswR645CnURIhlafyAh9g==}
     peerDependencies:
@@ -4789,6 +4801,10 @@ packages:
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@tabler/icons/2.11.0:
+    resolution: {integrity: sha512-KPESQnvHoSpbAdgzDdrSmeZ9AE8fSU12fU3Cag79uXJCUkC8f741fcvPJPsFMDe0S96VSq3mMYF8JnA7a570uQ==}
     dev: false
 
   /@tanstack/query-core/4.24.6:
