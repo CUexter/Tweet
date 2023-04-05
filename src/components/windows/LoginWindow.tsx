@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client";
 import { useCallback, useState } from "react";
 
 import useLoginWindow from "../../hooks/useLoginWindow";
