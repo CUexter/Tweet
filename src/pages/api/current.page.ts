@@ -1,5 +1,6 @@
-import dbAuth from "@/server/dbauth";
 import type { NextApiRequest, NextApiResponse } from "next";
+
+import dbAuth from "@/server/dbauth";
 
 export default async function handler(
   req: NextApiRequest,

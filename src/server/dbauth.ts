@@ -1,5 +1,6 @@
-import prisma from "@/server/db";
 import type { NextApiRequest, NextApiResponse } from "next";
+
+import prisma from "@/server/db";
 //import { authOptions } from '@/pages/api/auth/[...nextauth].page';
 import { getSession } from "next-auth/react";
 
