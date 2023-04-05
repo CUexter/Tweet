@@ -27,7 +27,7 @@ const LoginWindow = () => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [email, password, loginWindow]);
 
   const inputBody = (
     <div className="flex flex-col gap-3">
@@ -40,7 +40,7 @@ const LoginWindow = () => {
       />
       {/* Input for password */}
       <InputField
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)}
         disabled={isLoading}
         placeholder="Password"
         value={password}
