@@ -1,9 +1,9 @@
 import { useCallback, useState } from "react";
 
-import useLoginWindow from "../hooks/useLoginWindow";
-import useRegWindow from "../hooks/useRegWindow";
-import InputField from "./InputField";
-import Window from "./Window";
+import useLoginWindow from "../../hooks/useLoginWindow";
+import useRegWindow from "../../hooks/useRegWindow";
+import InputField from "../InputField";
+import Window from "../Window";
 
 const RegWindow = () => {
   const regWindow = useRegWindow();
@@ -16,14 +16,14 @@ const RegWindow = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleReg = () => {
-    return true;
+    //return true;
   };
 
   const onSubmit = useCallback(() => {
     try {
       setIsLoading(true);
       // Reg and login function here
-      const temp = handleReg();
+      //const temp = handleReg();
 
       regWindow.onClose();
     } catch (error) {
@@ -66,16 +66,37 @@ const RegWindow = () => {
     </div>
   );
 
+  const footer = (
+    <div className="text-neutral-400 text-center mt-4">
+      <p>
+        Already have an account?
+        <span
+          onClick={handleReg}
+          className="
+            text-white 
+            cursor-pointer 
+            hover:underline
+          "
+        >
+          Sign in
+        </span>
+      </p>
+    </div>
+  );
+
   return (
-    <Window
-      onClose={regWindow.onClose}
-      onSubmit={onSubmit}
-      disabled={isLoading}
-      isOpen={regWindow.isOpen}
-      title="Create a new account"
-      label="Register"
-      body={inputBody}
-    />
+    <div>
+      <Window
+        onClose={regWindow.onClose}
+        onSubmit={onSubmit}
+        disabled={isLoading}
+        isOpen={false}
+        title="Create a new account"
+        label="Register"
+        body={inputBody}
+        footer={footer}
+      />
+    </div>
   );
 };
 

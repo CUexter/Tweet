@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 
-import useLoginWindow from "../hooks/useLoginWindow";
-import InputField from "./InputField";
-import Window from "./Window";
+import useLoginWindow from "../../hooks/useLoginWindow";
+import InputField from "../InputField";
+import Window from "../Window";
 
 const LoginWindow = () => {
   const loginWindow = useLoginWindow();
@@ -48,6 +48,24 @@ const LoginWindow = () => {
     </div>
   );
 
+  const footer = (
+    <div className="text-neutral-400 text-center mt-4">
+      <p>
+        First time using Twitter?
+        <span
+          onClick={handleLogin}
+          className="
+            text-white 
+            cursor-pointer 
+            hover:underline
+          "
+        >
+          Create an account
+        </span>
+      </p>
+    </div>
+  );
+
   return (
     <Window
       onClose={loginWindow.onClose}
@@ -57,6 +75,7 @@ const LoginWindow = () => {
       title="Login"
       label="Login"
       body={inputBody}
+      footer={footer}
     />
   );
 };
