@@ -1,25 +1,32 @@
 import { useCallback, useState } from "react";
 
 import useLoginWindow from "../../hooks/useLoginWindow";
+import useRegWindow from "../../hooks/useRegWindow";
 import InputField from "../InputField";
 import Window from "../Window";
 
 const LoginWindow = () => {
   const loginWindow = useLoginWindow();
-
+  const regWindow = useRegWindow();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = () => {
-    return true;
+    return;
   };
+
+  const onToggle = useCallback(() => {
+    if (isLoading) return;
+
+    loginWindow.onClose();
+    regWindow.onOpen();
+  }, [isLoading, regWindow, loginWindow]);
 
   const onSubmit = useCallback(() => {
     try {
       setIsLoading(true);
       // Reg and login function here
-      const temp = handleLogin();
 
       loginWindow.onClose();
     } catch (error) {
@@ -51,9 +58,9 @@ const LoginWindow = () => {
   const footer = (
     <div className="text-neutral-400 text-center mt-4">
       <p>
-        First time using Twitter?
+        First time using Twitter?&nbsp;&nbsp;
         <span
-          onClick={handleLogin}
+          onClick={onToggle}
           className="
             text-white 
             cursor-pointer 

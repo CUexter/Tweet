@@ -16,14 +16,20 @@ const RegWindow = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleReg = () => {
-    //return true;
+    return;
   };
+
+  const onToggle = useCallback(() => {
+    if (isLoading) return;
+
+    regWindow.onClose();
+    loginWindow.onOpen();
+  }, [isLoading, regWindow, loginWindow]);
 
   const onSubmit = useCallback(() => {
     try {
       setIsLoading(true);
       // Reg and login function here
-      //const temp = handleReg();
 
       regWindow.onClose();
     } catch (error) {
@@ -69,9 +75,9 @@ const RegWindow = () => {
   const footer = (
     <div className="text-neutral-400 text-center mt-4">
       <p>
-        Already have an account?
+        Already have an account?&nbsp;&nbsp;
         <span
-          onClick={handleReg}
+          onClick={onToggle}
           className="
             text-white 
             cursor-pointer 
