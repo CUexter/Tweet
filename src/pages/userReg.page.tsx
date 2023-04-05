@@ -1,30 +1,12 @@
-import { useCallback, useState } from "react";
+import LoginWindow from "../components/loginWindow";
 
-import Button from "../components/Button";
-import Window from "../components/Window";
-
-/*
 const userReg = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
-    
-    const onSubmit = useCallback(async () => {
-    try {
-        setIsLoading(true);
-        // Reg and login function here
-    } catch (error) {
-        console.log(error);
-    } finally {
-        setIsLoading(false);
-    }
-}, []);
-
-
-    return {
+  return (
+    /*
         <Window title={"Sign In"} label="Submit" isOpen/>
-    };
+        */
+    <LoginWindow />
+  );
 };
-*/
 
 export default userReg;

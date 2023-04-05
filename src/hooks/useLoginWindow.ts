@@ -1,15 +1,15 @@
 import { create } from "zustand";
 
-interface loginWindowState {
+interface useLoginWindowState {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
 }
 
-const loginWindow = create<loginWindowState>((set) => ({
+const useLoginWindow = create<useLoginWindowState>((set) => ({
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),
 }));
 
-export default loginWindowState;
+export default useLoginWindow;
