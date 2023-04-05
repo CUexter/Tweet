@@ -1,5 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import axios from "axios";
+import { signIn } from "next-auth/react";
 import { useCallback, useState } from "react";
+import { toast } from "react-hot-toast";
 
 import useLoginWindow from "../../hooks/useLoginWindow";
 import useRegWindow from "../../hooks/useRegWindow";
@@ -11,14 +13,10 @@ const RegWindow = () => {
   const loginWindow = useLoginWindow();
 
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
+  const [iPassword, setiPassword] = useState("");
+  const [display_name, setDisplayName] = useState("");
+  const [name, setUsername] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const handleReg = () => {
-    return;
-  };
 
   const onToggle = useCallback(() => {
     if (isLoading) return;
@@ -27,18 +25,33 @@ const RegWindow = () => {
     loginWindow.onOpen();
   }, [isLoading, regWindow, loginWindow]);
 
-  const onSubmit = useCallback(() => {
+  const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
-      // Reg and login function here
+
+      // Send post request to backend
+      await axios.post("/api/register", {
+        email,
+        iPassword,
+        display_name,
+        name,
+      });
+
+      toast.success("Account created successfully.");
+      // sign in immediately
+      await signIn("credentials", {
+        email,
+        iPassword,
+      });
 
       regWindow.onClose();
     } catch (error) {
       console.log(error);
+      toast.error("Invalid input, please try again");
     } finally {
       setIsLoading(false);
     }
-  }, [regWindow]);
+  }, [regWindow, email, iPassword, display_name, name]);
 
   const inputBody = (
     <div className="flex flex-col gap-3">
@@ -51,24 +64,24 @@ const RegWindow = () => {
       />
       {/* Input for password */}
       <InputField
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => setiPassword(e.target.value)}
         disabled={isLoading}
         placeholder="Password"
-        value={password}
+        value={iPassword}
       />
       {/* Input for name */}
       <InputField
-        onChange={(e) => setName(e.target.value)}
+        onChange={(e) => setDisplayName(e.target.value)}
         disabled={isLoading}
         placeholder="Name"
-        value={name}
+        value={display_name}
       />
       {/* Input for username */}
       <InputField
         onChange={(e) => setUsername(e.target.value)}
         disabled={isLoading}
         placeholder="Username"
-        value={username}
+        value={name}
       />
     </div>
   );

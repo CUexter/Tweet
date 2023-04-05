@@ -14,11 +14,11 @@ export default NextAuth({
       name: "credentials",
       credentials: {
         email: { label: "email", type: "text" },
-        password: { label: "password", type: "password" },
+        iPassword: { label: "password", type: "password" },
       },
       async authorize(credentials) {
         // If the email or password input is empty
-        if (!credentials?.email || !credentials?.password) {
+        if (!credentials?.email || !credentials?.iPassword) {
           throw new Error("Invalid credentials");
         }
 
@@ -35,7 +35,7 @@ export default NextAuth({
         }
         // Compare with the password (supposed to be hashed)
         const isCorrectPassword = await bcrypt.compare(
-          credentials.password,
+          credentials.iPassword,
           user.password
         );
 
