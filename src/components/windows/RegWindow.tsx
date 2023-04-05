@@ -90,7 +90,7 @@ const RegWindow = () => {
         onClose={regWindow.onClose}
         onSubmit={onSubmit}
         disabled={isLoading}
-        isOpen={false}
+        isOpen={regWindow.isOpen}
         title="Create a new account"
         label="Register"
         body={inputBody}
