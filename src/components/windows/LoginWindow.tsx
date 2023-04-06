@@ -52,6 +52,8 @@ const LoginWindow = () => {
               email,
               iPassword,
             });
+
+            toast.success("Login Success!");
           } else {
             toast.error("Password does not match, please try again");
           }
