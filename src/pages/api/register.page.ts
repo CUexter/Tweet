@@ -45,6 +45,7 @@ export default async function handler(
           password,
           display_name,
           tag_name,
+          is_admin: false,
         },
       });
 

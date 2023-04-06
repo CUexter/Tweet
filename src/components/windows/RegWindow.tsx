@@ -105,6 +105,7 @@ const RegWindow = () => {
         onChange={(e) => setiPassword(e.target.value)}
         disabled={isLoading}
         placeholder="Password"
+        type="password"
         value={iPassword}
       />
       {/* Input for name */}

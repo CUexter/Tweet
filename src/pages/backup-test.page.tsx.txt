@@ -1,13 +1,13 @@
 import LoginWindow from "@/components/windows/LoginWindow";
 import RegWindow from "@/components/windows/RegWindow";
 import useCurrentUser from "@/hooks/useCurrentUser";
-import useRegWindow from "@/hooks/useRegWindow";
+import useLoginWindow from "@/hooks/useLoginWindow";
 import { SessionProvider } from "next-auth/react";
 import { useCallback } from "react";
 import { Toaster } from "react-hot-toast";
 
 const test = () => {
-  const temp = useRegWindow();
+  const temp = useLoginWindow();
   const logged = useCurrentUser();
 
   // If current session is logged in
@@ -34,8 +34,8 @@ const test = () => {
           Sign in
         </span>
         <Toaster />
-        <RegWindow />
         <LoginWindow />
+        <RegWindow />
       </div>
     </SessionProvider>
   );

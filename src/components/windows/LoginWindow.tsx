@@ -79,6 +79,7 @@ const LoginWindow = () => {
         onChange={(e) => setPassword(e.target.value)}
         disabled={isLoading}
         placeholder="Password"
+        type="password"
         value={iPassword}
       />
     </div>
