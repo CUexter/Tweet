@@ -30,21 +30,26 @@ const RegWindow = () => {
       setIsLoading(true);
 
       // Send post request to backend
-      await axios.post("/api/register", {
+      const regRes = await axios.post("/api/register", {
         email,
         iPassword,
         display_name,
         name,
       });
 
-      toast.success("Account created successfully.");
-      // sign in immediately
-      await signIn("credentials", {
-        email,
-        iPassword,
-      });
+      if (regRes.data !== "Exist") {
+        toast.success("Account created successfully.");
+        // sign in immediately
+        await signIn("credentials", {
+          email,
+          iPassword,
+        });
 
-      regWindow.onClose();
+        regWindow.onClose();
+      } else {
+        // Register failed
+        toast.error("Email already exist, please use a new one or login");
+      }
     } catch (error) {
       console.log(error);
       toast.error("Invalid input, please try again");
