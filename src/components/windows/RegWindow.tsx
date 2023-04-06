@@ -15,7 +15,7 @@ const RegWindow = () => {
   const [email, setEmail] = useState("");
   const [iPassword, setiPassword] = useState("");
   const [display_name, setDisplayName] = useState("");
-  const [name, setUsername] = useState("");
+  const [tag_name, setTagName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const onToggle = useCallback(() => {
@@ -28,27 +28,60 @@ const RegWindow = () => {
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
+      let flag = 0;
+      // Handle empty fields in the form
+      if (email == "") {
+        flag = 1;
+        toast.error("Please fill in your email!");
+      }
+      if (iPassword == "") {
+        flag = 1;
+        toast.error("Please fill in your password!");
+      }
+      if (display_name == "") {
+        flag = 1;
+        toast.error("Please fill in your name!");
+      }
+      if (tag_name == "") {
+        flag = 1;
+        toast.error("Please fill in your tag!");
+      }
 
-      // Send post request to backend
-      const regRes = await axios.post("/api/register", {
-        email,
-        iPassword,
-        display_name,
-        name,
-      });
-
-      if (regRes.data !== "Exist") {
-        toast.success("Account created successfully.");
-        // sign in immediately
-        await signIn("credentials", {
+      if (flag == 0) {
+        // Send post request to backend
+        const regRes = await axios.post("/api/register", {
           email,
           iPassword,
+          display_name,
+          tag_name,
         });
 
-        regWindow.onClose();
-      } else {
-        // Register failed
-        toast.error("Email already exist, please use a new one or login");
+        console.log(regRes.data);
+
+        if (regRes.data == "OK") {
+          toast.success("Account created successfully.");
+          // sign in immediately
+          await signIn("credentials", {
+            email,
+            iPassword,
+          });
+
+          regWindow.onClose();
+        } else {
+          // Register failed
+          if (regRes.data == "ExistBoth")
+            toast.error(
+              "Email and tag both are already exist, please use a new one or login"
+            );
+          if (regRes.data == "ExistEmail")
+            toast.error(
+              "The Email is already exist, please use a new one or login"
+            );
+          if (regRes.data == "ExistTagName")
+            toast.error(
+              "The Tag name is already exist, please use a new one or login"
+            );
+        }
       }
     } catch (error) {
       console.log(error);
@@ -56,7 +89,7 @@ const RegWindow = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [regWindow, email, iPassword, display_name, name]);
+  }, [regWindow, email, iPassword, display_name, tag_name]);
 
   const inputBody = (
     <div className="flex flex-col gap-3">
@@ -81,12 +114,12 @@ const RegWindow = () => {
         placeholder="Name"
         value={display_name}
       />
-      {/* Input for username */}
+      {/* Input for tag name */}
       <InputField
-        onChange={(e) => setUsername(e.target.value)}
+        onChange={(e) => setTagName(e.target.value)}
         disabled={isLoading}
-        placeholder="Username"
-        value={name}
+        placeholder="Tag Name"
+        value={tag_name}
       />
     </div>
   );

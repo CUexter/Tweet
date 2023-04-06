@@ -1,5 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import { signIn } from "next-auth/react";
 import { useCallback, useState } from "react";
+import { toast } from "react-hot-toast";
 
 import useLoginWindow from "../../hooks/useLoginWindow";
 import useRegWindow from "../../hooks/useRegWindow";
@@ -10,12 +11,8 @@ const LoginWindow = () => {
   const loginWindow = useLoginWindow();
   const regWindow = useRegWindow();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [iPassword, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const handleLogin = () => {
-    return;
-  };
 
   const onToggle = useCallback(() => {
     if (isLoading) return;
@@ -24,18 +21,26 @@ const LoginWindow = () => {
     regWindow.onOpen();
   }, [isLoading, regWindow, loginWindow]);
 
-  const onSubmit = useCallback(() => {
+  const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
-      // Reg and login function here
-
+      //login handle here
+      try {
+        await signIn("credentials", {
+          email,
+          iPassword,
+        });
+      } catch (signError) {
+        console.log(signError);
+        toast.error("Invalid credentials");
+      }
       loginWindow.onClose();
     } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
     }
-  }, [email, password, loginWindow]);
+  }, [email, iPassword, loginWindow]);
 
   const inputBody = (
     <div className="flex flex-col gap-3">
@@ -51,7 +56,7 @@ const LoginWindow = () => {
         onChange={(e) => setPassword(e.target.value)}
         disabled={isLoading}
         placeholder="Password"
-        value={password}
+        value={iPassword}
       />
     </div>
   );

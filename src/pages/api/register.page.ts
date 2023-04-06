@@ -14,16 +14,26 @@ export default async function handler(
   }
 
   try {
-    const { email, iPassword, display_name, name } = req.body;
+    const { email, iPassword, display_name, tag_name } = req.body;
 
     const sqlRes = await prisma.user.findUnique({
       where: {
         email: email,
       },
     });
+
+    const sqlRes2 = await prisma.user.findUnique({
+      where: {
+        tag_name: tag_name,
+      },
+    });
     // No error means email exist already
-    if (sqlRes) {
-      return res.status(200).send("Exist");
+    if (sqlRes && sqlRes2) {
+      return res.status(200).send("ExistBoth");
+    } else if (sqlRes) {
+      return res.status(200).send("ExistEmail");
+    } else if (sqlRes2) {
+      return res.status(200).send("ExistTagName");
     } else {
       // Means can't find the email = can reg
       // Apply hashing to the input password
@@ -34,12 +44,12 @@ export default async function handler(
           email,
           password,
           display_name,
-          name,
+          tag_name,
         },
       });
 
       /* eslint-enable */
-      return res.status(200).json(user);
+      return res.status(200).send("OK");
     }
   } catch (error) {
     console.log(error);
