@@ -1,3 +1,4 @@
+import axios from "axios";
 import { signIn } from "next-auth/react";
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -25,16 +26,38 @@ const LoginWindow = () => {
     try {
       setIsLoading(true);
       //login handle here
-      try {
-        await signIn("credentials", {
+      let flag = 0;
+      // Handle empty fields in the form
+      if (email == "") {
+        flag = 1;
+        toast.error("Please fill in your email!");
+      }
+      if (iPassword == "") {
+        flag = 1;
+        toast.error("Please fill in your password!");
+      }
+
+      if (flag == 0) {
+        const loginRes = await axios.post("/api/login", {
           email,
           iPassword,
         });
-      } catch (signError) {
-        console.log(signError);
-        toast.error("Invalid credentials");
+
+        if (loginRes.data == "NoEmail") {
+          toast.error("The email you input has no record.");
+        } else {
+          console.log(loginRes.data);
+          if (loginRes.data == "OK") {
+            await signIn("credentials", {
+              email,
+              iPassword,
+            });
+          } else {
+            toast.error("Password does not match, please try again");
+          }
+        }
       }
-      loginWindow.onClose();
+      //loginWindow.onClose();
     } catch (error) {
       console.log(error);
     } finally {
