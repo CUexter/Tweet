@@ -1,22 +1,71 @@
+import type { AppContext } from "next/app";
+import type { AppProps } from "next/app";
+
+import { getCookie, setCookie } from "cookies-next";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-import { type AppType } from "next/app";
+import App from "next/app";
+import { useState } from "react";
 
 import "@/styles/globals.css";
-import { api } from "@/utils/api";
-import { MantineProvider } from "@mantine/core";
+import type { ColorScheme } from "@mantine/core";
 
-const MyApp: AppType<{ session: Session | null }> = ({
+import { api } from "@/utils/api";
+import { ColorSchemeProvider, MantineProvider } from "@mantine/core";
+import { useColorScheme } from "@mantine/hooks";
+
+interface OwnProps extends Record<string, unknown> {
+  session: Session | null;
+  colorSchemeProps: ColorScheme | null;
+}
+
+type MyAppProps = Omit<AppProps, "pageProps"> & { pageProps: OwnProps };
+
+const MyApp = ({
   Component,
-  pageProps: { session, ...pageProps },
-}) => {
-  return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
-      <SessionProvider session={session}>
-        <Component {...pageProps} />
-      </SessionProvider>
-    </MantineProvider>
+  pageProps: { colorSchemeProps, session, ...pageProps },
+}: MyAppProps) => {
+  const preferredColorScheme = useColorScheme();
+  const [colorScheme, setColorScheme] = useState<ColorScheme>(
+    colorSchemeProps || preferredColorScheme
   );
+  const toggleColorScheme = (value?: ColorScheme) => {
+    const nextColorScheme =
+      value || (colorScheme === "dark" ? "light" : "dark");
+    setColorScheme(nextColorScheme);
+    setCookie("mantine-color-scheme", nextColorScheme, {
+      maxAge: 60 * 60 * 24 * 30,
+    });
+  };
+  return (
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
+    >
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{ colorScheme }}
+      >
+        <SessionProvider session={session}>
+          <Component {...pageProps} />
+        </SessionProvider>
+      </MantineProvider>
+    </ColorSchemeProvider>
+  );
+};
+
+MyApp.getInitialProps = async (appContext: AppContext) => {
+  const appProps = await App.getInitialProps(appContext);
+  const props = {
+    ...appProps,
+    session: null,
+    colorSchemeProps: getCookie(
+      "mantine-color-scheme",
+      appContext.ctx
+    ) as ColorScheme,
+  };
+  return { pageProps: props };
 };
 
 export default api.withTRPC(MyApp);
