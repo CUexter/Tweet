@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 
 import { getCookie, setCookie } from "cookies-next";
 import { type Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
+import { SessionProvider, getSession } from "next-auth/react";
 import App from "next/app";
 import { useState } from "react";
 
@@ -57,9 +57,10 @@ const MyApp = ({
 
 MyApp.getInitialProps = async (appContext: AppContext) => {
   const appProps = await App.getInitialProps(appContext);
+  const session = await getSession(appContext);
   const props = {
     ...appProps,
-    session: null,
+    session: session,
     colorSchemeProps: getCookie(
       "mantine-color-scheme",
       appContext.ctx

@@ -1,13 +1,18 @@
 import {
   Autocomplete,
   Burger,
+  Button,
   Group,
   Header,
   createStyles,
   rem,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconSearch } from "@tabler/icons-react";
+import { IconHome, IconSearch } from "@tabler/icons-react";
+import { signIn, useSession } from "next-auth/react";
+
+import AccountHeaderMenu from "./AccountHeaderMenu";
+import ToggleDarkMode from "./ToggleDarkModeButton";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -56,36 +61,15 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface HeaderSearchProps {
-  links: { link: string; label: string }[];
-}
-
-export default function HeaderSearch({ links }: HeaderSearchProps) {
-  const [opened, { toggle }] = useDisclosure(false);
+const HeaderSearch = () => {
   const { classes } = useStyles();
-
-  const items = links.map((link) => (
-    <a
-      key={link.label}
-      href={link.link}
-      className={classes.link}
-      onClick={(event) => event.preventDefault()}
-    >
-      {link.label}
-    </a>
-  ));
+  const { data: sessionData } = useSession();
 
   return (
     <Header height={56} className={classes.header} mb={120}>
       <div className={classes.inner}>
         <Group>
-          <Burger opened={opened} onClick={toggle} size="sm" />
-        </Group>
-
-        <Group>
-          <Group ml={50} spacing={5} className={classes.links}>
-            {items}
-          </Group>
+          <IconHome />
           <Autocomplete
             className={classes.search}
             placeholder="Search"
@@ -101,7 +85,18 @@ export default function HeaderSearch({ links }: HeaderSearchProps) {
             ]}
           />
         </Group>
+        <Group>
+          <ToggleDarkMode />
+          {sessionData === null ? (
+            <Button onClick={() => void signIn()} variant="subtle">
+              Sign in
+            </Button>
+          ) : (
+            <AccountHeaderMenu />
+          )}
+        </Group>
       </div>
     </Header>
   );
-}
+};
+export default HeaderSearch;
