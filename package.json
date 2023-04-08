@@ -144,13 +144,5 @@
   },
   "publishConfig": {
     "access": "restricted"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "pnpm run prepush",
-      "post-checkout": "yarnhook",
-      "post-merge": "yarnhook",
-      "post-rewrite": "yarnhook"
-    }
   }
 }
