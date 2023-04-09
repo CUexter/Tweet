@@ -127,13 +127,13 @@ model Tweets_hashtag {
 }
 
 model Following {
-  id          String   @id @default(cuid())
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
-  user_id     String //being followed
-  follower_id String //doing the following
-  user        User     @relation("being_followed", fields: [user_id], references: [id])
-  following   User     @relation("following", fields: [follower_id], references: [id])
+  id                 String   @id @default(cuid())
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+  doing_following_ID String
+  being_followed_ID  String
+  being_followed     User     @relation("being_followed", fields: [being_followed_ID], references: [id])
+  doing_following    User     @relation("following", fields: [doing_following_ID], references: [id])
 }
 
 model Like {
