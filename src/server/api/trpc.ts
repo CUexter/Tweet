@@ -22,11 +22,12 @@
  * This is where the tRPC API is initialized, connecting the context and
  * transformer.
  */
+
+import type { User } from "@prisma/client";
 import type { inferAsyncReturnType } from "@trpc/server";
 
 import { getServerAuthSession } from "@/server/auth";
 import { prisma } from "@/server/db";
-import type { User } from "@prisma/client";
 import { Prisma } from "@prisma/client";
 import { TRPCError, initTRPC } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
