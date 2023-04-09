@@ -1,8 +1,8 @@
+import type { Session } from "next-auth";
 import type { AppContext } from "next/app";
 import type { AppProps } from "next/app";
 
 import { getCookie, setCookie } from "cookies-next";
-import { type Session } from "next-auth";
 import { SessionProvider, getSession } from "next-auth/react";
 import App from "next/app";
 import { useState } from "react";
@@ -10,6 +10,7 @@ import { useState } from "react";
 import "@/styles/globals.css";
 import type { ColorScheme } from "@mantine/core";
 
+import Layout from "@/components/layout/Layout";
 import { api } from "@/utils/api";
 import { ColorSchemeProvider, MantineProvider } from "@mantine/core";
 import { useColorScheme } from "@mantine/hooks";
@@ -48,7 +49,9 @@ const MyApp = ({
         theme={{ colorScheme }}
       >
         <SessionProvider session={session}>
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </SessionProvider>
       </MantineProvider>
     </ColorSchemeProvider>
@@ -57,7 +60,7 @@ const MyApp = ({
 
 MyApp.getInitialProps = async (appContext: AppContext) => {
   const appProps = await App.getInitialProps(appContext);
-  const session = await getSession(appContext);
+  const session = await getSession({ req: appContext.ctx.req });
   const props = {
     ...appProps,
     session: session,

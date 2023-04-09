@@ -26,11 +26,11 @@ beforeAll(() => {
 afterAll(() => server.close());
 
 describe("Home", () => {
-  test("renders a heading", async () => {
+  test("renders example content", async () => {
     vi.mock("next-auth/react");
     vi.mock("@mantine/core");
     render(<Index />);
-    await waitFor(() => screen.getByText("Hello from tRPC"));
-    screen.getByText("- secret");
+    await waitFor(() => screen.getByText("Hello from useQuery"));
+    screen.getByText("created at", { exact: false });
   });
 });
