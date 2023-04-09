@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "db-seed": "NODE_ENV=development prisma db seed",
     "dev:debug": "cross-env NODE_OPTIONS='--inspect' next dev",
     "start": "next dev",
     "build": "cross-env SKIP_ENV_VALIDATION='true' next build",
@@ -137,6 +138,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/CUexter/Tweet.git"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "engines": {
     "node": ">=18",
