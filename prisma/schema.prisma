@@ -144,6 +144,9 @@ model Like {
   user       User     @relation(fields: [user_id], references: [id])
   tweet      Tweet    @relation(fields: [tweet_id], references: [id])
   tweet_id   String
+
+ @@unique([user_id, tweet_id])
+
 }
 
 model Retweet {
