@@ -1,6 +1,3 @@
-//problem unsolved: how to get the user_id and tweet_id
-//so i need to get the id of the like first
-//to get the id of the like i need to know the user_id and tweet_id
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { prisma } from "@/server/db";
@@ -10,18 +7,18 @@ export default async function deleteLike(
   res: NextApiResponse
 ) {
   try {
-    const obj = await prisma.like.findMany({
+    const obj = await prisma.following.findMany({
       where: {
         user_id: "123",
-        tweet_id: "1234",
+        follower_id: "456",
       },
     });
     if (obj[0] != null) {
-      const unlike = await prisma.like.delete({
+      const unfollow = await prisma.following.delete({
         where: { id: obj[0].id },
       });
     }
-    res.status(200).send("");
+    res.status(200).send();
   } catch (error) {
     console.log(error);
   }

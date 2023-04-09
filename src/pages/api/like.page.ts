@@ -1,6 +1,11 @@
+import type { NextApiRequest, NextApiResponse } from "next";
+
 import { prisma } from "@/server/db";
 
-export default async function createLike() {
+export default async function createLike(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
     /*const user = await prisma.user.create({
       data: {
@@ -17,6 +22,7 @@ export default async function createLike() {
         tweet_id: "1234",
       },
     });
+    res.status(200).send();
   } catch (error) {
     console.log(error);
   }

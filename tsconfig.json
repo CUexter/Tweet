@@ -33,7 +33,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "**/*.cjs",
-    "**/*.mjs"
+    "**/*.mjs",
+    "src/pages/api/like.page.js"
   ],
   "exclude": ["node_modules", "lint-staged.config.mjs"]
 }

@@ -1,6 +1,6 @@
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 //import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Like = () => {
   //when we load the tweet, we need to know whether or not the user has liked the tweet before
@@ -11,43 +11,57 @@ const Like = () => {
   //const userID = "1234";
   //const tweetID = "5678";
   const [isLiked, setIsLiked] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const icon = isLiked ? <IconHeartFilled /> : <IconHeart />;
   const text = isLiked ? "True" : "False";
-  console.log("HI");
-  function temp() {
-    const response = fetch("/api/checklike", {
+
+  useEffect(() => {
+    fetch("/api/checklike", {
       method: "GET",
     })
       .then((res) => res.json())
       .then((data) => {
+        setIsLoading(false);
         if (data == "1") setIsLiked(true);
       })
-      .catch((error) => console.log("error"));
-  }
-
-  temp();
+      .catch(() => {
+        setIsLoading(false);
+        console.log("error");
+      });
+  }, []);
 
   function handleClick() {
     if (isLiked) {
       //is it okay if I don't use async await here?
-      const response = fetch("/api/unlike", {
+      fetch("/api/unlike", {
         method: "PUT",
-      }).catch((error) => console.log("error"));
+      })
+        .then(() => {
+          setIsLiked(false);
+        })
+        .catch((error) => console.log("error"));
     } else {
-      const response = fetch("/api/like", {
+      fetch("/api/like", {
         method: "PUT",
-      }).catch((error) => console.log("error"));
+      })
+        .then((response) => {
+          //() => {}  === function() {}
+          setIsLiked(true);
+        })
+        .catch((error) => console.log("error"));
     }
-    setIsLiked(!isLiked);
   }
 
   return (
-    <div onClick={handleClick}>
-      {icon}
-
-      <h1>{text}</h1>
-      <h1></h1>
-    </div>
+    <>
+      {!isLoading && (
+        <div onClick={handleClick}>
+          {isLiked ? <IconHeartFilled /> : <IconHeart />}
+          <h1>{text}</h1>
+          <h1></h1>
+        </div>
+      )}
+    </>
   );
 };
 
