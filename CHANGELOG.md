@@ -1,3 +1,20 @@
+# [1.1.0](https://github.com/CUexter/Tweet/compare/v1.0.0...v1.1.0) (2023-04-10)
+
+
+### Bug Fixes
+
+* schema naming issue (following) ([2e1f426](https://github.com/CUexter/Tweet/commit/2e1f4263f58f3276d972965becfc4d61dc8d46fd))
+
+
+### Features
+
+* adding seed script ([e7df9c9](https://github.com/CUexter/Tweet/commit/e7df9c9a76e599354adcd91bf97d79af3f5208f6))
+* darkmode implemenation ([81ee25e](https://github.com/CUexter/Tweet/commit/81ee25e1dbe2c27f9c6c78d570cd80ac6465c064))
+* db seeding with 2 post 2 hashtags and 2 users ([2aca039](https://github.com/CUexter/Tweet/commit/2aca039bc1cd1eeed188f5e49dcb281862c05f33))
+* header now use user info ([28e7645](https://github.com/CUexter/Tweet/commit/28e7645ebe870f87f2916eed469b88e2f299242f))
+* header-ui ([8cf5a42](https://github.com/CUexter/Tweet/commit/8cf5a42b4866ea1c3740401eddb38c5d1cb21cb4))
+* new header ([62e9a50](https://github.com/CUexter/Tweet/commit/62e9a507a686783cb9164835169ab6a73bd8e3b7))
+
 # 1.0.0 (2023-03-06)
 
 ### Bug Fixes
