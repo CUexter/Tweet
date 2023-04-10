@@ -84,7 +84,7 @@ export const userSettingHandler = createTRPCRouter({
     }),
   createAc: publicProcedure.mutation(createAc),
   getAccountInfo: publicProcedure.mutation(getAccountInfo),
- /* setAccountInfo:publicProcedure
+  /* setAccountInfo:publicProcedure
   .input(newAC)
   .mutation(setAccountInfo),
 */
