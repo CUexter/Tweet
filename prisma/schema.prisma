@@ -112,7 +112,7 @@ model Hashtag {
   id              String           @id @default(cuid())
   created_at      DateTime         @default(now())
   updated_at      DateTime         @updatedAt
-  hashtag_text    String
+  hashtag_text    String           @unique
   Tweets_hashtags Tweets_hashtag[]
 }
 
