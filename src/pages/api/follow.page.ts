@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { prisma } from "@/server/db";
 
-export default async function createLike(
+export default async function createfollow(
   req: NextApiRequest,
   res: NextApiResponse
 ) {

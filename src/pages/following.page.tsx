@@ -1,45 +1,48 @@
-//import axios from "axios";
-import { useEffect, useState } from "react";
+import { api } from "@/utils/api";
+import { useState } from "react";
 
 const Following = () => {
-  const [isFollowed, setIsFollowed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
-  const text = isFollowed ? "True" : "False";
-
-  useEffect(() => {
-    fetch("/api/checkFollowing", {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((data) => {
+  const followingMutation = api.following.following.useMutation();
+  const unFollowingMutation = api.following.unFollowing.useMutation();
+  const followingQuery = api.following.checkFollowing.useQuery(
+    {
+      doing_following_ID: "123",
+      being_followed_ID: "456",
+    },
+    {
+      onSuccess: () => {
         setIsLoading(false);
-        if (data == "1") setIsFollowed(true);
-      })
-      .catch(() => {
-        setIsLoading(false);
-        console.log("error");
-      });
-  }, []);
+      },
+    }
+  );
+  const text = followingQuery.data ? "True" : "False";
+
+  console.log(followingQuery.data);
 
   function handleClick() {
-    if (isFollowed) {
-      fetch("/api/unfollow", {
-        method: "PUT",
-      })
+    if (followingQuery.data) {
+      unFollowingMutation
+        .mutateAsync({
+          id: followingQuery.data.id,
+        })
         .then(() => {
-          setIsFollowed(false);
+          void followingQuery.refetch();
         })
-        .catch((error) => console.log("error"));
+        .catch((e) => {
+          console.log(e);
+        });
     } else {
-      fetch("/api/follow", {
-        method: "PUT",
-      })
-        .then((response) => {
-          //() => {}  === function() {}
-          setIsFollowed(true);
+      followingMutation
+        .mutateAsync({
+          being_followed_ID: "456",
         })
-        .catch((error) => console.log("error"));
+        .then(() => {
+          void followingQuery.refetch();
+        })
+        .catch(() => {
+          console.log("error");
+        });
     }
   }
 
@@ -47,7 +50,7 @@ const Following = () => {
     <>
       {!isLoading && (
         <div onClick={handleClick}>
-          <button>{isFollowed ? "Following" : "Follow"}</button>
+          <button>{followingQuery.data ? "Followed" : "Follow"}</button>
           <h1>{text}</h1>
           <h1></h1>
         </div>

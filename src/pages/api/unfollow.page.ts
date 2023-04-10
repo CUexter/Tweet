@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { prisma } from "@/server/db";
 
-export default async function deleteLike(
+export default async function deletefollow(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -18,7 +18,7 @@ export default async function deleteLike(
         where: { id: obj[0].id },
       });
     }
-    res.status(200).send();
+    res.status(200).send("");
   } catch (error) {
     console.log(error);
   }

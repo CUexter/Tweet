@@ -14,8 +14,8 @@ export default async function checkFollowing(
       },
     });
     if (obj[0] != null) {
-      res.send("1");
-    } else res.send("0");
+      res.status(200).send("1");
+    } else res.status(200).send("0");
   } catch (error) {
     console.log(error);
   }
