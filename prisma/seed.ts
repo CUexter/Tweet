@@ -1,4 +1,4 @@
-import { prisma } from "../src/server/db";
+import { prisma } from "@/server/db";
 
 async function main() {
   // hashtag
