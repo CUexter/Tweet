@@ -25,6 +25,11 @@ export const UserRouter = createTRPCRouter({
                 contains: searchTerm,
               },
             },
+            {
+              name: {
+                contains: searchTerm,
+              },
+            },
 
             {
               tag_name: {
@@ -37,6 +42,14 @@ export const UserRouter = createTRPCRouter({
               },
             },
           ],
+        },
+        select: {
+          display_name: true,
+          tag_name: true,
+          name: true,
+          image: true,
+          profile_desc: true,
+          id: true,
         },
       });
     }),

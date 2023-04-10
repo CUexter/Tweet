@@ -12,6 +12,7 @@ import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 
 import AccountHeaderMenu from "./AccountHeaderMenu";
+import SearchUser from "./SearchUser";
 import ToggleDarkMode from "./ToggleDarkModeButton";
 
 const useStyles = createStyles((theme) => ({
@@ -45,20 +46,7 @@ const HeaderSearch = () => {
           <ActionIcon component={Link} href="/">
             <IconHome />
           </ActionIcon>
-          <Autocomplete
-            className={classes.search}
-            placeholder="Search"
-            icon={<IconSearch size="1rem" stroke={1.5} />}
-            data={[
-              "React",
-              "Angular",
-              "Vue",
-              "Next.js",
-              "Riot.js",
-              "Svelte",
-              "Blitz.js",
-            ]}
-          />
+          <SearchUser />
         </Group>
         <Group>
           <ToggleDarkMode />
