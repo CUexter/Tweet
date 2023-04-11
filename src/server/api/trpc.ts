@@ -22,10 +22,13 @@
  * This is where the tRPC API is initialized, connecting the context and
  * transformer.
  */
+
+import type { User } from "@prisma/client";
 import type { inferAsyncReturnType } from "@trpc/server";
 
 import { getServerAuthSession } from "@/server/auth";
 import { prisma } from "@/server/db";
+import { Prisma } from "@prisma/client";
 import { TRPCError, initTRPC } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import { type Session } from "next-auth";
@@ -104,14 +107,25 @@ export const publicProcedure = t.procedure;
  * Reusable middleware that enforces users are logged in before running the
  * procedure.
  */
-const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
+
+const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
   if (!ctx.session || !ctx.session.user) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+
+  const user = await ctx.prisma.user.findUnique({
+    where: {
+      id: ctx.session?.user.id,
+    },
+  });
+  if (!user) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
   return next({
     ctx: {
       // infers the `session` as non-nullable
       session: { ...ctx.session, user: ctx.session.user },
+      user: user,
     },
   });
 });
@@ -126,3 +140,15 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);
+
+const enforceUserIsAdmin = t.middleware(async ({ ctx, next }) => {
+  if ("user" in ctx) {
+    const user = ctx.user as User;
+    if (!user.is_admin) {
+      throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+  }
+  return next();
+});
+
+export const adminProcedure = protectedProcedure.use(enforceUserIsAdmin);

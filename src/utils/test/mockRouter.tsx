@@ -56,7 +56,9 @@ export const trpcMsw = createTRPCMsw<AppRouter>({
 const exampleHandler = trpcMsw.example.hello.query((req, res, ctx) => {
   return res(
     ctx.status(200),
-    ctx.data({ greeting: "Hello from tRPC" }) as unknown as ResponseTransformer
+    ctx.data({
+      greeting: "Hello from useQuery",
+    }) as unknown as ResponseTransformer
   );
 });
 
@@ -64,7 +66,7 @@ const secretHandler = trpcMsw.example.getSecretMessage.query(
   (req, res, ctx) => {
     return res(
       ctx.status(200),
-      ctx.data("secret") as unknown as ResponseTransformer
+      ctx.data(new Date(2023, 3, 1)) as unknown as ResponseTransformer
     );
   }
 );

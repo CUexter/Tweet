@@ -3,6 +3,8 @@ import { FollowingRouter } from "./routers/following";
 import { LikeRouter } from "./routers/like";
 import { ReplyRouter } from "./routers/reply";
 import { RetweetRouter } from "./routers/retweet";
+import { TweetRouter } from "./routers/tweet";
+import { UserRouter } from "./routers/user";
 import { createTRPCRouter } from "./trpc";
 
 /**
@@ -16,6 +18,8 @@ export const appRouter = createTRPCRouter({
   following: FollowingRouter,
   reply: ReplyRouter,
   like: LikeRouter,
+  user: UserRouter,
+  tweet: TweetRouter,
 });
 
 // export type definition of API

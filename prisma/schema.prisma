@@ -51,7 +51,7 @@ model User {
   id              String            @id @default(cuid())
   created_at      DateTime          @default(now())
   updated_at      DateTime          @updatedAt
-  name            String?
+  name            String
   email           String?           @unique
   emailVerified   DateTime?
   emailVisbility  Boolean           @default(false)
@@ -93,7 +93,7 @@ model Tweet {
   TweetText        TweetText[]
   Tweets_hashtags  Tweets_hashtag[]
   Likes            Like[]
-  Retweeting_to    Retweet[]          @relation("retweet_to")
+  Retweeting_to    Retweet?          @relation("retweet_to")
   Retweeted_by     Retweet[]          @relation("retweeted_by")
   Polls            Poll[]
   TweetAttachments TweetAttachments[]
@@ -113,7 +113,7 @@ model Hashtag {
   id              String           @id @default(cuid())
   created_at      DateTime         @default(now())
   updated_at      DateTime         @updatedAt
-  hashtag_text    String
+  hashtag_text    String           @unique
   Tweets_hashtags Tweets_hashtag[]
 }
 
@@ -160,7 +160,7 @@ model Retweet {
   original_tweet    Tweet    @relation("retweeted_by", fields: [original_tweet_id], references: [id])
   original_tweet_id String
   retweet           Tweet    @relation("retweet_to", fields: [retweet_id], references: [id])
-  retweet_id        String
+  retweet_id        String   @unique
   on_profile        Boolean
 
 
