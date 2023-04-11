@@ -1,5 +1,6 @@
 import { exampleRouter } from "./routers/example";
-import { userSettingHandler } from "./routers/userSettingHandler";
+import { TweetRouter } from "./routers/tweet";
+import { UserRouter } from "./routers/user";
 import { createTRPCRouter } from "./trpc";
 
 /**
@@ -9,7 +10,8 @@ import { createTRPCRouter } from "./trpc";
  */
 export const appRouter = createTRPCRouter({
   example: exampleRouter,
-  userSetting: userSettingHandler,
+  user: UserRouter,
+  tweet: TweetRouter,
 });
 
 // export type definition of API
