@@ -14,7 +14,7 @@ const Timeline = ({ tweetData }: TimelineProp) => {
   return (
     <Stack spacing="xl">
       {tweetData.map((tweet, index) => (
-        <Tweet key={index} tweetData={tweet} />
+        <Tweet key={index} tweetID={tweet.id} />
       ))}
     </Stack>
   );
