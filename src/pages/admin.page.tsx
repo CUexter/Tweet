@@ -5,6 +5,7 @@ import adminCreate from "@/hooks/adminCreate";
 import adminDelete from "@/hooks/adminDelete";
 import adminList from "@/hooks/adminList";
 import adminUpdate from "@/hooks/adminUpdate";
+import { api } from "@/utils/api";
 import {
   Card,
   Modal,
@@ -22,6 +23,7 @@ import {
 } from "@tabler/icons-react";
 import { type NextPage } from "next";
 import Head from "next/head";
+import { useState } from "react";
 
 type crudOperations = {
   title: string;
@@ -34,23 +36,6 @@ const crudOperations = [
   { title: "Update User", icon: IconUserCircle, operation: "update" },
   { title: "List User", icon: IconUserSearch, operation: "list" },
   { title: "Delete User", icon: IconUserMinus, operation: "delete" },
-];
-
-const data = [
-  {
-    avatar: "H",
-    name: "A",
-    job: "ABC",
-    email: "J@gmail.com",
-    phone: "922",
-  },
-  {
-    avatar: "K",
-    name: "B",
-    job: "ABCD",
-    email: "OOO@gmail.com",
-    phone: "2382",
-  },
 ];
 
 const useStyles = createStyles((theme) => ({
@@ -91,6 +76,11 @@ const AdminDashboard: NextPage = () => {
   const deleteWindow = adminDelete();
   const listWindow = adminList();
   const updateWindow = adminUpdate();
+  const [list, setList] = useState(false);
+  const { data: listData } = api.user.listUser.useQuery(undefined, {
+    enabled: list === true,
+  });
+  console.log(listData);
 
   const handleOp = (op: string) => {
     console.log(op);
@@ -103,6 +93,7 @@ const AdminDashboard: NextPage = () => {
         break;
       case "list":
         listWindow.onOpen();
+        setList(true);
         break;
       case "delete":
         deleteWindow.onOpen();
@@ -156,7 +147,6 @@ const AdminDashboard: NextPage = () => {
           centered
         >
           {/* Modal content */}
-          <UserTable data={data} />
         </Modal>
         <Modal
           opened={updateWindow.isOpen}
@@ -176,7 +166,7 @@ const AdminDashboard: NextPage = () => {
           centered
         >
           {/* Modal content */}
-          <UserTable data={data} />
+          <UserTable data={listData} />
         </Modal>
         <Modal
           opened={deleteWindow.isOpen}

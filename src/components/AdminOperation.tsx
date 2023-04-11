@@ -1,3 +1,4 @@
+import { api } from "@/utils/api";
 import { Button, Center, TextInput, createStyles } from "@mantine/core";
 import { useState } from "react";
 
@@ -37,6 +38,7 @@ const AdminOperation = ({ op }: AdminProps) => {
       console.log(tagName);
       console.log(onSearch);
       // Find user in the database
+      api.useQueries;
       setDelData({ image: "H", avatar: "H", name: "ABC", job: "JOB" });
       setOnSearch(true);
     }

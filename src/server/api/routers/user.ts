@@ -1,5 +1,4 @@
 import * as _ from "lodash";
-import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
@@ -9,6 +8,8 @@ export const UserRouter = createTRPCRouter({
       select: {
         name: true,
         id: true,
+        tag_name: true,
+        email: true,
         profile_picture: true,
       },
     });
