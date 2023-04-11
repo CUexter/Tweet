@@ -24,6 +24,19 @@ export const TweetRouter = createTRPCRouter({
       return post;
     }),
 
+  getLotTweets: publicProcedure
+    .input(z.object({ filter: z.object({}) }))
+    .query(async ({ ctx, input }) => {
+      const Ts = await ctx.prisma.tweet.findMany({
+        where: input.filter,
+        select: {
+          id: true,
+        },
+      });
+
+      return Ts;
+    }),
+
   getPrivateTweet: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
