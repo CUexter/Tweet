@@ -1,13 +1,16 @@
 import ListTweet from "@/components/ListTweet";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Following = () => {
   const router = useRouter();
   const { data: session } = useSession();
-  if (!session?.user) {
-    void router.push("/");
-  }
+  useEffect(() => {
+    if (!session?.user) {
+      void router.push("/");
+    }
+  }, [session, router]);
   const following = ["uid1"];
 
   const filter = {

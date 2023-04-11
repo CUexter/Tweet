@@ -17,6 +17,7 @@ import { useDebouncedValue } from "@mantine/hooks";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 /* import { useRef, useState } from "react"; */
 
@@ -32,9 +33,12 @@ const NewUserWelcome = () => {
   const { data: session } = useSession();
   const { data: newUser } = api.user.checkNewUser.useQuery();
   const router = useRouter();
-  if (newUser || !session?.user) {
-    void router.push("/");
-  }
+
+  useEffect(() => {
+    if (newUser || !session?.user) {
+      void router.push("/");
+    }
+  }, [session, router, newUser]);
 
   const isEmailIfPresent = (value: string | undefined | null) => {
     if (!value) {
