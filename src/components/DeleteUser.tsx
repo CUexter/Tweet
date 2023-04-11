@@ -1,12 +1,4 @@
-import {
-  Avatar,
-  Button,
-  Card,
-  Group,
-  Text,
-  createStyles,
-  rem,
-} from "@mantine/core";
+import { Avatar, Button, Card, Text, createStyles, rem } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -22,12 +14,16 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface UserCardImageProps {
-  data: {
-    image: string;
-    avatar: string;
-    name: string;
-    job: string;
-  };
+  data:
+    | {
+        id: string;
+        name: string | null;
+        email: string | null;
+        tag_name: string | null;
+        profile_picture: string | null;
+      }
+    | null
+    | undefined;
   isOpen: boolean;
 }
 
@@ -37,11 +33,9 @@ const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
   if (isOpen == false) return null;
   return (
     <Card withBorder padding="xl" radius="md" className={classes.card}>
-      <Card.Section
-        sx={{ backgroundImage: `url(${data.image})`, height: 140 }}
-      />
+      <Card.Section />
       <Avatar
-        src={data.avatar}
+        src={data?.profile_picture}
         size={80}
         radius={80}
         mx="auto"
@@ -49,21 +43,14 @@ const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
         className={classes.avatar}
       />
       <Text ta="center" fz="lg" fw={500} mt="sm">
-        {data.name}
+        {data?.tag_name}
       </Text>
       <Text ta="center" fz="sm" c="dimmed">
-        {data.job}
+        {data?.name}
       </Text>
-      <Group mt="md" position="center" spacing={30}>
-        <div key={data.name}>
-          <Text ta="center" fz="lg" fw={500}>
-            {data.name}
-          </Text>
-          <Text ta="center" fz="sm" c="dimmed">
-            {data.job}
-          </Text>
-        </div>
-      </Group>
+      <Text ta="center" fz="sm" c="dimmed">
+        {data?.email}
+      </Text>
       <Button
         variant="outline"
         fullWidth

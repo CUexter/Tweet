@@ -1,5 +1,11 @@
 import { api } from "@/utils/api";
-import { Button, Center, TextInput, createStyles } from "@mantine/core";
+import {
+  Button,
+  Center,
+  Notification,
+  TextInput,
+  createStyles,
+} from "@mantine/core";
 import { useState } from "react";
 
 import DeleteUser from "./DeleteUser";
@@ -23,12 +29,18 @@ const AdminOperation = ({ op }: AdminProps) => {
   const { classes } = useStyles();
   const [tagName, setTagName] = useState("");
   const [onSearch, setOnSearch] = useState(false);
-  const [delData, setDelData] = useState({
-    image: "",
-    avatar: "",
-    name: "",
-    job: "",
+
+  const { data: targetUser } = api.user.findUser.useQuery({
+    tag_name: tagName,
   });
+
+  console.log(targetUser);
+
+  const noti = () => {
+    <Notification title="Default notification">
+      This is default notification with title and body
+    </Notification>;
+  };
 
   const handle = () => {
     if (op == "update") {
@@ -37,10 +49,12 @@ const AdminOperation = ({ op }: AdminProps) => {
     } else if (op == "delete") {
       console.log(tagName);
       console.log(onSearch);
+      console.log(targetUser);
       // Find user in the database
-      api.useQueries;
-      setDelData({ image: "H", avatar: "H", name: "ABC", job: "JOB" });
-      setOnSearch(true);
+      if (targetUser) {
+        setOnSearch(true);
+      } else {
+      }
     }
   };
 
@@ -68,7 +82,7 @@ const AdminOperation = ({ op }: AdminProps) => {
         </Center>
       </div>
       <div style={{ paddingTop: 10, paddingBottom: 10 }}>
-        <DeleteUser data={delData} isOpen={onSearch} />
+        <DeleteUser data={targetUser} isOpen={onSearch} />
       </div>
     </>
   );

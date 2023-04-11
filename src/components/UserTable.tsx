@@ -48,6 +48,7 @@ const UserTable = ({ data }: UsersTableProps) => {
         </td>
         <td>
           <Group spacing={0} position="right">
+            {/* Implement action here*/}
             <ActionIcon>
               <IconPencil size="1rem" stroke={1.5} />
             </ActionIcon>
