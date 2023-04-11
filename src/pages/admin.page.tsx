@@ -1,6 +1,12 @@
 // https://ui.mantine.dev/component/actions-grid
+import UserTable from "@/components/UserTable";
+import adminCreate from "@/hooks/adminCreate";
+import adminDelete from "@/hooks/adminDelete";
+import adminList from "@/hooks/adminList";
+import adminUpdate from "@/hooks/adminUpdate";
 import {
   Card,
+  Modal,
   SimpleGrid,
   Text,
   UnstyledButton,
@@ -16,16 +22,20 @@ import {
 import { type NextPage } from "next";
 import Head from "next/head";
 
+type crudOperations = {
+  title: string;
+  icon: JSX.Element;
+  operation: string;
+};
+
 const crudOperations = [
-  { title: "Create User", icon: IconUserPlus },
-  { title: "Update User", icon: IconUserCircle },
-  { title: "List User", icon: IconUserSearch },
-  { title: "Delete User", icon: IconUserMinus },
+  { title: "Create User", icon: IconUserPlus, operation: "create" },
+  { title: "Update User", icon: IconUserCircle, operation: "update" },
+  { title: "List User", icon: IconUserSearch, operation: "list" },
+  { title: "Delete User", icon: IconUserMinus, operation: "delete" },
 ];
 
-const buttonTest = () => {
-  console.log("button clicked");
-};
+const data = [{ name: "something", email: "?", company: "z" }];
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -61,11 +71,34 @@ const useStyles = createStyles((theme) => ({
 
 const AdminDashboard: NextPage = () => {
   const { classes } = useStyles();
+  const createWindow = adminCreate();
+  const deleteWindow = adminDelete();
+  const listWindow = adminList();
+  const updateWindow = adminUpdate();
+
+  const handleOp = (op: crudOperations) => {
+    console.log(op.operation);
+    switch (op.operation) {
+      case "create":
+        createWindow.onOpen();
+        break;
+      case "update":
+        updateWindow.onOpen();
+        break;
+      case "list":
+        listWindow.onOpen();
+        break;
+      case "delete":
+        deleteWindow.onOpen();
+        break;
+    }
+  };
+
   const items = crudOperations.map((item) => (
     <UnstyledButton
       key={item.title}
       className={classes.item}
-      onClick={buttonTest}
+      onClick={() => handleOp(item)}
     >
       <item.icon color={"red"} size="2rem" />
       <Text size="md" mt={7}>
@@ -73,6 +106,7 @@ const AdminDashboard: NextPage = () => {
       </Text>
     </UnstyledButton>
   ));
+
   return (
     <>
       <Head>
@@ -82,7 +116,7 @@ const AdminDashboard: NextPage = () => {
       </Head>
       <div className="mx-auto w-1/2">
         <Text size="xl" weight={500} mb="xl">
-          Dashboard
+          Admin Dashboard
         </Text>
         <Card withBorder radius="md" className={classes.card}>
           {/* <Group position="apart"> */}
@@ -96,6 +130,45 @@ const AdminDashboard: NextPage = () => {
           </SimpleGrid>
         </Card>
       </div>
+      <>
+        {/* Hidden components to be called */}
+        <Modal
+          opened={createWindow.isOpen}
+          onClose={() => createWindow.onClose()}
+          title="Create"
+          centered
+        >
+          {/* Modal content */}
+          <UserTable data={data} />
+        </Modal>
+        <Modal
+          opened={updateWindow.isOpen}
+          onClose={() => updateWindow.onClose()}
+          title="Update"
+          centered
+        >
+          {/* Modal content */}
+          <UserTable data={data} />
+        </Modal>
+        <Modal
+          opened={listWindow.isOpen}
+          onClose={() => listWindow.onClose()}
+          title="List of users"
+          centered
+        >
+          {/* Modal content */}
+          <UserTable data={data} />
+        </Modal>
+        <Modal
+          opened={deleteWindow.isOpen}
+          onClose={() => deleteWindow.onClose()}
+          title="Delete"
+          centered
+        >
+          {/* Modal content */}
+          <UserTable data={data} />
+        </Modal>
+      </>
     </>
   );
 };
