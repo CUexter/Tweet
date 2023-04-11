@@ -1,3 +1,3 @@
-export default (input:{userID:string})=>{
-    return <>{input.userID}</>;
-}
+export default (input: { userID: string }) => {
+  return <>{input.userID}</>;
+};

@@ -2,15 +2,16 @@ import { api } from "@/utils/api";
 //import { Switch } from '@mantine/core';
 import { Checkbox, TextInput } from "@mantine/core";
 import React, { useEffect, useState } from "react";
+
 import { AccountInfo } from "./accountInfoFolder/AccountInfoClass";
 
 export default function accountInfoFunction() {
-    const getAccountInfoAPI = api.userSetting.getAccountInfo.useMutation();
-    const setAccountInfoAPI=api.userSetting.setAccountInfo.useMutation();
-    const emptyAccount = new AccountInfo("", "", "", "", "", false);
-    const [accountInfo, setAccountInfo] = useState(emptyAccount);
-    const [modified, setModified] = useState(false);
-    
+  const getAccountInfoAPI = api.userSetting.getAccountInfo.useMutation();
+  const setAccountInfoAPI = api.userSetting.setAccountInfo.useMutation();
+  const emptyAccount = new AccountInfo("", "", "", "", "", false);
+  const [accountInfo, setAccountInfo] = useState(emptyAccount);
+  const [modified, setModified] = useState(false);
+
   async function update() {
     console.log("update");
     var AccountInfoObj = await getAccountInfoAPI.mutateAsync();
@@ -19,7 +20,13 @@ export default function accountInfoFunction() {
   function updateInput() {
     console.log("update input");
     //setValue
-    setAccountInfoAPI.mutateAsync({id:accountInfo.id,name:accountInfo.name,tagName:accountInfo.tagName,email:accountInfo.email,password:accountInfo.password});
+    setAccountInfoAPI.mutateAsync({
+      id: accountInfo.id,
+      name: accountInfo.name,
+      tagName: accountInfo.tagName,
+      email: accountInfo.email,
+      password: accountInfo.password,
+    });
     update();
     setModified(false);
   }
@@ -75,7 +82,7 @@ export default function accountInfoFunction() {
   useEffect(() => {
     update().catch(Error);
   }, []);
-  
+
   return (
     <>
       <TextInput

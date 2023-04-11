@@ -11,9 +11,9 @@ const useStyles = createStyles((theme) => ({
 
 export default function a() {
   const [renderContent, setRenderContent] = useState("Setting");
-  const [session,setSession]=useState(useSession());
+  const [session, setSession] = useState(useSession());
   console.log(session);
-  
+
   const { classes } = useStyles();
   var content = (
     <>
@@ -59,9 +59,6 @@ export default function a() {
     }
   }
   //if (session.data!=null)
-  return (
-    <main>
-    HI
-  </main>)
- // else return <div>INVALID SESSION</div>
+  return <main>HI</main>;
+  // else return <div>INVALID SESSION</div>
 }

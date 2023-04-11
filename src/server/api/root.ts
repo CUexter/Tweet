@@ -13,7 +13,7 @@ export const appRouter = createTRPCRouter({
   example: exampleRouter,
   user: UserRouter,
   tweet: TweetRouter,
-  userSetting:userSettingHandler,
+  userSetting: userSettingHandler,
 });
 
 // export type definition of API

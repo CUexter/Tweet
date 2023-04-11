@@ -1,5 +1,6 @@
 import Profile from "@/components/profile/profile";
 import { useRouter } from "next/router";
+
 //copied from tweet module, thx Graham!
 const ProfilePage = () => {
   const router = useRouter();
