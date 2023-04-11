@@ -18,13 +18,13 @@ export default async function handler(
 
     const sqlRes = await prisma.user.findUnique({
       where: {
-        email: email,
+        email: email || "null",
       },
     });
 
     const sqlRes2 = await prisma.user.findUnique({
       where: {
-        tag_name: tag_name,
+        tag_name: tag_name || "null",
       },
     });
     // No error means email exist already
@@ -39,7 +39,7 @@ export default async function handler(
       // Apply hashing to the input password
       const password = await bcrypt.hash(iPassword, 12);
       // Create user name === username
-      const user = await prisma.user.create({
+      await prisma.user.create({
         data: {
           email,
           password,
