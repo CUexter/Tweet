@@ -62,8 +62,7 @@ const SearchUser = () => {
   const { data: searchResult } = api.user.searchUser.useQuery(
     { searchTerm: debouncedSearchInput },
     {
-      enabled: searchInput.length >= 1,
-      queryKey: ["search", debouncedSearchInput],
+      enabled: searchInput.length >= 2,
     }
   );
   const data =
