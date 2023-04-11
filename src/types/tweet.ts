@@ -11,7 +11,7 @@ import type {
 type UserInfo = Pick<User, "display_name" | "tag_name" | "id" | "image">;
 type include = {
   TweetText: TweetText[];
-  Retweeting_to: Retweet[];
+  Retweeting_to: Retweet | null;
   Retweeted_by: Retweet[];
   TweetAttachments: TweetAttachments[];
   Likes: Like[];
