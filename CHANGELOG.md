@@ -1,11 +1,10 @@
 # [1.4.0](https://github.com/CUexter/Tweet/compare/v1.3.0...v1.4.0) (2023-04-11)
 
-
 ### Features
 
-* add isr back ([696db73](https://github.com/CUexter/Tweet/commit/696db738c6bcf8de7d830fd9699d782eea8059c5))
-* admin button in header menu ([5ff4131](https://github.com/CUexter/Tweet/commit/5ff413176332a2c78d7bfd16933b556c66c7f313))
-* ask for new user info ([cd4fe05](https://github.com/CUexter/Tweet/commit/cd4fe05d864e25d532f6c4f173ef873422ce9bc4))
+- add isr back ([696db73](https://github.com/CUexter/Tweet/commit/696db738c6bcf8de7d830fd9699d782eea8059c5))
+- admin button in header menu ([5ff4131](https://github.com/CUexter/Tweet/commit/5ff413176332a2c78d7bfd16933b556c66c7f313))
+- ask for new user info ([cd4fe05](https://github.com/CUexter/Tweet/commit/cd4fe05d864e25d532f6c4f173ef873422ce9bc4))
 
 # [1.3.0](https://github.com/CUexter/Tweet/compare/v1.2.0...v1.3.0) (2023-04-11)
 
