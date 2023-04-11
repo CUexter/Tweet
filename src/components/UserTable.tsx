@@ -1,60 +1,86 @@
-import { ScrollArea, Table, createStyles, rem } from "@mantine/core";
-import { useState } from "react";
+import {
+  ActionIcon,
+  Anchor,
+  Avatar,
+  Badge,
+  Group,
+  ScrollArea,
+  Table,
+  Text,
+  useMantineTheme,
+} from "@mantine/core";
+import { IconPencil, IconTrash } from "@tabler/icons-react";
 
-const useStyles = createStyles((theme) => ({
-  header: {
-    position: "sticky",
-    top: 0,
-    backgroundColor:
-      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
-    transition: "box-shadow 150ms ease",
-
-    "&::after": {
-      content: '""',
-      position: "absolute",
-      left: 0,
-      right: 0,
-      bottom: 0,
-      borderBottom: `${rem(1)} solid ${
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[3]
-          : theme.colors.gray[2]
-      }`,
-    },
-  },
-
-  scrolled: {
-    boxShadow: theme.shadows.sm,
-  },
-}));
-
-interface TableScrollAreaProps {
-  data: { name: string; email: string; company: string }[];
+interface UsersTableProps {
+  data: {
+    avatar: string;
+    name: string;
+    job: string;
+    email: string;
+    phone: string;
+  }[];
 }
 
-const UserTable = ({ data }: TableScrollAreaProps) => {
-  const { classes, cx } = useStyles();
-  const [scrolled, setScrolled] = useState(false);
+const jobColors: Record<string, string> = {
+  engineer: "blue",
+  manager: "cyan",
+  designer: "pink",
+};
 
-  const rows = data.map((row) => (
-    <tr key={row.name}>
-      <td>{row.name}</td>
-      <td>{row.email}</td>
-      <td>{row.company}</td>
+const UserTable = ({ data }: UsersTableProps) => {
+  const theme = useMantineTheme();
+  const rows = data.map((item) => (
+    <tr key={item.name}>
+      <td>
+        <Group spacing="sm">
+          <Avatar size={30} src={item.avatar} radius={30} />
+          <Text fz="sm" fw={500}>
+            {item.name}
+          </Text>
+        </Group>
+      </td>
+
+      <td>
+        <Badge
+          color={jobColors[item.job.toLowerCase()]}
+          variant={theme.colorScheme === "dark" ? "light" : "outline"}
+        >
+          {item.job}
+        </Badge>
+      </td>
+      <td>
+        <Anchor component="button" size="sm">
+          {item.email}
+        </Anchor>
+      </td>
+      <td>
+        <Text fz="sm" c="dimmed">
+          {item.phone}
+        </Text>
+      </td>
+      <td>
+        <Group spacing={0} position="right">
+          <ActionIcon>
+            <IconPencil size="1rem" stroke={1.5} />
+          </ActionIcon>
+          <ActionIcon color="red">
+            <IconTrash size="1rem" stroke={1.5} />
+          </ActionIcon>
+        </Group>
+      </td>
     </tr>
   ));
 
   return (
-    <ScrollArea
-      h={300}
-      onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
-    >
-      <Table miw={700}>
-        <thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
+    <ScrollArea>
+      <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
+        <thead>
           <tr>
-            <th>Name</th>
+            <th>Employee</th>
+            <th>Job title</th>
             <th>Email</th>
-            <th>Company</th>
+            <th>Phone</th>
+            <th />
           </tr>
         </thead>
         <tbody>{rows}</tbody>

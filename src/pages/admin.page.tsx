@@ -1,4 +1,5 @@
 // https://ui.mantine.dev/component/actions-grid
+import AdminOperation from "@/components/AdminOperation";
 import UserTable from "@/components/UserTable";
 import adminCreate from "@/hooks/adminCreate";
 import adminDelete from "@/hooks/adminDelete";
@@ -35,7 +36,22 @@ const crudOperations = [
   { title: "Delete User", icon: IconUserMinus, operation: "delete" },
 ];
 
-const data = [{ name: "something", email: "?", company: "z" }];
+const data = [
+  {
+    avatar: "H",
+    name: "A",
+    job: "ABC",
+    email: "J@gmail.com",
+    phone: "922",
+  },
+  {
+    avatar: "K",
+    name: "B",
+    job: "ABCD",
+    email: "OOO@gmail.com",
+    phone: "2382",
+  },
+];
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -130,12 +146,13 @@ const AdminDashboard: NextPage = () => {
           </SimpleGrid>
         </Card>
       </div>
+      {/* Hidden components to be called */}
       <>
-        {/* Hidden components to be called */}
         <Modal
           opened={createWindow.isOpen}
           onClose={() => createWindow.onClose()}
           title="Create"
+          size="100%"
           centered
         >
           {/* Modal content */}
@@ -145,15 +162,17 @@ const AdminDashboard: NextPage = () => {
           opened={updateWindow.isOpen}
           onClose={() => updateWindow.onClose()}
           title="Update"
+          size="30%"
           centered
         >
           {/* Modal content */}
-          <UserTable data={data} />
+          <AdminOperation op={"update"} />
         </Modal>
         <Modal
           opened={listWindow.isOpen}
           onClose={() => listWindow.onClose()}
           title="List of users"
+          size="100%"
           centered
         >
           {/* Modal content */}
@@ -163,10 +182,11 @@ const AdminDashboard: NextPage = () => {
           opened={deleteWindow.isOpen}
           onClose={() => deleteWindow.onClose()}
           title="Delete"
+          size="30%"
           centered
         >
           {/* Modal content */}
-          <UserTable data={data} />
+          <AdminOperation op={"delete"} />
         </Modal>
       </>
     </>
