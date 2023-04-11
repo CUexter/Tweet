@@ -45,6 +45,10 @@ const LoginWindow = () => {
 
         if (loginRes.data == "NoEmail") {
           toast.error("The email you input has no record.");
+        } else if (loginRes.data == "Banned") {
+          toast.error(
+            "This account is currently banned. Please contact the administrator for more information."
+          );
         } else {
           console.log(loginRes.data);
           if (loginRes.data == "OK") {

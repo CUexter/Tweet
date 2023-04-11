@@ -23,14 +23,19 @@ export default async function handler(
     });
 
     if (sqlRes) {
-      // Email exist compare with the hashedpw now
-      let hashed = sqlRes.password;
-      if (hashed !== null) {
-        const isCorrectPassword = await bcrypt.compare(iPassword, hashed);
-        if (isCorrectPassword) {
-          res.status(200).send("OK");
-        } else {
-          res.status(200).send("Invalid");
+      // Check for ban status
+      if (sqlRes.is_banned) {
+        res.status(200).send("Banned");
+      } else {
+        // Email exist compare with the hashedpw now
+        let hashed = sqlRes.password;
+        if (hashed !== null) {
+          const isCorrectPassword = await bcrypt.compare(iPassword, hashed);
+          if (isCorrectPassword) {
+            res.status(200).send("OK");
+          } else {
+            res.status(200).send("Invalid");
+          }
         }
       }
     } else {

@@ -64,6 +64,7 @@ model User {
   profile_picture String?
   image           String?
   is_admin        Boolean           @default(false)
+  is_banned       Boolean           @default(false)
   last_login_time DateTime?
   Tweet           Tweet[]
   following       Following[]       @relation("following")
@@ -93,7 +94,7 @@ model Tweet {
   TweetText        TweetText[]
   Tweets_hashtags  Tweets_hashtag[]
   Likes            Like[]
-  Retweeting_to    Retweet[]          @relation("retweet_to")
+  Retweeting_to    Retweet?          @relation("retweet_to")
   Retweeted_by     Retweet[]          @relation("retweeted_by")
   Polls            Poll[]
   TweetAttachments TweetAttachments[]
@@ -112,7 +113,7 @@ model Hashtag {
   id              String           @id @default(cuid())
   created_at      DateTime         @default(now())
   updated_at      DateTime         @updatedAt
-  hashtag_text    String
+  hashtag_text    String           @unique
   Tweets_hashtags Tweets_hashtag[]
 }
 
@@ -127,13 +128,13 @@ model Tweets_hashtag {
 }
 
 model Following {
-  id          String   @id @default(cuid())
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
-  user_id     String //being followed
-  follower_id String //doing the following
-  user        User     @relation("being_followed", fields: [user_id], references: [id])
-  following   User     @relation("following", fields: [follower_id], references: [id])
+  id                 String   @id @default(cuid())
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+  doing_following_ID String
+  being_followed_ID  String
+  being_followed     User     @relation("being_followed", fields: [being_followed_ID], references: [id])
+  doing_following    User     @relation("following", fields: [doing_following_ID], references: [id])
 }
 
 model Like {
@@ -153,7 +154,7 @@ model Retweet {
   original_tweet    Tweet    @relation("retweeted_by", fields: [original_tweet_id], references: [id])
   original_tweet_id String
   retweet           Tweet    @relation("retweet_to", fields: [retweet_id], references: [id])
-  retweet_id        String
+  retweet_id        String   @unique
   on_profile        Boolean
 
   @@unique([original_tweet_id, retweet_id])
