@@ -1,3 +1,12 @@
+# [1.3.0](https://github.com/CUexter/Tweet/compare/v1.2.0...v1.3.0) (2023-04-11)
+
+
+### Features
+
+* display tweet and timeline with ISR ([8b33c14](https://github.com/CUexter/Tweet/commit/8b33c14aa4630f4d05f76121e36ff2eb7fc58be2))
+* simple tweet page with replies ([e4dbd39](https://github.com/CUexter/Tweet/commit/e4dbd391db2cce736d2ef8cda4aaa82236eea8cf))
+* timeline fixed with tweetID ([ba931b2](https://github.com/CUexter/Tweet/commit/ba931b2b7ada9bc7d2c561068ce399d2a0b3c8f2))
+
 # [1.2.0](https://github.com/CUexter/Tweet/compare/v1.1.0...v1.2.0) (2023-04-11)
 
 ### Bug Fixes
