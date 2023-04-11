@@ -65,7 +65,7 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
         <meta name="description" content="for CSCI3100" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="mx-auto w-1/3">
+      <div className="mx-auto">
         <Card withBorder>
           <Group>
             <Avatar src={tweetData.user.image} color={"yellow"} radius="xl" />
