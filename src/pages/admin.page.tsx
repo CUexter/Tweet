@@ -76,9 +76,9 @@ const AdminDashboard: NextPage = () => {
   const listWindow = adminList();
   const updateWindow = adminUpdate();
 
-  const handleOp = (op: crudOperations) => {
-    console.log(op.operation);
-    switch (op.operation) {
+  const handleOp = (op: string) => {
+    console.log(op);
+    switch (op) {
       case "create":
         createWindow.onOpen();
         break;
@@ -98,7 +98,7 @@ const AdminDashboard: NextPage = () => {
     <UnstyledButton
       key={item.title}
       className={classes.item}
-      onClick={() => handleOp(item)}
+      onClick={() => handleOp(item.operation)}
     >
       <item.icon color={"red"} size="2rem" />
       <Text size="md" mt={7}>
