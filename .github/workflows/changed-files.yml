@@ -20,12 +20,22 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
 
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
+
+      - name: List all changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
+
       - name: Get changed files in the docs folder
         id: cfs
         uses: tj-actions/changed-files@v35
         with:
           files: |
-            ./src/**/*.{js, jsx, json, css, scss, tsx, ts}
+            src/**/*
             pnpm-lock.yaml
 
       - name: print output
