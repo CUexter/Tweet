@@ -20,7 +20,7 @@
     "codegen:e2e": "pnpm run dev & playwright codegen",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "clean": "rimraf .next",
     "semantic-release": "semantic-release",
     "storybook": "storybook dev -p 6006",

@@ -1,7 +1,7 @@
 import type { TweetData } from "@/types/tweet";
 
 import Timeline from "@/components/Timeline";
-import { prisma } from "@/server/db";
+/* import { prisma } from "@/server/db"; */
 import { Container, Grid } from "@mantine/core";
 import Head from "next/head";
 
@@ -21,9 +21,7 @@ const Home = ({ tweetData }: HomeProp) => {
       </Head>
       <main className="justify-center">
         <Container>
-          <Grid>
-            <Timeline tweetData={tweetData}></Timeline>
-          </Grid>
+          <Grid>{/* <Timeline tweetData={tweetData}></Timeline> */}</Grid>
         </Container>
       </main>
     </>
@@ -32,35 +30,35 @@ const Home = ({ tweetData }: HomeProp) => {
 
 export default Home;
 
-export async function getStaticProps() {
-  const tweets: TweetData[] = await prisma.tweet.findMany({
-    include: {
-      TweetText: true,
-      Retweeting_to: true,
-      Retweeted_by: true,
-      TweetAttachments: true,
-      Likes: true,
-      Polls: true,
-      user: {
-        select: {
-          id: true,
-          tag_name: true,
-          image: true,
-          display_name: true,
-        },
-      },
-    },
-    take: 10,
-  });
-
-  const tweetData = JSON.parse(
-    JSON.stringify(tweets)
-  ) as unknown as TweetData[];
-
-  const props: HomeProp = {
-    tweetData,
-    hashtag: {},
-    people: {},
-  };
-  return { props };
-}
+/* export async function getStaticProps() { */
+/*   const tweets: TweetData[] = await prisma.tweet.findMany({ */
+/*     include: { */
+/*       TweetText: true, */
+/*       Retweeting_to: true, */
+/*       Retweeted_by: true, */
+/*       TweetAttachments: true, */
+/*       Likes: true, */
+/*       Polls: true, */
+/*       user: { */
+/*         select: { */
+/*           id: true, */
+/*           tag_name: true, */
+/*           image: true, */
+/*           display_name: true, */
+/*         }, */
+/*       }, */
+/*     }, */
+/*     take: 10, */
+/*   }); */
+/**/
+/*   const tweetData = JSON.parse( */
+/*     JSON.stringify(tweets) */
+/*   ) as unknown as TweetData[]; */
+/**/
+/*   const props: HomeProp = { */
+/*     tweetData, */
+/*     hashtag: {}, */
+/*     people: {}, */
+/*   }; */
+/*   return { props }; */
+/* } */
