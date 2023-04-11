@@ -17,7 +17,7 @@ const Retweet = () => {
       },
     }
   );
-  const text = retweetQuery.data ? "True" : "False";
+  //  const text = retweetQuery.data ? "True" : "False";
 
   console.log(retweetQuery.data);
 
@@ -56,9 +56,6 @@ const Retweet = () => {
           ) : (
             <IconBrandTwitter />
           )}
-          <button>{retweetQuery.data ? "Retweeted" : "Retweet"}</button>
-          <h1>{text}</h1>
-          <h1></h1>
         </div>
       )}
     </>

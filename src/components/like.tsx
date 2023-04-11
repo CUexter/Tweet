@@ -9,7 +9,7 @@ const Like = () => {
   const likeQuery = api.like.checkLike.useQuery(
     {
       user_id: "123", //hardcode for now
-      tweet_id: "1234",
+      tweet_id: "1234", //hardcode for now
     },
     {
       onSuccess: () => {
@@ -17,7 +17,7 @@ const Like = () => {
       },
     }
   );
-  const text = likeQuery.data ? "True" : "False";
+  // const text = likeQuery.data ? "True" : "False";
 
   console.log(likeQuery.data);
 
@@ -37,7 +37,7 @@ const Like = () => {
       likeMutation
         .mutateAsync({
           user_id: "123", //hardcode for now
-          tweet_id: "1234",
+          tweet_id: "1234", //hardcode for now
         })
         .then(() => {
           void likeQuery.refetch();
@@ -53,9 +53,6 @@ const Like = () => {
       {!isLoading && (
         <div onClick={handleClick}>
           {likeQuery.data ? <IconHeartFilled /> : <IconHeart />}
-          <button>{likeQuery.data ? "Liked" : "Like"}</button>
-          <h1>{text}</h1>
-          <h1></h1>
         </div>
       )}
     </>

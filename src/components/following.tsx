@@ -16,7 +16,7 @@ const Following = () => {
       },
     }
   );
-  const text = followingQuery.data ? "True" : "False";
+  //  const text = followingQuery.data ? "True" : "False";
 
   console.log(followingQuery.data);
 
@@ -51,9 +51,7 @@ const Following = () => {
     <>
       {!isLoading && (
         <div onClick={handleClick}>
-          <button>{followingQuery.data ? "Followed" : "Follow"}</button>
-          <h1>{text}</h1>
-          <h1></h1>
+          <button>{followingQuery.data ? "Following" : "Follow"}</button>
         </div>
       )}
     </>
