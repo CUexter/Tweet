@@ -1,13 +1,12 @@
 import {
   ActionIcon,
-  Autocomplete,
   Button,
   Group,
   Header,
   createStyles,
   rem,
 } from "@mantine/core";
-import { IconHome, IconSearch } from "@tabler/icons-react";
+import { IconHome } from "@tabler/icons-react";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 
