@@ -1,3 +1,42 @@
+# [1.3.0](https://github.com/CUexter/Tweet/compare/v1.2.0...v1.3.0) (2023-04-11)
+
+
+### Features
+
+* display tweet and timeline with ISR ([8b33c14](https://github.com/CUexter/Tweet/commit/8b33c14aa4630f4d05f76121e36ff2eb7fc58be2))
+* simple tweet page with replies ([e4dbd39](https://github.com/CUexter/Tweet/commit/e4dbd391db2cce736d2ef8cda4aaa82236eea8cf))
+* timeline fixed with tweetID ([ba931b2](https://github.com/CUexter/Tweet/commit/ba931b2b7ada9bc7d2c561068ce399d2a0b3c8f2))
+
+# [1.2.0](https://github.com/CUexter/Tweet/compare/v1.1.0...v1.2.0) (2023-04-11)
+
+### Bug Fixes
+
+- **ci:** change files should look at subdir of src ([247d6bf](https://github.com/CUexter/Tweet/commit/247d6bfabbb75f7c32944aa35534e38c0bc56b6b))
+- **db:** can only retweet one single tweet in one tweet ([1495da8](https://github.com/CUexter/Tweet/commit/1495da85b9a5f58276622c2aef5c405793533574))
+- query key is automatically replaced already ([43ab897](https://github.com/CUexter/Tweet/commit/43ab897d2c9b9dd07ffde2b9163491d3b9a25ee7))
+- set node env for windows user when seeding ([2cbb2b7](https://github.com/CUexter/Tweet/commit/2cbb2b75d636dd4cae05b03fa18ac7076257082f))
+
+### Features
+
+- :sparkles: searching functionality for user in api ([9f51dd6](https://github.com/CUexter/Tweet/commit/9f51dd6747d853d95abf91ecbd652b04a0e94dda))
+- add user search component in header ([ee87d20](https://github.com/CUexter/Tweet/commit/ee87d2039780c708346fb0978bca3e59071b75ee))
+- add user search component in header ([f5e465c](https://github.com/CUexter/Tweet/commit/f5e465c151c06a9e5962eb21ba575fdab616b94c))
+
+# [1.1.0](https://github.com/CUexter/Tweet/compare/v1.0.0...v1.1.0) (2023-04-10)
+
+### Bug Fixes
+
+- schema naming issue (following) ([2e1f426](https://github.com/CUexter/Tweet/commit/2e1f4263f58f3276d972965becfc4d61dc8d46fd))
+
+### Features
+
+- adding seed script ([e7df9c9](https://github.com/CUexter/Tweet/commit/e7df9c9a76e599354adcd91bf97d79af3f5208f6))
+- darkmode implemenation ([81ee25e](https://github.com/CUexter/Tweet/commit/81ee25e1dbe2c27f9c6c78d570cd80ac6465c064))
+- db seeding with 2 post 2 hashtags and 2 users ([2aca039](https://github.com/CUexter/Tweet/commit/2aca039bc1cd1eeed188f5e49dcb281862c05f33))
+- header now use user info ([28e7645](https://github.com/CUexter/Tweet/commit/28e7645ebe870f87f2916eed469b88e2f299242f))
+- header-ui ([8cf5a42](https://github.com/CUexter/Tweet/commit/8cf5a42b4866ea1c3740401eddb38c5d1cb21cb4))
+- new header ([62e9a50](https://github.com/CUexter/Tweet/commit/62e9a507a686783cb9164835169ab6a73bd8e3b7))
+
 # 1.0.0 (2023-03-06)
 
 ### Bug Fixes

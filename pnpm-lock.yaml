@@ -112,6 +112,9 @@ dependencies:
   embla-carousel-react:
     specifier: ^7.1.0
     version: 7.1.0(react@18.2.0)
+  lodash:
+    specifier: ^4.17.21
+    version: 4.17.21
   next:
     specifier: 13.1.4
     version: 13.1.4(@babel/core@7.21.3)(react-dom@18.2.0)(react@18.2.0)
@@ -204,6 +207,9 @@ devDependencies:
   '@testing-library/react':
     specifier: ^13.4.0
     version: 13.4.0(react-dom@18.2.0)(react@18.2.0)
+  '@types/lodash':
+    specifier: ^4.14.192
+    version: 4.14.192
   '@types/micromatch':
     specifier: ^4.0.2
     version: 4.0.2
@@ -318,6 +324,9 @@ devDependencies:
   ts-node:
     specifier: ^10.9.1
     version: 10.9.1(@types/node@18.14.6)(typescript@4.9.4)
+  tsx:
+    specifier: ^3.12.6
+    version: 3.12.6
   typescript:
     specifier: 4.9.4
     version: 4.9.4
@@ -1981,6 +1990,27 @@ packages:
   /@emotion/weak-memoize@0.3.0:
     resolution: {integrity: sha512-AHPmaAx+RYfZz0eYu6Gviiagpmiyw98ySSlQvCUhVGDRtDFe4DBS0x1bSjdF3gqUDYOczB+yYvBTtEylYSdRhg==}
     dev: false
+
+  /@esbuild-kit/cjs-loader@2.4.2:
+    resolution: {integrity: sha512-BDXFbYOJzT/NBEtp71cvsrGPwGAMGRB/349rwKuoxNSiKjPraNNnlK6MIIabViCjqZugu6j+xeMDlEkWdHHJSg==}
+    dependencies:
+      '@esbuild-kit/core-utils': 3.1.0
+      get-tsconfig: 4.5.0
+    dev: true
+
+  /@esbuild-kit/core-utils@3.1.0:
+    resolution: {integrity: sha512-Uuk8RpCg/7fdHSceR1M6XbSZFSuMrxcePFuGgyvsBn+u339dk5OeL4jv2EojwTN2st/unJGsVm4qHWjWNmJ/tw==}
+    dependencies:
+      esbuild: 0.17.14
+      source-map-support: 0.5.21
+    dev: true
+
+  /@esbuild-kit/esm-loader@2.5.5:
+    resolution: {integrity: sha512-Qwfvj/qoPbClxCRNuac1Du01r9gvNOT+pMYtJDapfB1eoGN1YlJ1BixLyL9WVENRx5RXgNLdfYdx/CuswlGhMw==}
+    dependencies:
+      '@esbuild-kit/core-utils': 3.1.0
+      get-tsconfig: 4.5.0
+    dev: true
 
   /@esbuild/android-arm64@0.16.17:
     resolution: {integrity: sha512-MIGl6p5sc3RDTLLkYL1MyL8BMRN4tLMRCn+yRJJmEDvYZ2M7tmAf80hx1kbNEUX2KJ50RRtxZ4JHLvCfuB6kBg==}
@@ -7987,7 +8017,7 @@ packages:
       eslint: 8.32.0
       eslint-import-resolver-node: 0.3.7
       eslint-import-resolver-typescript: 3.5.3(eslint-plugin-import@2.27.5)(eslint@8.32.0)
-      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.57.0)(eslint-import-resolver-typescript@3.5.3)(eslint@8.32.0)
+      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.57.0)(eslint@8.32.0)
       eslint-plugin-jsx-a11y: 6.7.1(eslint@8.32.0)
       eslint-plugin-react: 7.32.2(eslint@8.32.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.32.0)
@@ -8026,7 +8056,7 @@ packages:
       debug: 4.3.4
       enhanced-resolve: 5.12.0
       eslint: 8.32.0
-      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.57.0)(eslint-import-resolver-typescript@3.5.3)(eslint@8.32.0)
+      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.57.0)(eslint@8.32.0)
       get-tsconfig: 4.5.0
       globby: 13.1.3
       is-core-module: 2.11.0
@@ -8036,7 +8066,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-module-utils@2.7.4(@typescript-eslint/parser@5.57.0)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.3)(eslint@8.32.0):
+  /eslint-module-utils@2.7.4(@typescript-eslint/parser@5.57.0)(eslint-import-resolver-node@0.3.7)(eslint@8.32.0):
     resolution: {integrity: sha512-j4GT+rqzCoRKHwURX7pddtIPGySnX9Si/cgMI5ztrcqOPtk5dDEeZ34CQVPphnqkJytlc97Vuk05Um2mJ3gEQA==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -8061,12 +8091,11 @@ packages:
       debug: 3.2.7
       eslint: 8.32.0
       eslint-import-resolver-node: 0.3.7
-      eslint-import-resolver-typescript: 3.5.3(eslint-plugin-import@2.27.5)(eslint@8.32.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /eslint-plugin-import@2.27.5(@typescript-eslint/parser@5.57.0)(eslint-import-resolver-typescript@3.5.3)(eslint@8.32.0):
+  /eslint-plugin-import@2.27.5(@typescript-eslint/parser@5.57.0)(eslint@8.32.0):
     resolution: {integrity: sha512-LmEt3GVofgiGuiE+ORpnvP+kAm3h6MLZJ4Q5HCyHADofsb4VzXFsRiWj3c0OFiV+3DWFh0qg3v9gcPlfc3zRow==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -8084,7 +8113,7 @@ packages:
       doctrine: 2.1.0
       eslint: 8.32.0
       eslint-import-resolver-node: 0.3.7
-      eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.57.0)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.3)(eslint@8.32.0)
+      eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.57.0)(eslint-import-resolver-node@0.3.7)(eslint@8.32.0)
       has: 1.0.3
       is-core-module: 2.11.0
       is-glob: 4.0.3
@@ -14082,6 +14111,17 @@ packages:
     dependencies:
       tslib: 1.14.1
       typescript: 4.9.4
+    dev: true
+
+  /tsx@3.12.6:
+    resolution: {integrity: sha512-q93WgS3lBdHlPgS0h1i+87Pt6n9K/qULIMNYZo07nSeu2z5QE2CellcAZfofVXBo2tQg9av2ZcRMQ2S2i5oadQ==}
+    hasBin: true
+    dependencies:
+      '@esbuild-kit/cjs-loader': 2.4.2
+      '@esbuild-kit/core-utils': 3.1.0
+      '@esbuild-kit/esm-loader': 2.5.5
+    optionalDependencies:
+      fsevents: 2.3.2
     dev: true
 
   /type-check@0.3.2:
