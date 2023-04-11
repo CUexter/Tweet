@@ -2,6 +2,7 @@ import AccountInfo from "@/components/userSetting/accountInfo";
 import DeleteAccount from "@/components/userSetting/deleteAccount";
 import PrivacySetting from "@/components/userSetting/privacySetting";
 import { createStyles } from "@mantine/core";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 const useStyles = createStyles((theme) => ({
@@ -10,6 +11,9 @@ const useStyles = createStyles((theme) => ({
 
 export default function a() {
   const [renderContent, setRenderContent] = useState("Setting");
+  const [session,setSession]=useState(useSession());
+  console.log(session);
+  
   const { classes } = useStyles();
   var content = (
     <>
@@ -54,21 +58,10 @@ export default function a() {
       break;
     }
   }
-
+  //if (session.data!=null)
   return (
-    <>
-      <table>
-        <tbody>
-          {renderContent == "Setting" ? (
-            <></>
-          ) : (
-            <tr onClick={() => setRenderContent("Setting")}>
-              <td>Back</td>
-            </tr>
-          )}
-          {content}
-        </tbody>
-      </table>
-    </>
-  );
+    <main>
+    HI
+  </main>)
+ // else return <div>INVALID SESSION</div>
 }
