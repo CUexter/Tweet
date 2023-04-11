@@ -1,6 +1,6 @@
 import type { Prisma } from "@prisma/client";
 
-import { Container, Grid } from "@mantine/core";
+import { Center, Container, Grid } from "@mantine/core";
 import Head from "next/head";
 
 import Timeline from "./Timeline";
@@ -19,11 +19,11 @@ const ListTweet = ({ title, filter }: ListTweetProp) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="justify-center">
-        <Container>
+        <Center>
           <Grid>
             <Timeline whereFilter={filter}></Timeline>
           </Grid>
-        </Container>
+        </Center>
       </main>
     </>
   );
