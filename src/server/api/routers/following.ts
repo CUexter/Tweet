@@ -6,14 +6,15 @@ export const FollowingRouter = createTRPCRouter({
   following: publicProcedure
     .input(
       z.object({
+        doing_following_ID: z.string(),
         being_followed_ID: z.string(),
       })
     )
     .mutation(async ({ input, ctx }) => {
       const result = await ctx.prisma.following.create({
         data: {
-          doing_following_ID: "123",
-          being_followed_ID: "456",
+          doing_following_ID: input.doing_following_ID,
+          being_followed_ID: input.being_followed_ID,
         },
       });
       return result;
@@ -48,5 +49,24 @@ export const FollowingRouter = createTRPCRouter({
         where: { id: id },
       });
       return result;
+    }),
+  displayfollowing: publicProcedure
+    .input(
+      z.object({
+        user_id: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const obj1 = await ctx.prisma.user.findMany({
+        where: {
+          being_followed: {
+            some: {
+              doing_following_ID: input.user_id, //find the followings followed by user
+            },
+          },
+        },
+      });
+
+      return obj1;
     }),
 });

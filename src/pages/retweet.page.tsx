@@ -1,4 +1,5 @@
 import { api } from "@/utils/api";
+import { IconBrandTwitter, IconBrandTwitterFilled } from "@tabler/icons-react";
 import { useState } from "react";
 
 const Retweet = () => {
@@ -50,6 +51,11 @@ const Retweet = () => {
     <>
       {!isLoading && (
         <div onClick={handleClick}>
+          {retweetQuery.data ? (
+            <IconBrandTwitterFilled />
+          ) : (
+            <IconBrandTwitter />
+          )}
           <button>{retweetQuery.data ? "Retweeted" : "Retweet"}</button>
           <h1>{text}</h1>
           <h1></h1>

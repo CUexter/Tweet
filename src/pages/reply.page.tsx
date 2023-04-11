@@ -12,7 +12,7 @@ const Reply = () => {
     replyMutation.mutateAsync({ tweet_text: value }).catch((e) => {
       console.log(e);
     });
-
+    setValue(""); //clear input text
     //send value to the database? stored the value as tweet text
   }
   return (
@@ -23,10 +23,13 @@ const Reply = () => {
         placeholder="Tweet Your Reply"
         radius="lg"
         size="md"
+        rightSection={
+          <Button onClick={handleClick} variant="light" radius="lg">
+            Reply
+          </Button>
+        }
+        rightSectionWidth={100}
       />
-      <Button onClick={handleClick} variant="light" radius="lg">
-        Reply
-      </Button>
     </div>
   );
 };

@@ -7,8 +7,8 @@ const Following = () => {
   const unFollowingMutation = api.following.unFollowing.useMutation();
   const followingQuery = api.following.checkFollowing.useQuery(
     {
-      doing_following_ID: "123",
-      being_followed_ID: "456",
+      doing_following_ID: "123", //get the current user ID
+      being_followed_ID: "456", //should pass this ID from the URL?
     },
     {
       onSuccess: () => {
@@ -35,7 +35,8 @@ const Following = () => {
     } else {
       followingMutation
         .mutateAsync({
-          being_followed_ID: "456",
+          doing_following_ID: "123", //get the current user ID
+          being_followed_ID: "456", //should pass this ID from the URL?
         })
         .then(() => {
           void followingQuery.refetch();
