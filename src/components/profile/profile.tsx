@@ -64,7 +64,7 @@ export default (input: { userID: string }) => {
         <Modal
         opened={opened}
         onClose={close}
-        title="Authentication"
+        title="Profile Update"
         overlayProps={{
           color: theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.blue[2],
           opacity: 0.55,
