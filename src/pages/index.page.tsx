@@ -2,7 +2,7 @@ import ListTweet from "@/components/ListTweet";
 
 const Home = () => {
   const filter = {
-    Retweeting_to: null,
+    original_tweet: null,
   };
   return <ListTweet title="Explore" filter={filter}></ListTweet>;
 };
