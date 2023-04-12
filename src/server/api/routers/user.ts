@@ -39,24 +39,6 @@ export const UserRouter = createTRPCRouter({
       return target;
     }),
 
-  deleteUser: protectedProcedure
-    .input(
-      z.object({
-        id: z.string(),
-      })
-    )
-    .mutation(({ ctx, input }) => {
-      const { id } = input;
-      console.log("Target: " + id);
-      if (id !== null) {
-        return ctx.prisma.user.delete({
-          where: {
-            id: id,
-          },
-        });
-      }
-    }),
-
   getMyInfo: protectedProcedure.query(({ ctx }) => {
     const user = ctx.user;
     _.omit(user, ["password"]);
@@ -132,6 +114,39 @@ export const UserRouter = createTRPCRouter({
   updatePassword: protectedProcedure.query(({ ctx }) => {
     return;
   }),
+
+  deleteRelatedTweet: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { id } = input;
+      return await ctx.prisma.tweet.deleteMany({
+        where: {
+          user_id: id,
+        },
+      });
+    }),
+
+  deleteUser: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      const { id } = input;
+      console.log("Target: " + id);
+      if (id !== null) {
+        return ctx.prisma.user.delete({
+          where: {
+            id: id,
+          },
+        });
+      }
+    }),
 
   getMyHeaderInfo: protectedProcedure.query(({ ctx }) => {
     const user = ctx.user;

@@ -33,11 +33,17 @@ const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
   const { classes, theme } = useStyles();
   const [userId, setUserId] = useState("");
   const deleteMutation = api.user.deleteUser.useMutation();
+  const deleteTweetMutation = api.user.deleteRelatedTweet.useMutation();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (window.confirm("Are you sure you want to delete?") && data != null) {
       console.log("Del target: " + data.id);
-      deleteMutation.mutateAsync({ id: data.id }).catch((e) => console.log(e));
+      await deleteTweetMutation
+        .mutateAsync({ id: data.id })
+        .catch((e) => console.log(e));
+      await deleteMutation
+        .mutateAsync({ id: data.id })
+        .catch((e) => console.log(e));
     }
   };
 
@@ -61,7 +67,12 @@ const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
         {data?.email} • {data?.tag_name}
       </Text>
 
-      <Button variant="default" fullWidth mt="md" onClick={handleClick}>
+      <Button
+        variant="default"
+        fullWidth
+        mt="md"
+        onClick={() => void handleClick()}
+      >
         Delete
       </Button>
     </Paper>
