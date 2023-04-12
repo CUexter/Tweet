@@ -36,7 +36,7 @@ const NewUserWelcome = () => {
 
   useEffect(() => {
     if (newUser || !session?.user) {
-      void router.push("/");
+      void router.replace("/");
     }
   }, [session, router, newUser]);
 
@@ -84,7 +84,7 @@ const NewUserWelcome = () => {
   const onSubmit = (values: typeof form.values) => {
     updateUser.mutate(values);
     if (updateUser.isSuccess) {
-      void router.push("/");
+      void router.replace("/");
     }
   };
 
