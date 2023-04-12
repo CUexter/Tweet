@@ -110,7 +110,7 @@ export default function accountInfoFunction() {
         value={accountInfo.password}
         readOnly={!modified}
       ></TextInput>
-      <Checkbox checked={accountInfo.verified} readOnly={true}></Checkbox>
+      <Checkbox checked={accountInfo.visible} readOnly={true}></Checkbox>
       {modified ? (
         <div onClick={update}>RESET</div>
       ) : (

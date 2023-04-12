@@ -4,7 +4,7 @@ class AccountInfo {
   tagName: string;
   password: string;
   email: string;
-  verified: boolean;
+  visible: boolean;
 
   constructor(
     id: string,
@@ -12,14 +12,14 @@ class AccountInfo {
     tagName: string,
     password: string,
     email: string,
-    verified: boolean
+    visible: boolean
   ) {
     this.id = id;
     this.name = name;
     this.tagName = tagName;
     this.password = password;
     this.email = email;
-    this.verified = verified;
+    this.visible = visible;
   }
 }
 export { AccountInfo };
