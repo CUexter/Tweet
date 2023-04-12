@@ -18,10 +18,10 @@ const TweetComposer = () => {
         value.length > 0 ? null : "Tweet cannot be empty",
     },
   });
-
+  const utils = api.useContext();
   const postTweet = api.tweet.createTweet.useMutation({
     onSuccess: () => {
-      router.reload();
+      void utils.tweet.getLotTweets.invalidate();
     },
   });
 
@@ -37,6 +37,12 @@ const TweetComposer = () => {
     };
     try {
       postTweet.mutate(send);
+      notifications.show({
+        message: "Tweet posted",
+        title: "Success",
+        color: "blue",
+      });
+      form.reset();
     } catch (error) {
       notifications.show({
         message: "Tweet must have text",
