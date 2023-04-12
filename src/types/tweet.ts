@@ -1,7 +1,6 @@
 import type {
   Like,
   Poll,
-  Retweet,
   Tweet,
   TweetAttachments,
   TweetText,
@@ -11,8 +10,8 @@ import type {
 type UserInfo = Pick<User, "display_name" | "tag_name" | "id" | "image">;
 type include = {
   TweetText: TweetText[];
-  Retweeting_to: Retweet | null;
-  Retweeted_by: Retweet[];
+  retweeted_by: User[];
+  replied_by: Tweet[];
   TweetAttachments: TweetAttachments[];
   Likes: Like[];
   Polls: Poll[];

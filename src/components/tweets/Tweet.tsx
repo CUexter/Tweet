@@ -46,15 +46,8 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
   }
 
   const likes = tweetData.Likes.length;
-  let retweets = 0;
-  let replies = 0;
-  for (const tweet of tweetData.Retweeted_by) {
-    if (tweet.on_profile) {
-      retweets++;
-    } else {
-      replies++;
-    }
-  }
+  const replies = tweetData.replied_by.length;
+  const retweets = tweetData.retweeted_by.length;
   return (
     <>
       <Head>
