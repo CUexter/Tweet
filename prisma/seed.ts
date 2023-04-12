@@ -130,51 +130,22 @@ async function main() {
           tweet_text: "hi bob",
         },
       },
+      original_id: "t2",
     },
     update: {},
   });
 
-  await prisma.retweet.upsert({
+  await prisma.user.update({
     where: {
-      id: "rp1",
+      id: "uid2",
     },
-    create: {
-      id: "rp1",
-      original_tweet_id: "t2",
-      on_profile: false,
-      retweet_id: "t3",
-    },
-    update: {},
-  });
-
-  //bob retweet to alice's tweet
-  await prisma.tweet.upsert({
-    where: { id: "t4" },
-    create: {
-      id: "t4",
-      user_id: "uid2",
-      is_public: true,
-      published_at: new Date(2023, 4, 10),
-      TweetText: {
-        create: {
-          tweet_text: "alice is interesting",
+    data: {
+      Retweet: {
+        connect: {
+          id: "t1",
         },
       },
     },
-    update: {},
-  });
-
-  await prisma.retweet.upsert({
-    where: {
-      id: "rt1",
-    },
-    create: {
-      id: "rt1",
-      original_tweet_id: "t1",
-      on_profile: true,
-      retweet_id: "t4",
-    },
-    update: {},
   });
 }
 
