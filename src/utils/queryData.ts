@@ -1,7 +1,7 @@
 export const TweetInfoIncludes = {
   TweetText: true,
-  Retweeting_to: true,
-  Retweeted_by: true,
+  replied_by: true,
+  retweeted_by: true,
   TweetAttachments: true,
   Likes: true,
   Polls: true,
