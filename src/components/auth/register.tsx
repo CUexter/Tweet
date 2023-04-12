@@ -2,6 +2,8 @@ import { api } from "@/utils/api";
 import { Box, Button, Checkbox, Group, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 const Register = () => {
@@ -26,6 +28,7 @@ const Register = () => {
     },
   });
   const register = api.auth.registerUser.useMutation();
+  const router = useRouter();
 
   const handleSubmit = (values: typeof form.values) => {
     const send = {
@@ -41,6 +44,7 @@ const Register = () => {
         message: "You are now registered",
         color: "blue",
       });
+      void signIn();
     } catch (error) {
       notifications.show({
         message: "User registration failed",
