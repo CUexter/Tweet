@@ -18,12 +18,14 @@ const TweetPage = () => {
 
   return (
     <>
-      {/* Main tweet */}
-      <Tweet tweetID={tid} />
-      {/* Tweets below are tweets that reply to the main tweet */}
-      {replies?.map((replyID) => (
-        <Tweet key={replyID} tweetID={replyID} />
-      ))}
+      <div className="mx-auto w-1/3 border h-screen">
+        {/* Main tweet */}
+        <Tweet tweetID={tid} />
+        {/* Tweets below are tweets that reply to the main tweet */}
+        {replies?.map((replyID) => (
+          <Tweet key={replyID} tweetID={replyID} />
+        ))}
+      </div>
     </>
   );
 };

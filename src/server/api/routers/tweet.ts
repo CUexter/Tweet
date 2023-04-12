@@ -1,3 +1,5 @@
+import type { Prisma } from "@prisma/client";
+
 import { TweetInfoIncludes } from "@/utils/queryData";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
@@ -22,6 +24,20 @@ export const TweetRouter = createTRPCRouter({
         throw new TRPCError({ code: "UNAUTHORIZED" });
       }
       return post;
+    }),
+
+  getLotTweets: publicProcedure
+    .input(z.object({ filter: z.unknown() }))
+    .query(async ({ ctx, input }) => {
+      const filter = input.filter as Prisma.TweetWhereInput;
+      const Ts = await ctx.prisma.tweet.findMany({
+        where: filter,
+        select: {
+          id: true,
+        },
+      });
+
+      return Ts;
     }),
 
   getPrivateTweet: protectedProcedure
