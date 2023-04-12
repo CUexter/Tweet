@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["filteredRelationCount"]
 }
 
 datasource db {
@@ -54,7 +55,7 @@ model User {
   name            String
   email           String?           @unique
   emailVerified   DateTime?
-  emailVisbility  Boolean           @default(false)
+  emailVisibility Boolean           @default(false)
   accounts        Account[]
   sessions        Session[]
   password        String?

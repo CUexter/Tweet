@@ -1,3 +1,71 @@
+# [1.7.0](https://github.com/CUexter/Tweet/compare/v1.6.0...v1.7.0) (2023-04-12)
+
+### Features
+
+- user profile ([#90](https://github.com/CUexter/Tweet/issues/90)) ([a298c76](https://github.com/CUexter/Tweet/commit/a298c76a8fb8a55cec8671e3bd0abba264d907c7))
+
+# [1.6.0](https://github.com/CUexter/Tweet/compare/v1.5.0...v1.6.0) (2023-04-12)
+
+### Features
+
+- user link now in tweet component ([#89](https://github.com/CUexter/Tweet/issues/89)) ([dddacfd](https://github.com/CUexter/Tweet/commit/dddacfd6d90ebe3899d9bc41ae544eb4a63012a1))
+
+# [1.5.0](https://github.com/CUexter/Tweet/compare/v1.4.0...v1.5.0) (2023-04-12)
+
+### Bug Fixes
+
+- type for tweetdata should include null ([f6dd7d1](https://github.com/CUexter/Tweet/commit/f6dd7d16597262ae36ae985e82553e6d9cb0e29c))
+- use router should be only done on client ([c1d78fe](https://github.com/CUexter/Tweet/commit/c1d78fe5ed479bb4e837043cc9a04fa8cfd43482))
+
+### Features
+
+- adding password login and authentication ([4031a0b](https://github.com/CUexter/Tweet/commit/4031a0be09e27ad58ff303e2add3cdb6b8a56afb))
+- following page filtering ([630db5f](https://github.com/CUexter/Tweet/commit/630db5fface25757bacc562e3c781ecf79c0a270))
+- make timeline work with filter ([8d929b8](https://github.com/CUexter/Tweet/commit/8d929b8dda0dfdacb3dc18fae1539d2d600ae33c))
+- making a following page ([f92c5f9](https://github.com/CUexter/Tweet/commit/f92c5f9a6618f8f60f345896a400819abdaf4af9))
+- moved index to reusable component ([7a33d5f](https://github.com/CUexter/Tweet/commit/7a33d5f9ed09646719c58b80d159d744bcffc874))
+- register will send u to login ([321a953](https://github.com/CUexter/Tweet/commit/321a9534dc98a879beb0ea934855e6882ab27836))
+- timeline should be centered ([f12aa58](https://github.com/CUexter/Tweet/commit/f12aa5881bbe91c8640677d2fca4fc5670146fa4))
+
+# [1.4.0](https://github.com/CUexter/Tweet/compare/v1.3.0...v1.4.0) (2023-04-11)
+
+### Features
+
+- add isr back ([696db73](https://github.com/CUexter/Tweet/commit/696db738c6bcf8de7d830fd9699d782eea8059c5))
+- admin button in header menu ([5ff4131](https://github.com/CUexter/Tweet/commit/5ff413176332a2c78d7bfd16933b556c66c7f313))
+- ask for new user info ([cd4fe05](https://github.com/CUexter/Tweet/commit/cd4fe05d864e25d532f6c4f173ef873422ce9bc4))
+
+# [1.3.0](https://github.com/CUexter/Tweet/compare/v1.2.0...v1.3.0) (2023-04-11)
+
+### Features
+
+=======
+
+# [1.3.0](https://github.com/CUexter/Tweet/compare/v1.2.0...v1.3.0) (2023-04-11)
+
+### Features
+
+> > > > > > > 31-feattweet-display-tweet
+
+- display tweet and timeline with ISR ([8b33c14](https://github.com/CUexter/Tweet/commit/8b33c14aa4630f4d05f76121e36ff2eb7fc58be2))
+- simple tweet page with replies ([e4dbd39](https://github.com/CUexter/Tweet/commit/e4dbd391db2cce736d2ef8cda4aaa82236eea8cf))
+- timeline fixed with tweetID ([ba931b2](https://github.com/CUexter/Tweet/commit/ba931b2b7ada9bc7d2c561068ce399d2a0b3c8f2))
+
+# [1.2.0](https://github.com/CUexter/Tweet/compare/v1.1.0...v1.2.0) (2023-04-11)
+
+### Bug Fixes
+
+- **ci:** change files should look at subdir of src ([247d6bf](https://github.com/CUexter/Tweet/commit/247d6bfabbb75f7c32944aa35534e38c0bc56b6b))
+- **db:** can only retweet one single tweet in one tweet ([1495da8](https://github.com/CUexter/Tweet/commit/1495da85b9a5f58276622c2aef5c405793533574))
+- query key is automatically replaced already ([43ab897](https://github.com/CUexter/Tweet/commit/43ab897d2c9b9dd07ffde2b9163491d3b9a25ee7))
+- set node env for windows user when seeding ([2cbb2b7](https://github.com/CUexter/Tweet/commit/2cbb2b75d636dd4cae05b03fa18ac7076257082f))
+
+### Features
+
+- :sparkles: searching functionality for user in api ([9f51dd6](https://github.com/CUexter/Tweet/commit/9f51dd6747d853d95abf91ecbd652b04a0e94dda))
+- add user search component in header ([ee87d20](https://github.com/CUexter/Tweet/commit/ee87d2039780c708346fb0978bca3e59071b75ee))
+- add user search component in header ([f5e465c](https://github.com/CUexter/Tweet/commit/f5e465c151c06a9e5962eb21ba575fdab616b94c))
+
 # [1.1.0](https://github.com/CUexter/Tweet/compare/v1.0.0...v1.1.0) (2023-04-10)
 
 ### Bug Fixes

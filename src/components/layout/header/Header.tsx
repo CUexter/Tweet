@@ -1,17 +1,18 @@
+import SignUpButton from "@/components/auth/SignUpButton";
 import {
   ActionIcon,
-  Autocomplete,
   Button,
   Group,
   Header,
   createStyles,
   rem,
 } from "@mantine/core";
-import { IconHome, IconSearch } from "@tabler/icons-react";
+import { IconHome } from "@tabler/icons-react";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 
 import AccountHeaderMenu from "./AccountHeaderMenu";
+import SearchUser from "./SearchUser";
 import ToggleDarkMode from "./ToggleDarkModeButton";
 
 const useStyles = createStyles((theme) => ({
@@ -45,27 +46,17 @@ const HeaderSearch = () => {
           <ActionIcon component={Link} href="/">
             <IconHome />
           </ActionIcon>
-          <Autocomplete
-            className={classes.search}
-            placeholder="Search"
-            icon={<IconSearch size="1rem" stroke={1.5} />}
-            data={[
-              "React",
-              "Angular",
-              "Vue",
-              "Next.js",
-              "Riot.js",
-              "Svelte",
-              "Blitz.js",
-            ]}
-          />
+          <SearchUser />
         </Group>
         <Group>
           <ToggleDarkMode />
           {sessionData === null ? (
-            <Button onClick={() => void signIn()} variant="subtle">
-              Sign in
-            </Button>
+            <Button.Group>
+              <Button compact onClick={() => void signIn()}>
+                Sign in
+              </Button>
+              <SignUpButton />
+            </Button.Group>
           ) : (
             <AccountHeaderMenu />
           )}

@@ -14,6 +14,7 @@ import Layout from "@/components/layout/Layout";
 import { api } from "@/utils/api";
 import { ColorSchemeProvider, MantineProvider } from "@mantine/core";
 import { useColorScheme } from "@mantine/hooks";
+import { Notifications } from "@mantine/notifications";
 
 interface OwnProps extends Record<string, unknown> {
   session: Session | null;
@@ -48,6 +49,7 @@ const MyApp = ({
         withNormalizeCSS
         theme={{ colorScheme }}
       >
+        <Notifications />
         <SessionProvider session={session}>
           <Layout>
             <Component {...pageProps} />

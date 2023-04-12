@@ -1,12 +1,13 @@
 import { api } from "@/utils/api";
-import { Avatar, Button, Menu } from "@mantine/core";
+import { Avatar, Menu } from "@mantine/core";
 import {
-  IconHomeSignal,
   IconLogout,
   IconMessageCircle,
   IconSettings,
+  IconUserCircle,
+  IconUserShield,
 } from "@tabler/icons-react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
 const AccountHeaderMenu = () => {
@@ -44,13 +45,25 @@ const AccountHeaderMenu = () => {
           Messages
         </Menu.Item>
         <Menu.Item
-          icon={<IconHomeSignal size={14} />}
+          icon={<IconUserCircle size={14} />}
           component={Link}
           href={"/profile/" + id!}
         >
           Profile
         </Menu.Item>
-
+        {userInfo?.is_admin && (
+          <>
+            <Menu.Divider />
+            <Menu.Label>Admin</Menu.Label>
+            <Menu.Item
+              icon={<IconUserShield size={14} />}
+              component={Link}
+              href="/admin"
+            >
+              Admin
+            </Menu.Item>
+          </>
+        )}
         <Menu.Divider />
 
         <Menu.Item
@@ -63,10 +76,7 @@ const AccountHeaderMenu = () => {
       </Menu.Dropdown>
     </Menu>
   );
-  const SignIn = (
-    <Button variant="subtle" onClick={() => void signIn()}></Button>
-  );
-  return sessionData === null ? SignIn : menu;
+  return menu;
 };
 
 export default AccountHeaderMenu;
