@@ -1,11 +1,12 @@
 import { prisma } from "@/server/db";
 import { getSession } from "next-auth/react";
 import { z } from "zod";
+
 import { AccountInfo } from "../../../components/userSetting/accountInfoFolder/AccountInfoClass";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 async function getVisible() {
-  const session=await getSession()
+  const session = await getSession();
   if (!session) return false;
   const user = await prisma.user.findUnique({
     where: {
@@ -18,7 +19,7 @@ async function getVisible() {
 
 async function setVisible(visibleInput: boolean) {
   console.log("updated as: " + visibleInput);
-  const session=await getSession()
+  const session = await getSession();
   if (!session) return;
   const user = await prisma.user.update({
     where: {
@@ -42,10 +43,11 @@ async function createAc() {
 }
 
 async function getAccountInfo() {
-  const session=await getSession()
-  if (!session) return {
-    accountInfo: new AccountInfo("", "", "", "", "", false),
-  }
+  const session = await getSession();
+  if (!session)
+    return {
+      accountInfo: new AccountInfo("", "", "", "", "", false),
+    };
   const user = await prisma.user.findUnique({
     where: {
       id: session.user.id,
@@ -75,30 +77,30 @@ async function getAccountInfo() {
 
 //id:string,name:string,tagName:string,email:string,password:string
 async function setAccountInfo(input: {
-    id: string;
-    name: string;
-    email: string;
-    password: string;
-    tagName: string;
-}){
-  const session=await getSession()
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  tagName: string;
+}) {
+  const session = await getSession();
   if (!session) return;
   const user = await prisma.user.update({
     where: {
       id: session.user.id,
     },
     data: {
-      name:input.name,
-      email:input.email,
-      password:input.password,
-      tag_name:input.tagName,
+      name: input.name,
+      email: input.email,
+      password: input.password,
+      tag_name: input.tagName,
     },
   });
-return "hi";
+  return "hi";
 }
 
-async function deleteAc(){
-  const session=await getSession()
+async function deleteAc() {
+  const session = await getSession();
   if (!session) return;
   return;
 }
@@ -113,14 +115,17 @@ export const userSettingHandler = createTRPCRouter({
   createAc: publicProcedure.mutation(createAc),
   deleteAc: publicProcedure.mutation(deleteAc),
   getAccountInfo: publicProcedure.mutation(getAccountInfo),
-  setAccountInfo:publicProcedure
-  .input(
+  setAccountInfo: publicProcedure
+    .input(
       z.object({
-      id: z.string(),
-      name: z.string(),
-      tagName: z.string(),
-      email: z.string(),
-      password: z.string(),
-  }))
-  .mutation(({input})=>{setAccountInfo(input);}),
+        id: z.string(),
+        name: z.string(),
+        tagName: z.string(),
+        email: z.string(),
+        password: z.string(),
+      })
+    )
+    .mutation(({ input }) => {
+      setAccountInfo(input);
+    }),
 });

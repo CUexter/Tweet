@@ -1,12 +1,13 @@
 import { prisma } from "@/server/db";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const ProfileRouter = createTRPCRouter({
   getProfile: publicProcedure
     .input(z.object({ id: z.string() }))
-    .mutation(async ({input }) => {
+    .mutation(async ({ input }) => {
       const profile = await prisma.user.findUnique({
         where: {
           id: input.id,
