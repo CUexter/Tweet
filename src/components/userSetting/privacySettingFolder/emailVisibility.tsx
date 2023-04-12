@@ -40,7 +40,6 @@ export default function emailVisibilityFunction() {
   return (
     <div>
       <Switch checked={visibleState} readOnly onClick={setVisible} />
-      <div onClick={createAc}>CreateAC</div>
     </div>
   );
 }
