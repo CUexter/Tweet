@@ -4,10 +4,10 @@ import PrivacySetting from "@/components/userSetting/privacySetting";
 import { createStyles } from "@mantine/core";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-
+//const theme = useMantineTheme();
 const useStyles = createStyles((theme) => ({
   a: { width: "100%", height: 50, borderBottomWidth: 3, borderTopWidth: 3 },
-  mainBlock: { width: "35%", backgroundColor: theme.colors.blue[0] },
+  mainBlock: { width: "35%", backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.blue[2]},
   tbodyStyle: { width: "100%" },
   card: { transition: "0.3" },
   mainPage: { width: "100%", height: "100%" },

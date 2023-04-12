@@ -28,5 +28,28 @@ export const ProfileRouter = createTRPCRouter({
       const tweet=profile.Tweet.length
       return new ProfileInfo(profile.image,profile.profile_picture,profile.profile_desc,profile.tag_name,profile.display_name,follow,beingFollow,tweet);
     }),
+    getEmail: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input }) => {
+      const profile = await prisma.user.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+    if ((profile==null)||(!profile.emailVisbility)) return null;
+    else return profile.email;
+    }),
+    setProfile: publicProcedure
+    .input(z.object({
+      displayName: z.string(),
+      image: z.string(),
+      tagName: z.string(),
+      profileDesc: z.string(),
+      profilePicture: z.string(),
+    }))
+    .mutation(async ({ input }) => {
+    
 
+      
+    }),
 });
