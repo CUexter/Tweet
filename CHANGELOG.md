@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/CUexter/Tweet/compare/v1.7.0...v1.8.0) (2023-04-12)
+
+
+### Features
+
+* user settings page ([#91](https://github.com/CUexter/Tweet/issues/91)) ([b7501e6](https://github.com/CUexter/Tweet/commit/b7501e683545e596f7189986e54217f913b68a7f)), closes [#89](https://github.com/CUexter/Tweet/issues/89)
+
 # [1.7.0](https://github.com/CUexter/Tweet/compare/v1.6.0...v1.7.0) (2023-04-12)
 
 ### Features
