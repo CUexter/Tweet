@@ -90,6 +90,92 @@ async function main() {
     },
     update: {},
   });
+
+  // bob likes alice's tweet
+  await prisma.like.upsert({
+    where: {
+      id: "l1",
+    },
+    create: {
+      id: "l1",
+      user_id: "uid2",
+      tweet_id: "t1",
+    },
+    update: {},
+  });
+
+  // alice follows bob
+  await prisma.following.upsert({
+    where: {
+      id: "f1",
+    },
+    create: {
+      id: "f1",
+      doing_following_ID: "uid1",
+      being_followed_ID: "uid2",
+    },
+    update: {},
+  });
+
+  //alice reply to bob's tweet
+  await prisma.tweet.upsert({
+    where: { id: "t3" },
+    create: {
+      id: "t3",
+      user_id: "uid1",
+      is_public: true,
+      published_at: new Date(2023, 4, 10),
+      TweetText: {
+        create: {
+          tweet_text: "hi bob",
+        },
+      },
+    },
+    update: {},
+  });
+
+  await prisma.retweet.upsert({
+    where: {
+      id: "rp1",
+    },
+    create: {
+      id: "rp1",
+      original_tweet_id: "t2",
+      on_profile: false,
+      retweet_id: "t3",
+    },
+    update: {},
+  });
+
+  //bob retweet to alice's tweet
+  await prisma.tweet.upsert({
+    where: { id: "t4" },
+    create: {
+      id: "t4",
+      user_id: "uid2",
+      is_public: true,
+      published_at: new Date(2023, 4, 10),
+      TweetText: {
+        create: {
+          tweet_text: "alice is interesting",
+        },
+      },
+    },
+    update: {},
+  });
+
+  await prisma.retweet.upsert({
+    where: {
+      id: "rp1",
+    },
+    create: {
+      id: "rp1",
+      original_tweet_id: "t1",
+      on_profile: true,
+      retweet_id: "t4",
+    },
+    update: {},
+  });
 }
 
 main()
