@@ -1,5 +1,4 @@
 import {
-  ActionIcon,
   Anchor,
   Avatar,
   Group,
@@ -8,7 +7,6 @@ import {
   Text,
   useMantineTheme,
 } from "@mantine/core";
-import { IconPencil } from "@tabler/icons-react";
 
 interface UsersTableProps {
   data:
@@ -47,12 +45,7 @@ const UserTable = ({ data }: UsersTableProps) => {
           </Text>
         </td>
         <td>
-          <Group spacing={0} position="right">
-            {/* Implement action here*/}
-            <ActionIcon>
-              <IconPencil size="1rem" stroke={1.5} />
-            </ActionIcon>
-          </Group>
+          <Group spacing={0} position="right"></Group>
         </td>
       </tr>
     ));

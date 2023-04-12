@@ -53,6 +53,12 @@ const UpdateUser = ({ data, isOpen }: UsersProps) => {
         break;
     }
   };
+
+  // Handle data updates
+  const handleSubmit = () => {
+    // Check each state to see if it requires updating
+  };
+
   const rows = (
     <>
       <tr>
@@ -184,7 +190,12 @@ const UpdateUser = ({ data, isOpen }: UsersProps) => {
         >
           Update Password
         </Button>
-        <Button variant="default" fullWidth mt="md">
+        <Button
+          variant="default"
+          fullWidth
+          mt="md"
+          onClick={() => handleSubmit()}
+        >
           Save changes
         </Button>
       </Paper>
@@ -206,10 +217,10 @@ const UpdateUser = ({ data, isOpen }: UsersProps) => {
       >
         <UpdateField
           label={fieldLabel}
-          setNewName={() => setNewName}
-          setNewTagName={() => setNewTagName}
-          setNewEmail={() => setNewEmail}
-          setIsInput={() => setIsInput}
+          setNewName={setNewName}
+          setNewTagName={setNewTagName}
+          setNewEmail={setNewEmail}
+          setIsInput={setIsInput}
         />
       </Modal>
     </>

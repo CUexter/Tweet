@@ -16,10 +16,10 @@ const useStyles = createStyles((theme) => ({
 
 interface fieldProps {
   label: string;
-  setNewName: (a: string) => void;
-  setNewTagName: (a: string) => void;
-  setNewEmail: (a: string) => void;
-  setIsInput: (a: boolean) => void;
+  setNewName: React.Dispatch<React.SetStateAction<any>>;
+  setNewTagName: React.Dispatch<React.SetStateAction<any>>;
+  setNewEmail: React.Dispatch<React.SetStateAction<any>>;
+  setIsInput: React.Dispatch<React.SetStateAction<any>>;
 }
 
 const UpdateField = ({
