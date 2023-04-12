@@ -13,8 +13,8 @@ const TweetPage = () => {
 
   if (!mainTweet) return <>It not here</>;
 
-  const { Retweeted_by: retweets } = mainTweet;
-  const replies = retweets?.map((retweet) => retweet.retweet_id);
+  const { replied_by: replies } = mainTweet;
+  const replies_id = replies.map((reply) => reply.id);
 
   return (
     <>
@@ -22,8 +22,8 @@ const TweetPage = () => {
         {/* Main tweet */}
         <Tweet tweetID={tid} />
         {/* Tweets below are tweets that reply to the main tweet */}
-        {replies?.map((replyID) => (
-          <Tweet key={replyID} tweetID={replyID} />
+        {replies_id.map((id) => (
+          <Tweet key={id} tweetID={id} />
         ))}
       </div>
     </>
