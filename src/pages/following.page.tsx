@@ -8,7 +8,7 @@ const Following = () => {
   const { data: session } = useSession();
   useEffect(() => {
     if (!session?.user) {
-      void router.push("/");
+      void router.replace("/");
     }
   }, [session, router]);
   const following = ["uid1"];

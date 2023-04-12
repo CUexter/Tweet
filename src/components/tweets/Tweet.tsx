@@ -16,6 +16,7 @@ import {
   IconHeart,
 } from "@tabler/icons-react";
 import Head from "next/head";
+import Link from "next/link";
 
 const useStyles = createStyles((theme) => ({
   body: {
@@ -60,15 +61,17 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
       </Head>
       <div className="mx-auto">
         <Card withBorder>
-          <Group>
-            <Avatar src={tweetData.user.image} color={"yellow"} radius="xl" />
-            <div>
-              <Text size="sm">{tweetData.user.display_name}</Text>
-              <Text size="xs" color="dimmed">
-                {tweetData.created_at.toString()}
-              </Text>
-            </div>
-          </Group>
+          <Link href={`/profile/${tweetData.user.id}`}>
+            <Group>
+              <Avatar src={tweetData.user.image} color={"yellow"} radius="xl" />
+              <div>
+                <Text size="sm">{tweetData.user.display_name}</Text>
+                <Text size="xs" color="dimmed">
+                  {tweetData.created_at.toString()}
+                </Text>
+              </div>
+            </Group>
+          </Link>
           <Text className={classes.body} size="sm">
             {tweetData.TweetText[0]?.tweet_text}
           </Text>
