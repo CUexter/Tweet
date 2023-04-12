@@ -5,7 +5,7 @@ import UserSetting from "./Setting/userSetting";
 const Home: NextPage = () => {
   return (
     <>
-        <UserSetting />
+      <UserSetting />
     </>
   );
 };
