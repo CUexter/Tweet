@@ -1,6 +1,6 @@
 import { api } from "@/utils/api";
 import { Avatar, Button, Paper, Text, createStyles, rem } from "@mantine/core";
-import { useState } from "react";
+import { notifications } from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -19,7 +19,7 @@ interface UserCardImageProps {
   data:
     | {
         id: string;
-        name: string | null;
+        display_name: string | null;
         email: string | null;
         tag_name: string | null;
         profile_picture: string | null;
@@ -30,8 +30,6 @@ interface UserCardImageProps {
 }
 
 const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
-  const { classes, theme } = useStyles();
-  const [userId, setUserId] = useState("");
   const deleteMutation = api.user.deleteUser.useMutation();
   const deleteTweetMutation = api.user.deleteRelatedTweet.useMutation();
 
@@ -44,6 +42,11 @@ const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
       await deleteMutation
         .mutateAsync({ id: data.id })
         .catch((e) => console.log(e));
+      notifications.show({
+        title: "Success",
+        message: "This use has been deleted successfully.",
+        color: "blue",
+      });
     }
   };
 
@@ -61,7 +64,7 @@ const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
     >
       <Avatar src={data?.profile_picture} size={120} radius={120} mx="auto" />
       <Text ta="center" fz="lg" weight={500} mt="md">
-        {data?.name}
+        {data?.display_name}
       </Text>
       <Text ta="center" c="dimmed" fz="sm">
         {data?.email} • {data?.tag_name}

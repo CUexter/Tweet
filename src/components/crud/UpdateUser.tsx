@@ -10,6 +10,7 @@ import {
   Table,
   Text,
 } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import { IconPencil } from "@tabler/icons-react";
 import { useState } from "react";
 
@@ -20,7 +21,7 @@ interface UsersProps {
   data:
     | {
         id: string;
-        name: string | null;
+        display_name: string | null;
         email: string | null;
         tag_name: string | null;
         profile_picture: string | null;
@@ -59,27 +60,112 @@ const UpdateUser = ({ data, isOpen }: UsersProps) => {
     }
   };
 
+  const { data: targetTag } = api.user.findUser.useQuery(
+    { tag_name: newTagName },
+    {
+      enabled: newTagName != "",
+    }
+  );
+
+  const { data: targetEmail } = api.user.findEmail.useQuery(
+    {
+      email: newEmail,
+    },
+    {
+      enabled: newEmail != "",
+    }
+  );
+
   // Handle data updates
   const handleSubmit = async () => {
     // Check each state to see if it requires updating
     // Have to check for unique fields first
-    if (data != null || data != undefined) {
+    if (
+      window.confirm("Are you sure to submit?") &&
+      (data != null || data != undefined)
+    ) {
       if (newName != "") {
-        await updateNameMutation.mutateAsync({
-          id: data.id,
-          name: newName,
-        });
+        if (newName == data.display_name) {
+          notifications.show({
+            title: "Failed",
+            message: "You can't use the original name. Please choose another.",
+            color: "red",
+          });
+        } else {
+          notifications.show({
+            title: "Success",
+            message: "The name has been updated.",
+            color: "blue",
+          });
+          await updateNameMutation.mutateAsync({
+            id: data.id,
+            name: newName,
+          });
+          window.location.reload();
+        }
       }
       if (newTagName != "") {
-        await updateTagNameMutation.mutateAsync({
-          id: data.id,
-          tag_name: newTagName,
-        });
+        // Check if the new tag name already exists
+        if (targetTag == null) {
+          notifications.show({
+            title: "Success",
+            message: "The tag name has been updated.",
+            color: "blue",
+          });
+          window.location.reload();
+          await updateTagNameMutation.mutateAsync({
+            id: data.id,
+            tag_name: newTagName,
+          });
+        } else if (newTagName == data.tag_name) {
+          notifications.show({
+            title: "Failed",
+            message:
+              "You can't use the original tag name. Please choose another.",
+            color: "red",
+          });
+        } else {
+          notifications.show({
+            title: "Failed",
+            message:
+              "The selected tag name is already in use. Please choose another.",
+            color: "red",
+          });
+        }
       }
       if (newEmail != "") {
-        await updateEmailMutation.mutateAsync({
-          id: data.id,
-          email: newEmail,
+        // Check if the new email already exists
+        if (targetEmail == null) {
+          notifications.show({
+            title: "Success",
+            message: "The email has been updated.",
+            color: "blue",
+          });
+          await updateEmailMutation.mutateAsync({
+            id: data.id,
+            email: newEmail,
+          });
+          window.location.reload();
+        } else if (newEmail == data.email) {
+          notifications.show({
+            title: "Failed",
+            message: "You can't use the original email. Please choose another.",
+            color: "red",
+          });
+        } else {
+          notifications.show({
+            title: "Failed",
+            message:
+              "The selected email is already in use. Please choose another.",
+            color: "red",
+          });
+        }
+      }
+      if (newName == "" && newTagName == "" && newEmail == "") {
+        notifications.show({
+          title: "Failed",
+          message: "No input is received.",
+          color: "red",
         });
       }
     }
@@ -98,7 +184,7 @@ const UpdateUser = ({ data, isOpen }: UsersProps) => {
 
         <td>
           <Text size="sm" color="blue">
-            {data?.name}
+            {data?.display_name}
           </Text>
         </td>
         <td>
