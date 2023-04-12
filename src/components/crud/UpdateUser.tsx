@@ -1,3 +1,4 @@
+import { api } from "@/utils/api";
 import {
   ActionIcon,
   Avatar,
@@ -35,6 +36,10 @@ const UpdateUser = ({ data, isOpen }: UsersProps) => {
   const [newName, setNewName] = useState("");
   const [newTagName, setNewTagName] = useState("");
   const [newEmail, setNewEmail] = useState("");
+  const updateNameMutation = api.user.updateName.useMutation();
+  const updateTagNameMutation = api.user.updateTagName.useMutation();
+  const updateEmailMutation = api.user.updateEmail.useMutation();
+  //const updatePasswordMutation = api.user.updatePassword.useMutation();
 
   // handler for setting the correct label for the modal
   const handleOp = (op: string) => {
@@ -57,6 +62,24 @@ const UpdateUser = ({ data, isOpen }: UsersProps) => {
   // Handle data updates
   const handleSubmit = () => {
     // Check each state to see if it requires updating
+    // Have to check for unique fields first
+    if (data != null || data != undefined) {
+      if (newName != "") {
+        updateNameMutation
+          .mutateAsync({ id: data.id, name: newName })
+          .catch((e) => console.log(e));
+      }
+      if (newTagName != "") {
+        updateTagNameMutation
+          .mutateAsync({ id: data.id, tag_name: newTagName })
+          .catch((e) => console.log(e));
+      }
+      if (newEmail != "") {
+        updateEmailMutation
+          .mutateAsync({ id: data.id, email: newEmail })
+          .catch((e) => console.log(e));
+      }
+    }
   };
 
   const rows = (
@@ -71,7 +94,7 @@ const UpdateUser = ({ data, isOpen }: UsersProps) => {
         </td>
 
         <td>
-          <Text component="button" size="sm" color="blue">
+          <Text size="sm" color="blue">
             {data?.name}
           </Text>
         </td>

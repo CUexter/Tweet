@@ -63,15 +63,72 @@ export const UserRouter = createTRPCRouter({
     return user;
   }),
 
-  updateName: protectedProcedure.query(({ ctx }) => {
-    return;
-  }),
-  updateTagName: protectedProcedure.query(({ ctx }) => {
-    return;
-  }),
-  updateEmail: protectedProcedure.query(({ ctx }) => {
-    return;
-  }),
+  updateName: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      const { id, name } = input;
+      console.log("New Name:" + id);
+      if (id !== null) {
+        return ctx.prisma.user.update({
+          where: {
+            id: id,
+          },
+          data: {
+            name: name,
+          },
+        });
+      }
+    }),
+
+  updateTagName: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        tag_name: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      const { id, tag_name } = input;
+      console.log("New Name:" + id);
+      if (id !== null) {
+        return ctx.prisma.user.update({
+          where: {
+            id: id,
+          },
+          data: {
+            tag_name: tag_name,
+          },
+        });
+      }
+    }),
+
+  updateEmail: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        email: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      const { id, email } = input;
+      console.log("New Name:" + id);
+      if (id !== null) {
+        return ctx.prisma.user.update({
+          where: {
+            id: id,
+          },
+          data: {
+            email: email,
+          },
+        });
+      }
+    }),
+
   updatePassword: protectedProcedure.query(({ ctx }) => {
     return;
   }),
