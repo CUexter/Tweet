@@ -20,7 +20,7 @@ interface UsersTableProps {
     | undefined;
 }
 
-const UserTable = ({ data }: UsersTableProps) => {
+const UserListTable = ({ data }: UsersTableProps) => {
   const theme = useMantineTheme();
   if (data) {
     const rows = data.map((item) => (
@@ -69,4 +69,4 @@ const UserTable = ({ data }: UsersTableProps) => {
   }
 };
 
-export default UserTable;
+export default UserListTable;

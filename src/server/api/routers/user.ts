@@ -63,6 +63,19 @@ export const UserRouter = createTRPCRouter({
     return user;
   }),
 
+  updateName: protectedProcedure.query(({ ctx }) => {
+    return;
+  }),
+  updateTagName: protectedProcedure.query(({ ctx }) => {
+    return;
+  }),
+  updateEmail: protectedProcedure.query(({ ctx }) => {
+    return;
+  }),
+  updatePassword: protectedProcedure.query(({ ctx }) => {
+    return;
+  }),
+
   getMyHeaderInfo: protectedProcedure.query(({ ctx }) => {
     const user = ctx.user;
     _.pick(user, ["image", "name", "display_name"]);

@@ -19,7 +19,7 @@ interface AdminProps {
   op: string;
 }
 
-const AdminOperation = ({ op }: AdminProps) => {
+const SearchField = ({ op }: AdminProps) => {
   // You can add these classes as classNames to any Mantine input, it will work the same
   const { classes } = useStyles();
   const [tagName, setTagName] = useState("");
@@ -83,4 +83,4 @@ const AdminOperation = ({ op }: AdminProps) => {
   );
 };
 
-export default AdminOperation;
+export default SearchField;

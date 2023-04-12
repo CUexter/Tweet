@@ -1,6 +1,6 @@
 // https://ui.mantine.dev/component/actions-grid
-import AdminOperation from "@/components/AdminOperation";
-import UserTable from "@/components/UserTable";
+import SearchField from "@/components/crud/SearchField";
+import UserListTable from "@/components/crud/UserListTable";
 import adminCreate from "@/hooks/adminCreate";
 import adminDelete from "@/hooks/adminDelete";
 import adminList from "@/hooks/adminList";
@@ -156,7 +156,7 @@ const AdminDashboard: NextPage = () => {
           centered
         >
           {/* Modal content */}
-          <AdminOperation op={"update"} />
+          <SearchField op={"update"} />
         </Modal>
         <Modal
           opened={listWindow.isOpen}
@@ -166,17 +166,17 @@ const AdminDashboard: NextPage = () => {
           centered
         >
           {/* Modal content */}
-          <UserTable data={listData} />
+          <UserListTable data={listData} />
         </Modal>
         <Modal
           opened={deleteWindow.isOpen}
           onClose={() => deleteWindow.onClose()}
           title="Delete"
-          size="30%"
+          size="60%"
           centered
         >
           {/* Modal content */}
-          <AdminOperation op={"delete"} />
+          <SearchField op={"delete"} />
         </Modal>
       </>
     </>
