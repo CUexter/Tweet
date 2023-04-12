@@ -8,7 +8,7 @@ import {
   Text,
   useMantineTheme,
 } from "@mantine/core";
-import { IconPencil, IconTrash } from "@tabler/icons-react";
+import { IconPencil } from "@tabler/icons-react";
 
 interface UsersTableProps {
   data:
@@ -51,9 +51,6 @@ const UserTable = ({ data }: UsersTableProps) => {
             {/* Implement action here*/}
             <ActionIcon>
               <IconPencil size="1rem" stroke={1.5} />
-            </ActionIcon>
-            <ActionIcon color="red">
-              <IconTrash size="1rem" stroke={1.5} />
             </ActionIcon>
           </Group>
         </td>

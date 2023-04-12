@@ -1,5 +1,5 @@
 import { api } from "@/utils/api";
-import { Avatar, Button, Card, Text, createStyles, rem } from "@mantine/core";
+import { Avatar, Button, Paper, Text, createStyles, rem } from "@mantine/core";
 import { useState } from "react";
 
 const useStyles = createStyles((theme) => ({
@@ -44,37 +44,27 @@ const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
   if (isOpen == false) return null;
 
   return (
-    <Card withBorder padding="xl" radius="md" className={classes.card}>
-      <Card.Section />
-      <Avatar
-        src={data?.profile_picture}
-        size={80}
-        radius={80}
-        mx="auto"
-        mt={-30}
-        className={classes.avatar}
-      />
-      <Text ta="center" fz="lg" fw={500} mt="sm">
-        {data?.tag_name}
-      </Text>
-      <Text ta="center" fz="sm" c="dimmed">
+    <Paper
+      radius="md"
+      withBorder
+      p="lg"
+      sx={(theme) => ({
+        backgroundColor:
+          theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
+      })}
+    >
+      <Avatar src={data?.profile_picture} size={120} radius={120} mx="auto" />
+      <Text ta="center" fz="lg" weight={500} mt="md">
         {data?.name}
       </Text>
-      <Text ta="center" fz="sm" c="dimmed">
-        {data?.email}
+      <Text ta="center" c="dimmed" fz="sm">
+        {data?.email} • {data?.tag_name}
       </Text>
-      <Button
-        variant="outline"
-        fullWidth
-        radius="md"
-        mt="xl"
-        size="md"
-        color={theme.colorScheme === "dark" ? undefined : "dark"}
-        onClick={() => handleClick()}
-      >
+
+      <Button variant="default" fullWidth mt="md" onClick={handleClick}>
         Delete
       </Button>
-    </Card>
+    </Paper>
   );
 };
 

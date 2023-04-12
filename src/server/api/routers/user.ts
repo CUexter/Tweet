@@ -49,7 +49,7 @@ export const UserRouter = createTRPCRouter({
       const { id } = input;
       console.log("Target: " + id);
       if (id !== null) {
-        return ctx.prisma.user.delete({
+        return ctx.prisma.user.deleteMany({
           where: {
             id: id,
           },

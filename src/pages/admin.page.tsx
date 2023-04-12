@@ -152,7 +152,7 @@ const AdminDashboard: NextPage = () => {
           opened={updateWindow.isOpen}
           onClose={() => updateWindow.onClose()}
           title="Update"
-          size="30%"
+          size="80%"
           centered
         >
           {/* Modal content */}

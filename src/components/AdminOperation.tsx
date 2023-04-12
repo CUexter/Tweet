@@ -52,14 +52,16 @@ const AdminOperation = ({ op }: AdminProps) => {
 
   return (
     <>
-      <div>
-        <TextInput
-          placeholder="Input the target user's tag name"
-          classNames={classes}
-          onChange={(e) => setTagName(e.currentTarget.value)}
-          type="text"
-        />
-      </div>
+      <Center>
+        <div className={"w-1/2"}>
+          <TextInput
+            placeholder="Input the target user's tag name"
+            classNames={classes}
+            onChange={(e) => setTagName(e.currentTarget.value)}
+            type="text"
+          />
+        </div>
+      </Center>
       <div style={{ paddingTop: 10 }}>
         <Center>
           <Button
