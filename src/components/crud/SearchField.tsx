@@ -1,5 +1,6 @@
 import { api } from "@/utils/api";
 import { Button, Center, TextInput, createStyles } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import { useState } from "react";
 
 import DeleteUser from "./DeleteUser";
@@ -39,6 +40,12 @@ const SearchField = ({ op }: AdminProps) => {
       if (targetUser) {
         setOnUpdate(true);
       } else {
+        console.log("Pressed and show notifications");
+        notifications.show({
+          title: "Failed",
+          message: "The user has been deleted successfully",
+          color: "blue",
+        });
       }
     } else if (op == "delete") {
       console.log(tagName);
