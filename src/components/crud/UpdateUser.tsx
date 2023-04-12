@@ -60,24 +60,27 @@ const UpdateUser = ({ data, isOpen }: UsersProps) => {
   };
 
   // Handle data updates
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Check each state to see if it requires updating
     // Have to check for unique fields first
     if (data != null || data != undefined) {
       if (newName != "") {
-        updateNameMutation
-          .mutateAsync({ id: data.id, name: newName })
-          .catch((e) => console.log(e));
+        await updateNameMutation.mutateAsync({
+          id: data.id,
+          name: newName,
+        });
       }
       if (newTagName != "") {
-        updateTagNameMutation
-          .mutateAsync({ id: data.id, tag_name: newTagName })
-          .catch((e) => console.log(e));
+        await updateTagNameMutation.mutateAsync({
+          id: data.id,
+          tag_name: newTagName,
+        });
       }
       if (newEmail != "") {
-        updateEmailMutation
-          .mutateAsync({ id: data.id, email: newEmail })
-          .catch((e) => console.log(e));
+        await updateEmailMutation.mutateAsync({
+          id: data.id,
+          email: newEmail,
+        });
       }
     }
   };
@@ -217,7 +220,7 @@ const UpdateUser = ({ data, isOpen }: UsersProps) => {
           variant="default"
           fullWidth
           mt="md"
-          onClick={() => handleSubmit()}
+          onClick={() => void handleSubmit()}
         >
           Save changes
         </Button>

@@ -34,7 +34,7 @@ model Account {
   scope             String?
   id_token          String? // @db.Text
   session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -44,14 +44,14 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade )
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
   id              String            @id @default(cuid())
   created_at      DateTime          @default(now())
   updated_at      DateTime          @updatedAt
-  name            String?
+  name            String
   email           String?           @unique
   emailVerified   DateTime?
   emailVisbility  Boolean           @default(false)
@@ -65,7 +65,8 @@ model User {
   image           String?
   is_admin        Boolean           @default(false)
   last_login_time DateTime?
-  Tweet           Tweet[]
+  Tweet           Tweet[]           @relation("own's tweet")
+  Retweet         Tweet[]           @relation("retweets")
   following       Following[]       @relation("following")
   being_followed  Following[]       @relation("being_followed")
   Likes           Like[]
@@ -85,7 +86,7 @@ model Tweet {
   id               String             @id @default(cuid())
   created_at       DateTime           @default(now())
   updated_at       DateTime           @updatedAt
-  user             User               @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user             User               @relation("own's tweet", fields: [user_id], references: [id])
   user_id          String
   is_public        Boolean
   scheduled_at     DateTime?
@@ -93,8 +94,10 @@ model Tweet {
   TweetText        TweetText[]
   Tweets_hashtags  Tweets_hashtag[]
   Likes            Like[]
-  Retweeting_to    Retweet?          @relation("retweet_to")
-  Retweeted_by     Retweet[]          @relation("retweeted_by")
+  original_tweet   Tweet?             @relation("ReplyOriginal", fields: [original_id], references: [id])
+  original_id      String?
+  replied_by       Tweet[]            @relation("ReplyOriginal")
+  retweeted_by     User[]             @relation("retweets")
   Polls            Poll[]
   TweetAttachments TweetAttachments[]
 }
@@ -132,8 +135,8 @@ model Following {
   updated_at         DateTime @updatedAt
   doing_following_ID String
   being_followed_ID  String
-  being_followed     User     @relation("being_followed", fields: [being_followed_ID], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  doing_following    User     @relation("following", fields: [doing_following_ID], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  being_followed     User     @relation("being_followed", fields: [being_followed_ID], references: [id])
+  doing_following    User     @relation("following", fields: [doing_following_ID], references: [id])
 }
 
 model Like {
@@ -141,22 +144,9 @@ model Like {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   user_id    String
-  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user       User     @relation(fields: [user_id], references: [id])
   tweet      Tweet    @relation(fields: [tweet_id], references: [id])
   tweet_id   String
-}
-
-model Retweet {
-  id                String   @id @default(cuid())
-  created_at        DateTime @default(now())
-  updated_at        DateTime @updatedAt
-  original_tweet    Tweet    @relation("retweeted_by", fields: [original_tweet_id], references: [id])
-  original_tweet_id String
-  retweet           Tweet    @relation("retweet_to", fields: [retweet_id], references: [id])
-  retweet_id        String   @unique
-  on_profile        Boolean
-
-  @@unique([original_tweet_id, retweet_id])
 }
 
 model Poll {
@@ -200,7 +190,7 @@ model Conversations {
   created_at  DateTime        @default(now())
   updated_at  DateTime        @updatedAt
   sender_id   String
-  sender      User            @relation("sending", fields: [sender_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  sender      User            @relation("sending", fields: [sender_id], references: [id])
   chatroom_id String
   chatroom    Chatroom        @relation(fields: [chatroom_id], references: [id])
   content_id  String
@@ -221,7 +211,7 @@ model Chatroom_member {
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
   user_id     String
-  user        User     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user        User     @relation(fields: [user_id], references: [id])
   chatroom_id String
   chatroom    Chatroom @relation(fields: [chatroom_id], references: [id])
 }

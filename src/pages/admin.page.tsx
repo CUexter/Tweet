@@ -15,7 +15,6 @@ import { useDisclosure } from "@mantine/hooks";
 import {
   IconUserCircle,
   IconUserMinus,
-  IconUserPlus,
   IconUserSearch,
 } from "@tabler/icons-react";
 import { type NextPage } from "next";
@@ -91,11 +90,11 @@ const AdminDashboard: NextPage = () => {
   //   }
   // };
   const crudOperations = [
-    {
-      title: "Create User",
-      icon: IconUserPlus,
-      operation: () => openCreate(),
-    },
+    // {
+    //   title: "Create User",
+    //   icon: IconUserPlus,
+    //   operation: () => openCreate(),
+    // },
     {
       title: "Update User",
       icon: IconUserCircle,
@@ -141,7 +140,7 @@ const AdminDashboard: NextPage = () => {
             User Operations
           </Anchor> */}
           {/* </Group> */}
-          <SimpleGrid cols={2} mt="md" mb="xs">
+          <SimpleGrid cols={3} mt="md" mb="xs">
             {items}
           </SimpleGrid>
         </Card>

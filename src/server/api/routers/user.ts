@@ -39,7 +39,7 @@ export const UserRouter = createTRPCRouter({
       return target;
     }),
 
-  deleteUser: publicProcedure
+  deleteUser: protectedProcedure
     .input(
       z.object({
         id: z.string(),
@@ -49,7 +49,7 @@ export const UserRouter = createTRPCRouter({
       const { id } = input;
       console.log("Target: " + id);
       if (id !== null) {
-        return ctx.prisma.user.deleteMany({
+        return ctx.prisma.user.delete({
           where: {
             id: id,
           },
