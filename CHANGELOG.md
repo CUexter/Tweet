@@ -1,21 +1,19 @@
 # [1.5.0](https://github.com/CUexter/Tweet/compare/v1.4.0...v1.5.0) (2023-04-12)
 
-
 ### Bug Fixes
 
-* type for tweetdata should include null ([f6dd7d1](https://github.com/CUexter/Tweet/commit/f6dd7d16597262ae36ae985e82553e6d9cb0e29c))
-* use router should be only done on client ([c1d78fe](https://github.com/CUexter/Tweet/commit/c1d78fe5ed479bb4e837043cc9a04fa8cfd43482))
-
+- type for tweetdata should include null ([f6dd7d1](https://github.com/CUexter/Tweet/commit/f6dd7d16597262ae36ae985e82553e6d9cb0e29c))
+- use router should be only done on client ([c1d78fe](https://github.com/CUexter/Tweet/commit/c1d78fe5ed479bb4e837043cc9a04fa8cfd43482))
 
 ### Features
 
-* adding password login and authentication ([4031a0b](https://github.com/CUexter/Tweet/commit/4031a0be09e27ad58ff303e2add3cdb6b8a56afb))
-* following page filtering ([630db5f](https://github.com/CUexter/Tweet/commit/630db5fface25757bacc562e3c781ecf79c0a270))
-* make timeline work with filter ([8d929b8](https://github.com/CUexter/Tweet/commit/8d929b8dda0dfdacb3dc18fae1539d2d600ae33c))
-* making a following page ([f92c5f9](https://github.com/CUexter/Tweet/commit/f92c5f9a6618f8f60f345896a400819abdaf4af9))
-* moved index to reusable component ([7a33d5f](https://github.com/CUexter/Tweet/commit/7a33d5f9ed09646719c58b80d159d744bcffc874))
-* register will send u to login ([321a953](https://github.com/CUexter/Tweet/commit/321a9534dc98a879beb0ea934855e6882ab27836))
-* timeline should be centered ([f12aa58](https://github.com/CUexter/Tweet/commit/f12aa5881bbe91c8640677d2fca4fc5670146fa4))
+- adding password login and authentication ([4031a0b](https://github.com/CUexter/Tweet/commit/4031a0be09e27ad58ff303e2add3cdb6b8a56afb))
+- following page filtering ([630db5f](https://github.com/CUexter/Tweet/commit/630db5fface25757bacc562e3c781ecf79c0a270))
+- make timeline work with filter ([8d929b8](https://github.com/CUexter/Tweet/commit/8d929b8dda0dfdacb3dc18fae1539d2d600ae33c))
+- making a following page ([f92c5f9](https://github.com/CUexter/Tweet/commit/f92c5f9a6618f8f60f345896a400819abdaf4af9))
+- moved index to reusable component ([7a33d5f](https://github.com/CUexter/Tweet/commit/7a33d5f9ed09646719c58b80d159d744bcffc874))
+- register will send u to login ([321a953](https://github.com/CUexter/Tweet/commit/321a9534dc98a879beb0ea934855e6882ab27836))
+- timeline should be centered ([f12aa58](https://github.com/CUexter/Tweet/commit/f12aa5881bbe91c8640677d2fca4fc5670146fa4))
 
 # [1.4.0](https://github.com/CUexter/Tweet/compare/v1.3.0...v1.4.0) (2023-04-11)
 
