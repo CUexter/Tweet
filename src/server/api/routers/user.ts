@@ -54,6 +54,12 @@ export const UserRouter = createTRPCRouter({
       });
     }),
 
+  getMyInfo: protectedProcedure.query(({ ctx }) => {
+    const user = ctx.user;
+    _.omit(user, ["password"]);
+    return user;
+  }),
+
   getMyHeaderInfo: protectedProcedure.query(({ ctx }) => {
     const user = ctx.user;
     _.pick(user, ["image", "name", "display_name", "is_admin"]);
