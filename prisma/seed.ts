@@ -166,10 +166,10 @@ async function main() {
 
   await prisma.retweet.upsert({
     where: {
-      id: "rp1",
+      id: "rt1",
     },
     create: {
-      id: "rp1",
+      id: "rt1",
       original_tweet_id: "t1",
       on_profile: true,
       retweet_id: "t4",
