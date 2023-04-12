@@ -80,7 +80,7 @@ const SearchUser = () => {
       data={data}
       onItemSubmit={(item) => {
         const { id } = item as unknown as ItemProps;
-        void router.replace("profile/" + id);
+        void router.replace("/profile/" + id);
       }}
       filter={(value, item) => {
         const i = item as unknown as ItemProps;

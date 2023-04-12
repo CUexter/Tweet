@@ -1,4 +1,4 @@
-import _, { update } from "lodash";
+import _ from "lodash";
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
@@ -81,6 +81,37 @@ export const UserRouter = createTRPCRouter({
     return ctx.user.tag_name ? true : false;
   }),
 
+  getUserInfo: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.user.findUnique({
+        where: {
+          id: input.id,
+        },
+        select: {
+          profile_desc: true,
+          profile_picture: true,
+          is_admin: true,
+          display_name: true,
+          tag_name: true,
+          image: true,
+          emailVisibility: true,
+          email: true,
+          _count: {
+            select: {
+              following: true,
+              being_followed: true,
+              Tweet: { where: { original_tweet: null } },
+            },
+          },
+        },
+      });
+    }),
+
   createNewUserInfo: protectedProcedure
     .input(
       z.object({
@@ -95,7 +126,7 @@ export const UserRouter = createTRPCRouter({
       const user = ctx.user;
       user.display_name = input.display_name;
       user.tag_name = input.tag_name;
-      user.emailVisbility = input.emailVisibility;
+      user.emailVisibility = input.emailVisibility;
       user.email = input.email;
       user.profile_desc = input.profile_desc;
       const updateUser = await ctx.prisma.user.update({
