@@ -1,4 +1,4 @@
-import _, { update } from "lodash";
+import _ from "lodash";
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
@@ -95,6 +95,30 @@ export const UserRouter = createTRPCRouter({
       const user = ctx.user;
       user.display_name = input.display_name;
       user.tag_name = input.tag_name;
+      user.emailVisbility = input.emailVisibility;
+      user.email = input.email;
+      user.profile_desc = input.profile_desc;
+      const updateUser = await ctx.prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: user,
+      });
+      return updateUser;
+    }),
+
+  updateUserInfo: protectedProcedure
+    .input(
+      z.object({
+        display_name: z.string().min(2).max(30),
+        emailVisibility: z.boolean(),
+        email: z.string().email(),
+        profile_desc: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const user = ctx.user;
+      user.display_name = input.display_name;
       user.emailVisbility = input.emailVisibility;
       user.email = input.email;
       user.profile_desc = input.profile_desc;
