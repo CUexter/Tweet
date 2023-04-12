@@ -1,3 +1,16 @@
+# [1.7.0](https://github.com/CUexter/Tweet/compare/v1.6.0...v1.7.0) (2023-04-12)
+
+
+### Features
+
+* user profile ([#90](https://github.com/CUexter/Tweet/issues/90)) ([a298c76](https://github.com/CUexter/Tweet/commit/a298c76a8fb8a55cec8671e3bd0abba264d907c7))
+
+# [1.6.0](https://github.com/CUexter/Tweet/compare/v1.5.0...v1.6.0) (2023-04-12)
+
+### Features
+
+- user link now in tweet component ([#89](https://github.com/CUexter/Tweet/issues/89)) ([dddacfd](https://github.com/CUexter/Tweet/commit/dddacfd6d90ebe3899d9bc41ae544eb4a63012a1))
+
 # [1.5.0](https://github.com/CUexter/Tweet/compare/v1.4.0...v1.5.0) (2023-04-12)
 
 ### Bug Fixes
