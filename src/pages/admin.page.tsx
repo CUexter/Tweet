@@ -1,10 +1,6 @@
 // https://ui.mantine.dev/component/actions-grid
 import SearchField from "@/components/crud/SearchField";
 import UserListTable from "@/components/crud/UserListTable";
-import adminCreate from "@/hooks/adminCreate";
-import adminDelete from "@/hooks/adminDelete";
-import adminList from "@/hooks/adminList";
-import adminUpdate from "@/hooks/adminUpdate";
 import { api } from "@/utils/api";
 import {
   Card,
@@ -15,6 +11,7 @@ import {
   createStyles,
   rem,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import {
   IconUserCircle,
   IconUserMinus,
@@ -23,20 +20,12 @@ import {
 } from "@tabler/icons-react";
 import { type NextPage } from "next";
 import Head from "next/head";
-import { useState } from "react";
 
-type crudOperations = {
-  title: string;
-  icon: JSX.Element;
-  operation: string;
-};
-
-const crudOperations = [
-  { title: "Create User", icon: IconUserPlus, operation: "create" },
-  { title: "Update User", icon: IconUserCircle, operation: "update" },
-  { title: "List User", icon: IconUserSearch, operation: "list" },
-  { title: "Delete User", icon: IconUserMinus, operation: "delete" },
-];
+// type crudOperations = {
+//   title: string;
+//   icon: JSX.Element;
+//   operation: string;
+// };
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -72,40 +61,60 @@ const useStyles = createStyles((theme) => ({
 
 const AdminDashboard: NextPage = () => {
   const { classes } = useStyles();
-  const createWindow = adminCreate();
-  const deleteWindow = adminDelete();
-  const listWindow = adminList();
-  const updateWindow = adminUpdate();
-  const [list, setList] = useState(false);
-  const { data: listData } = api.user.listUser.useQuery(undefined, {
-    enabled: list === true,
-  });
+  const [openedCreate, { open: openCreate, close: closeCreate }] =
+    useDisclosure(false);
+  const [openedUpdate, { open: openUpdate, close: closeUpdate }] =
+    useDisclosure(false);
+  const [openedList, { open: openList, close: closeList }] =
+    useDisclosure(false);
+  const [openedDelete, { open: openDelete, close: closeDelete }] =
+    useDisclosure(false);
+  const { data: listData } = api.user.listUser.useQuery();
   console.log(listData);
 
-  const handleOp = (op: string) => {
-    console.log(op);
-    switch (op) {
-      case "create":
-        createWindow.onOpen();
-        break;
-      case "update":
-        updateWindow.onOpen();
-        break;
-      case "list":
-        listWindow.onOpen();
-        setList(true);
-        break;
-      case "delete":
-        deleteWindow.onOpen();
-        break;
-    }
-  };
+  // const handleOp = (op: string) => {
+  //   console.log(op);
+  //   switch (op) {
+  //     case "create":
+  //       //createWindow.onOpen();
+  //       break;
+  //     case "update":
+  //       //updateWindow.onOpen();
+  //       break;
+  //     case "list":
+  //       //listWindow.onOpen();
+  //       setList(true);
+  //       break;
+  //     case "delete":
+  //       //deleteWindow.onOpen();
+  //       break;
+  //   }
+  // };
+  const crudOperations = [
+    {
+      title: "Create User",
+      icon: IconUserPlus,
+      operation: () => openCreate(),
+    },
+    {
+      title: "Update User",
+      icon: IconUserCircle,
+      operation: () => openUpdate(),
+    },
+    { title: "List User", icon: IconUserSearch, operation: () => openList() },
+    {
+      title: "Delete User",
+      icon: IconUserMinus,
+      operation: () => openDelete(),
+    },
+  ];
 
   const items = crudOperations.map((item) => (
     <UnstyledButton
       key={item.title}
       className={classes.item}
-      onClick={() => handleOp(item.operation)}
+      // onClick={() => handleOp(item.operation)}
+      onClick={item.operation}
     >
       <item.icon color={"red"} size="2rem" />
       <Text size="md" mt={7}>
@@ -140,8 +149,8 @@ const AdminDashboard: NextPage = () => {
       {/* Hidden components to be called */}
       <>
         <Modal
-          opened={createWindow.isOpen}
-          onClose={() => createWindow.onClose()}
+          opened={openedCreate}
+          onClose={closeCreate}
           title="Create"
           size="100%"
           centered
@@ -149,8 +158,8 @@ const AdminDashboard: NextPage = () => {
           {/* Modal content */}
         </Modal>
         <Modal
-          opened={updateWindow.isOpen}
-          onClose={() => updateWindow.onClose()}
+          opened={openedUpdate}
+          onClose={closeUpdate}
           title="Update"
           size="80%"
           centered
@@ -159,8 +168,8 @@ const AdminDashboard: NextPage = () => {
           <SearchField op={"update"} />
         </Modal>
         <Modal
-          opened={listWindow.isOpen}
-          onClose={() => listWindow.onClose()}
+          opened={openedList}
+          onClose={closeList}
           title="List of users"
           size="100%"
           centered
@@ -169,8 +178,8 @@ const AdminDashboard: NextPage = () => {
           <UserListTable data={listData} />
         </Modal>
         <Modal
-          opened={deleteWindow.isOpen}
-          onClose={() => deleteWindow.onClose()}
+          opened={openedDelete}
+          onClose={closeDelete}
           title="Delete"
           size="60%"
           centered
