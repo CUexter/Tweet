@@ -1,4 +1,6 @@
+import { api } from "@/utils/api";
 import { Avatar, Button, Card, Text, createStyles, rem } from "@mantine/core";
+import { useState } from "react";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -29,8 +31,18 @@ interface UserCardImageProps {
 
 const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
   const { classes, theme } = useStyles();
+  const [userId, setUserId] = useState("");
+  const deleteMutation = api.user.deleteUser.useMutation();
+
+  const handleClick = () => {
+    if (window.confirm("Are you sure you want to delete?") && data != null) {
+      console.log("Del target: " + data.id);
+      deleteMutation.mutateAsync({ id: data.id }).catch((e) => console.log(e));
+    }
+  };
 
   if (isOpen == false) return null;
+
   return (
     <Card withBorder padding="xl" radius="md" className={classes.card}>
       <Card.Section />
@@ -58,6 +70,7 @@ const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
         mt="xl"
         size="md"
         color={theme.colorScheme === "dark" ? undefined : "dark"}
+        onClick={() => handleClick()}
       >
         Delete
       </Button>

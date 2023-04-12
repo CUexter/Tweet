@@ -24,7 +24,7 @@ export const UserRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       const { tag_name } = input;
-      return ctx.prisma.user.findUnique({
+      const target = await ctx.prisma.user.findUnique({
         select: {
           name: true,
           id: true,
@@ -36,6 +36,25 @@ export const UserRouter = createTRPCRouter({
           tag_name: tag_name,
         },
       });
+      return target;
+    }),
+
+  deleteUser: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      const { id } = input;
+      console.log("Target: " + id);
+      if (id !== null) {
+        return ctx.prisma.user.delete({
+          where: {
+            id: id,
+          },
+        });
+      }
     }),
 
   getMyInfo: protectedProcedure.query(({ ctx }) => {
