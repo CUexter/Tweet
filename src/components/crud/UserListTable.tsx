@@ -12,8 +12,8 @@ interface UsersTableProps {
   data:
     | {
         id: string;
-        name: string | null;
         email: string | null;
+        display_name: string | null;
         tag_name: string | null;
         profile_picture: string | null;
       }[]
@@ -24,12 +24,12 @@ const UserListTable = ({ data }: UsersTableProps) => {
   const theme = useMantineTheme();
   if (data) {
     const rows = data.map((item) => (
-      <tr key={item.name}>
+      <tr key={item.display_name}>
         <td>
           <Group spacing="sm">
             <Avatar size={30} src={item.profile_picture} radius={30} />
             <Text fz="sm" fw={500}>
-              {item.name}
+              {item.display_name}
             </Text>
           </Group>
         </td>
