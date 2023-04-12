@@ -1,4 +1,4 @@
-import _, { update } from "lodash";
+import _ from "lodash";
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
