@@ -3,7 +3,10 @@ import type { DefaultSession, NextAuthOptions } from "next-auth";
 
 import { env } from "@/env.mjs";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import bcrypt from "bcrypt";
+import * as _ from "lodash";
 import { getServerSession } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 import DiscordProvider from "next-auth/providers/discord";
 
 import { prisma } from "./db";
@@ -38,11 +41,22 @@ declare module "next-auth" {
  **/
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
-        // session.user.role = user.role; <-- put other properties on the session here
+    jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+        token.name = user.name;
+        token.image = user.image;
       }
+      console.log(token);
+
+      return token;
+    },
+    session({ session, token }) {
+      session.user.id = token.id as string;
+      session.user.name = token.name;
+      session.user.email = token.email;
+      session.user.image = token.image as string | null;
       return session;
     },
   },
@@ -55,6 +69,56 @@ export const authOptions: NextAuthOptions = {
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET,
     }),
+    CredentialsProvider({
+      // The name to display on the sign in form (e.g. "Sign in with...")
+      name: "Credentials",
+      // `credentials` is used to generate a form on the sign in page.
+      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
+      // e.g. domain, username, password, 2FA token, etc.
+      // You can pass any HTML attribute to the <input> tag through the object.
+      credentials: {
+        username: {
+          label: "Username Or Email",
+          type: "text",
+          placeholder: "jsmith",
+        },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        if (!credentials) {
+          return null;
+        }
+        const user = await prisma.user.findFirst({
+          where: {
+            OR: [
+              {
+                name: credentials.username,
+              },
+              {
+                email: credentials.username,
+              },
+            ],
+          },
+        });
+        if (!user || !user.password) {
+          return null;
+        }
+
+        const pwCorrect = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
+
+        if (user && pwCorrect) {
+          const result = _.pick(user, ["id", "name", "tag_name", "image"]);
+          return result;
+        } else {
+          console.log("return null");
+          return null;
+        }
+      },
+    }),
+
     /**
      * ...add more providers here
      *
@@ -65,6 +129,13 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      **/
   ],
+  session: {
+    strategy: "jwt",
+    maxAge: 60 * 60 * 1000 * 30,
+  },
+  jwt: {
+    secret: env.NEXTAUTH_SECRET,
+  },
 };
 
 /**

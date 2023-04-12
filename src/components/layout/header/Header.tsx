@@ -1,3 +1,4 @@
+import SignUpButton from "@/components/auth/SignUpButton";
 import {
   ActionIcon,
   Button,
@@ -50,9 +51,12 @@ const HeaderSearch = () => {
         <Group>
           <ToggleDarkMode />
           {sessionData === null ? (
-            <Button onClick={() => void signIn()} variant="subtle">
-              Sign in
-            </Button>
+            <Button.Group>
+              <Button compact onClick={() => void signIn()}>
+                Sign in
+              </Button>
+              <SignUpButton />
+            </Button.Group>
           ) : (
             <AccountHeaderMenu />
           )}
