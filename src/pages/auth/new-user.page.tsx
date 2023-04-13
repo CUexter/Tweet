@@ -225,7 +225,7 @@ const NewUserWelcome = () => {
         </Container>
 
         <Group position="center" mt="md">
-          <Button variant="light" type="submit">
+          <Button type="submit" variant="outline" color="blue">
             Submit
           </Button>
         </Group>

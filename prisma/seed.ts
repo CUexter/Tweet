@@ -23,6 +23,44 @@ async function main() {
     update: {},
   });
 
+  // hashed password: "12345678"
+  await prisma.user.upsert({
+    where: {
+      id: "uid0",
+    },
+    create: {
+      id: "uid0",
+      name: "ElonMusk",
+      email: "elonmusk@gmail.com",
+      password: "$2a$10$EGwRCF5pvWN5PakWjbhYTOVhtrWp/wOwb7i3qOhIIAICtm1Dhzftq",
+      emailVerified: new Date(2023, 3, 2),
+      display_name: "Elon Musk",
+      tag_name: "realelonmusk",
+      profile_desc: "I am real Elon Musk",
+      image:
+        "https://pbs.twimg.com/profile_images/1590968738358079488/IY9Gx6Ok_400x400.jpg",
+      is_admin: true,
+      Tweet: {
+        create: [
+          {
+            id: "t0",
+            is_public: true,
+            published_at: new Date(2023, 4, 1),
+            TweetText: {
+              create: [
+                {
+                  id: "tt0",
+                  tweet_text: "Welcome to my world",
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    update: {},
+  });
+
   await prisma.user.upsert({
     where: {
       id: "uid1",
@@ -114,44 +152,6 @@ async function main() {
   // hashed password: "12345678"
   await prisma.user.upsert({
     where: {
-      id: "uid0",
-    },
-    create: {
-      id: "uid0",
-      name: "ElonMusk",
-      email: "elonmusk@gmail.com",
-      password: "$2a$10$EGwRCF5pvWN5PakWjbhYTOVhtrWp/wOwb7i3qOhIIAICtm1Dhzftq",
-      emailVerified: new Date(2023, 3, 2),
-      display_name: "Elon Musk",
-      tag_name: "realelonmusk",
-      profile_desc: "I am real Elon Musk",
-      image:
-        "https://pbs.twimg.com/profile_images/1590968738358079488/IY9Gx6Ok_400x400.jpg",
-      is_admin: true,
-      Tweet: {
-        create: [
-          {
-            id: "t0",
-            is_public: true,
-            published_at: new Date(2023, 4, 1),
-            TweetText: {
-              create: [
-                {
-                  id: "tt0",
-                  tweet_text: "Welcome to my world",
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    update: {},
-  });
-
-  // hashed password: "12345678"
-  await prisma.user.upsert({
-    where: {
       id: "uid3",
     },
     create: {
@@ -177,6 +177,19 @@ async function main() {
                 {
                   id: "tt3",
                   tweet_text: "First tweet!",
+                },
+              ],
+            },
+          },
+          {
+            id: "t4",
+            is_public: true,
+            published_at: new Date(2023, 4, 14),
+            TweetText: {
+              create: [
+                {
+                  id: "tt4",
+                  tweet_text: "Last tweet!",
                 },
               ],
             },

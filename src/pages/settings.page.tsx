@@ -217,7 +217,7 @@ const ProfileSettings = () => {
         <Group position="center" mt="md">
           <Button
             variant="outline"
-            color="red"
+            color="red  "
             onClick={() => setIsUpdatePw(true)}
           >
             Update Password
