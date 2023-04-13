@@ -2,7 +2,6 @@ import { api } from "@/utils/api";
 import { Avatar, Menu } from "@mantine/core";
 import {
   IconLogout,
-  IconMessageCircle,
   IconSettings,
   IconUserCircle,
   IconUserShield,
@@ -36,13 +35,6 @@ const AccountHeaderMenu = () => {
           href="/settings"
         >
           Settings
-        </Menu.Item>
-        <Menu.Item
-          icon={<IconMessageCircle size={14} />}
-          component={Link}
-          href="/chat"
-        >
-          Messages
         </Menu.Item>
         <Menu.Item
           icon={<IconUserCircle size={14} />}
