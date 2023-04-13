@@ -19,6 +19,10 @@ const server = z.object({
   // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
   DISCORD_CLIENT_ID: z.string(),
   DISCORD_CLIENT_SECRET: z.string(),
+  S3_UPLOAD_KEY: z.string(),
+  S3_UPLOAD_SECRET: z.string(),
+  S3_UPLOAD_BUCKET: z.string(),
+  S3_UPLOAD_REGION: z.string(),
 });
 
 /**
@@ -42,6 +46,10 @@ const processEnv = {
   NEXTAUTH_URL: process.env.NEXTAUTH_URL,
   DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
   DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
+  S3_UPLOAD_BUCKET: process.env.S3_UPLOAD_BUCKET,
+  S3_UPLOAD_SECRET: process.env.S3_UPLOAD_SECRET,
+  S3_UPLOAD_REGION: process.env.S3_UPLOAD_REGION,
+  S3_UPLOAD_KEY: process.env.S3_UPLOAD_KEY,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 

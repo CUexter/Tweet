@@ -186,7 +186,7 @@ model TweetAttachments {
   updated_at     DateTime @updatedAt
   tweet          Tweet    @relation(fields: [tweet_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
   tweet_id       String
-  attachent_type String //migrate to enum when setup to use mysql/planetscale
+  attachment_type String //migrate to enum when setup to use mysql/planetscale
   attachment_url String
 }
 

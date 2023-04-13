@@ -1,11 +1,13 @@
 import type { TweetData } from "@/types/tweet";
 
 import { api } from "@/utils/api";
+import { Carousel } from "@mantine/carousel";
 import {
   ActionIcon,
   Avatar,
   Card,
   Group,
+  Image,
   Modal,
   Text,
   createStyles,
@@ -73,11 +75,32 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
   const replies = tweetData.replied_by.length;
   const retweets = tweetData.retweeted_by.length;
 
+  const attachements = tweetData.TweetAttachments;
+  const carousel = attachements.map((a, i) => {
+    return (
+      <Carousel.Slide key={i}>
+        <Image src={a.attachment_url} alt="" withPlaceholder />
+      </Carousel.Slide>
+    );
+  });
+
+  const attachementDisplay =
+    attachements.length > 1 ? (
+      <Carousel withIndicators controlSize={40}>
+        {carousel}
+      </Carousel>
+    ) : (
+      <Image src={attachements[0]?.attachment_url} alt="" />
+    );
+
   return (
     <>
       <div className="mx-auto w-3/4">
         <Card withBorder>
-          <Group position="apart">
+          {attachements.length > 0 && (
+            <Card.Section>{attachementDisplay}</Card.Section>
+          )}
+          <Group position="apart" mt="">
             <Link href={`/profile/${tweetData.user.id}`}>
               <Group>
                 <Avatar
