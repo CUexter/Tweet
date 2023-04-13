@@ -18,7 +18,6 @@ import {
 } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
-import Head from "next/head";
 import Link from "next/link";
 
 const useStyles = createStyles((theme) => ({
@@ -69,14 +68,6 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
 
   return (
     <>
-      <Head>
-        <title>
-          {tweetData.user.display_name}: &quot;
-          {tweetData.TweetText[0]?.tweet_text}&quot;
-        </title>
-        <meta name="description" content="for CSCI3100" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <div className="mx-auto w-3/4">
         <Card withBorder>
           <Group position="apart">

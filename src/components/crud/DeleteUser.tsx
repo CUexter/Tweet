@@ -1,6 +1,7 @@
 import { api } from "@/utils/api";
 import { Avatar, Button, Paper, Text, createStyles, rem } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
+import { useSession } from "next-auth/react";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -22,7 +23,7 @@ interface UserCardImageProps {
         display_name: string | null;
         email: string | null;
         tag_name: string | null;
-        profile_picture: string | null;
+        image: string | null;
       }
     | null
     | undefined;
@@ -32,24 +33,33 @@ interface UserCardImageProps {
 const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
   const deleteMutation = api.user.deleteUser.useMutation();
   const deleteTweetMutation = api.user.deleteRelatedTweet.useMutation();
+  const { data: sessionData } = useSession();
 
   const handleClick = async () => {
     if (window.confirm("Are you sure you want to delete?") && data != null) {
-      console.log("Del target: " + data.id);
-      await deleteTweetMutation
-        .mutateAsync({ id: data.id })
-        .catch((e) => console.log(e));
-      await deleteMutation
-        .mutateAsync({ id: data.id })
-        .catch((e) => console.log(e));
-      notifications.show({
-        title: "Success",
-        message: "This use has been deleted successfully. Refreshing...",
-        color: "blue",
-      });
-      setTimeout(function () {
-        window.location.reload();
-      }, 2000);
+      if (data.id != sessionData?.user.id) {
+        console.log("Del target: " + data.id);
+        await deleteTweetMutation
+          .mutateAsync({ id: data.id })
+          .catch((e) => console.log(e));
+        await deleteMutation
+          .mutateAsync({ id: data.id })
+          .catch((e) => console.log(e));
+        notifications.show({
+          title: "Success",
+          message: "This use has been deleted successfully. Refreshing...",
+          color: "blue",
+        });
+        setTimeout(function () {
+          window.location.reload();
+        }, 2000);
+      } else {
+        notifications.show({
+          title: "Fail",
+          message: "You cannot delete yourself!",
+          color: "red",
+        });
+      }
     }
   };
 
@@ -65,7 +75,7 @@ const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
           theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
       })}
     >
-      <Avatar src={data?.profile_picture} size={120} radius={120} mx="auto" />
+      <Avatar src={data?.image} size={120} radius={120} mx="auto" />
       <Text ta="center" fz="lg" weight={500} mt="md">
         {data?.display_name}
       </Text>

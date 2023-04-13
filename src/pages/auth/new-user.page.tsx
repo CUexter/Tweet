@@ -35,6 +35,8 @@ const NewUserWelcome = () => {
   const { data: newUser } = api.user.checkNewUser.useQuery();
   const router = useRouter();
 
+  console.log(session);
+
   useEffect(() => {
     if (newUser || !session?.user) {
       void router.replace("/");
@@ -133,13 +135,8 @@ const NewUserWelcome = () => {
             <TextInput
               withAsterisk
               label="Display Name"
-              placeholder="your@email.com"
+              placeholder="Name"
               {...form.getInputProps("display_name")}
-            />
-            <TextInput
-              label="Your email"
-              placeholder="your@email.com"
-              {...form.getInputProps("email")}
             />
             <TextInput
               withAsterisk

@@ -24,7 +24,7 @@ interface UsersProps {
         display_name: string | null;
         email: string | null;
         tag_name: string | null;
-        profile_picture: string | null;
+        image: string | null;
       }
     | null
     | undefined;
@@ -286,7 +286,7 @@ const UpdateUser = ({ data, isOpen }: UsersProps) => {
             theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
         })}
       >
-        <Avatar src={data?.profile_picture} size={120} radius={120} mx="auto" />
+        <Avatar src={data?.image} size={120} radius={120} mx="auto" />
         <ScrollArea>
           <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
             <thead>
