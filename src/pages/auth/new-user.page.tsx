@@ -189,7 +189,11 @@ const NewUserWelcome = () => {
               </Box>
             </Grid.Col>
             <Grid.Col span={6}>
-              <Image src={form.values.profile_picture} alt="profile_picture" />
+              <Image
+                src={form.values.profile_picture}
+                alt="profile_picture"
+                withPlaceholder
+              />
 
               <Group position="center" my="1rem">
                 <FileButton

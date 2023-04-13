@@ -57,6 +57,7 @@ const UserProfile = ({ id }: Pick<User, "id">) => {
               src={userInfo?.profile_picture}
               alt="UserProfile"
               height="20em"
+              withPlaceholder
             />
           </Card.Section>
 
