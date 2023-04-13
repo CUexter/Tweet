@@ -1,9 +1,8 @@
 ## [1.9.2](https://github.com/CUexter/Tweet/compare/v1.9.1...v1.9.2) (2023-04-13)
 
-
 ### Bug Fixes
 
-* mutate onsuccess function instead of isSuccess ([#98](https://github.com/CUexter/Tweet/issues/98)) ([700c73c](https://github.com/CUexter/Tweet/commit/700c73c31d290f51b32259d9f073ae6a6cfb5131))
+- mutate onsuccess function instead of isSuccess ([#98](https://github.com/CUexter/Tweet/issues/98)) ([700c73c](https://github.com/CUexter/Tweet/commit/700c73c31d290f51b32259d9f073ae6a6cfb5131))
 
 ## [1.9.1](https://github.com/CUexter/Tweet/compare/v1.9.0...v1.9.1) (2023-04-13)
 
