@@ -289,7 +289,6 @@ export const UserRouter = createTRPCRouter({
         display_name: z.string().min(2).max(30),
         tag_name: z.string(),
         emailVisibility: z.boolean(),
-        email: z.string().email(),
         profile_desc: z.string(),
       })
     )
@@ -298,7 +297,6 @@ export const UserRouter = createTRPCRouter({
       user.display_name = input.display_name;
       user.tag_name = input.tag_name;
       user.emailVisibility = input.emailVisibility;
-      user.email = input.email;
       user.profile_desc = input.profile_desc;
       const updateUser = await ctx.prisma.user.update({
         where: {
