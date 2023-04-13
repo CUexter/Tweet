@@ -3,12 +3,27 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const RetweetRouter = createTRPCRouter({
+  checkRetweet: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const tweet = await ctx.prisma.tweet.findFirst({
+        where: {
+          id: input.id,
+          retweeted_by: {
+            some: {
+              id: ctx.user.id,
+            },
+          },
+        },
+      });
+      return tweet ? true : false;
+    }),
   retweet: protectedProcedure
-    .input(z.object({ tid: z.string() }))
+    .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const tweet = await ctx.prisma.tweet.findFirst({
         where: {
-          id: input.tid,
+          id: input.id,
           retweeted_by: {
             some: {
               id: ctx.user.id,
@@ -18,8 +33,8 @@ export const RetweetRouter = createTRPCRouter({
       });
 
       const data = tweet
-        ? { disconnect: [{ id: input.tid }] }
-        : { connect: [{ id: input.tid }] };
+        ? { disconnect: [{ id: input.id }] }
+        : { connect: [{ id: input.id }] };
 
       await ctx.prisma.user.update({
         where: {
@@ -30,6 +45,6 @@ export const RetweetRouter = createTRPCRouter({
         },
       });
       const response = tweet ? "unretweet" : "retweet";
-      return { uid: ctx.user.id, id: input.tid, response };
+      return { uid: ctx.user.id, id: input.id, response };
     }),
 });

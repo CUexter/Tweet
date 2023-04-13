@@ -17,6 +17,7 @@ import {
   IconHeart,
 } from "@tabler/icons-react";
 import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -46,9 +47,16 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
   // if null after private query, it doesn't exist
 
   const utils = api.useContext();
+  const { data: session } = useSession();
+  const { data: haveRetweeted } = api.retweet.checkRetweet.useQuery(
+    { id: tweetID },
+    { enabled: session?.user !== undefined }
+  );
+
   const retweet = api.retweet.retweet.useMutation({
     onSuccess() {
       void utils.tweet.getTweet.invalidate({ id: tweetID });
+      void utils.retweet.checkRetweet.invalidate({ id: tweetID });
     },
   });
   if (!tweetData) {
@@ -104,8 +112,9 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
             <Group>
               <Text size="sm">{retweets}</Text>
               <ActionIcon
+                color={haveRetweeted ? "green" : "gray"}
                 onClick={() => {
-                  retweet.mutate({ tid: tweetID });
+                  retweet.mutate({ id: tweetID });
                 }}
               >
                 <IconArrowAutofitLeft size="1.5rem" />
