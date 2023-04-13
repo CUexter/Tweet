@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/CUexter/Tweet/compare/v1.8.0...v1.9.0) (2023-04-13)
+
+
+### Features
+
+* posting tweets with TweetComposer ([#92](https://github.com/CUexter/Tweet/issues/92)) ([393f36c](https://github.com/CUexter/Tweet/commit/393f36ca027367dd51651c9fc37c5735bd6ce558))
+
 # [1.8.0](https://github.com/CUexter/Tweet/compare/v1.7.0...v1.8.0) (2023-04-12)
 
 ### Features
