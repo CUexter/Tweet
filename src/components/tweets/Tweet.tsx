@@ -6,10 +6,12 @@ import {
   Avatar,
   Card,
   Group,
+  Modal,
   Text,
   createStyles,
   rem,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import {
   IconArrowAutofitLeft,
   IconArrowBackUp,
@@ -18,6 +20,9 @@ import {
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+
+import TweetComposer from "./TweetComposer";
 
 import Like from "../like";
 
@@ -33,6 +38,9 @@ interface TweetProp {
   tweetData?: TweetData;
 }
 const Tweet = ({ tweetID, tweetData }: TweetProp) => {
+  const [opened, { open, close }] = useDisclosure(false);
+  const router = useRouter();
+  const { id } = router.query;
   const { classes } = useStyles();
   // if they didn't pass in any tweetData, get it
   ({ data: tweetData } = api.tweet.getTweet.useQuery(
@@ -96,7 +104,7 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
           <Group className="justify-evenly pt-4">
             <Group>
               <Text size="sm">{replies}</Text>
-              <ActionIcon onClick={() => console.log("placeholder for reply")}>
+              <ActionIcon onClick={open}>
                 <IconArrowBackUp size="1.5rem" />
               </ActionIcon>
             </Group>
@@ -117,6 +125,20 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
             </Group>
           </Group>
         </Card>
+
+        {/* Modal for reply */}
+        <Modal
+          opened={opened}
+          onClose={close}
+          title="Write your reply"
+          centered
+        >
+          <TweetComposer
+            original_id={tweetID}
+            close={close}
+            redirect={tweetID !== id}
+          />
+        </Modal>
       </div>
     </>
   );
