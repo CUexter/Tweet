@@ -16,6 +16,7 @@ interface UsersTableProps {
         display_name: string | null;
         tag_name: string | null;
         image: string | null;
+        created_at: Date | null;
       }[]
     | undefined;
 }
@@ -33,16 +34,20 @@ const UserListTable = ({ data }: UsersTableProps) => {
             </Text>
           </Group>
         </td>
-
+        <td>
+          <Text fz="sm" c="dimmed">
+            {item.tag_name}
+          </Text>
+        </td>
         <td>
           <Anchor component="button" size="sm">
             {item.email}
           </Anchor>
         </td>
         <td>
-          <Text fz="sm" c="dimmed">
-            {item.tag_name}
-          </Text>
+          <Anchor component="button" size="sm">
+            {item.created_at?.toLocaleString()}
+          </Anchor>
         </td>
         <td>
           <Group spacing={0} position="right"></Group>
@@ -55,8 +60,9 @@ const UserListTable = ({ data }: UsersTableProps) => {
           <thead>
             <tr>
               <th>Name</th>
-              <th>Email</th>
               <th>Tag Name</th>
+              <th>Email</th>
+              <th>Account creation date</th>
               <th />
             </tr>
           </thead>

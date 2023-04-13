@@ -12,6 +12,7 @@ export const UserRouter = createTRPCRouter({
         tag_name: true,
         email: true,
         image: true,
+        created_at: true,
       },
     });
   }),
