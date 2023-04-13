@@ -18,7 +18,10 @@ import {
   IconUserSearch,
 } from "@tabler/icons-react";
 import { type NextPage } from "next";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 // type crudOperations = {
 //   title: string;
@@ -70,25 +73,18 @@ const AdminDashboard: NextPage = () => {
     useDisclosure(false);
   const { data: listData } = api.user.listUser.useQuery();
   console.log(listData);
+  const { data: sessionData } = useSession();
+  const router = useRouter();
 
-  // const handleOp = (op: string) => {
-  //   console.log(op);
-  //   switch (op) {
-  //     case "create":
-  //       //createWindow.onOpen();
-  //       break;
-  //     case "update":
-  //       //updateWindow.onOpen();
-  //       break;
-  //     case "list":
-  //       //listWindow.onOpen();
-  //       setList(true);
-  //       break;
-  //     case "delete":
-  //       //deleteWindow.onOpen();
-  //       break;
-  //   }
-  // };
+  // Only admin can enter this page
+  useEffect(() => {
+    if (!sessionData?.user.is_admin) {
+      void router.replace("/");
+    }
+  }, [sessionData, router]);
+
+  if (!sessionData?.user.is_admin) return null;
+
   const crudOperations = [
     // {
     //   title: "Create User",
