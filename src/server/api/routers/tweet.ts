@@ -64,52 +64,26 @@ export const TweetRouter = createTRPCRouter({
         TweetText: z.object({
           tweet_text: z.string(),
         }),
+        original_id: z.string().optional(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const tweet = await ctx.prisma.tweet.create({
-        data: {
-          user_id: input.user_id,
-          is_public: input.is_public,
-          published_at: new Date(),
-          TweetText: {
-            create: {
-              tweet_text: input.TweetText.tweet_text,
-            },
+      let data = {
+        user_id: input.user_id,
+        is_public: input.is_public,
+        published_at: new Date(),
+        TweetText: {
+          create: {
+            tweet_text: input.TweetText.tweet_text,
           },
         },
-      });
-      return {
-        message: "Tweet created successfully",
-        success: true,
-        id: tweet.id,
       };
-    }),
-
-  replyTweet: protectedProcedure
-    .input(
-      z.object({
-        user_id: z.string(),
-        is_public: z.boolean(),
-        TweetText: z.object({
-          tweet_text: z.string(),
-        }),
-        original_id: z.string(),
-      })
-    )
-    .mutation(async ({ ctx, input }) => {
+      data =
+        input.original_id === undefined
+          ? data
+          : { ...data, ...{ original_id: input.original_id } };
       const tweet = await ctx.prisma.tweet.create({
-        data: {
-          user_id: input.user_id,
-          is_public: input.is_public,
-          published_at: new Date(),
-          TweetText: {
-            create: {
-              tweet_text: input.TweetText.tweet_text,
-            },
-          },
-          original_id: input.original_id,
-        },
+        data: data,
       });
       return {
         message: "Tweet created successfully",

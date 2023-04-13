@@ -3,10 +3,13 @@ import { Button, Card, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 
-const TweetComposer = () => {
-  const router = useRouter();
+interface ComposerProp {
+  original_id?: string;
+}
+
+const TweetComposer = ({ original_id: replying_to_id }: ComposerProp) => {
+  const is_reply = replying_to_id === undefined ? false : true;
   const { data: sessionData } = useSession();
 
   const form = useForm({
@@ -28,13 +31,14 @@ const TweetComposer = () => {
   if (!sessionData) return <></>;
 
   const handleSubmit = (values: typeof form.values) => {
-    const send = {
+    let send = {
       user_id: sessionData?.user.id,
       is_public: true,
       TweetText: {
         tweet_text: values.tweet_text,
       },
     };
+    send = is_reply ? { ...send, ...{ original_id: replying_to_id } } : send;
     try {
       postTweet.mutate(send);
       notifications.show({
