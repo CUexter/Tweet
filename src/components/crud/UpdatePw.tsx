@@ -1,82 +1,63 @@
-import {
-  Box,
-  Button,
-  Center,
-  Group,
-  PasswordInput,
-  Progress,
-  Text,
-} from "@mantine/core";
+import { api } from "@/utils/api";
+import { Box, Button, Center, PasswordInput, Text } from "@mantine/core";
 import { useInputState } from "@mantine/hooks";
+import { notifications } from "@mantine/notifications";
 import { IconCheck, IconX } from "@tabler/icons-react";
+import bcrypt from "bcryptjs";
 
-const UpdatePw = () => {
-  function PasswordRequirement({
-    meets,
-    label,
-  }: {
-    meets: boolean;
-    label: string;
-  }) {
-    return (
-      <Text color={meets ? "teal" : "red"} mt={5} size="sm">
-        <Center inline>
-          {meets ? (
-            <IconCheck size="0.9rem" stroke={1.5} />
-          ) : (
-            <IconX size="0.9rem" stroke={1.5} />
-          )}
-          <Box ml={7}>{label}</Box>
-        </Center>
-      </Text>
-    );
-  }
+function PasswordRequirement({
+  meets,
+  label,
+}: {
+  meets: boolean;
+  label: string;
+}) {
+  return (
+    <Text color={meets ? "teal" : "red"} mt={5} size="sm">
+      <Center inline>
+        {meets ? (
+          <IconCheck size="0.9rem" stroke={1.5} />
+        ) : (
+          <IconX size="0.9rem" stroke={1.5} />
+        )}
+        <Box ml={7}>{label}</Box>
+      </Center>
+    </Text>
+  );
+}
 
-  const requirements = [
-    { re: /[0-9]/, label: "Includes number" },
-    { re: /[a-z]/, label: "Includes lowercase letter" },
-    { re: /[A-Z]/, label: "Includes uppercase letter" },
-    { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: "Includes special symbol" },
-  ];
+interface pwProps {
+  id: string | null | undefined;
+}
 
-  function getStrength(password: string) {
-    let multiplier = password.length > 5 ? 0 : 1;
-
-    requirements.forEach((requirement) => {
-      if (!requirement.re.test(password)) {
-        multiplier += 1;
-      }
-    });
-
-    return Math.max(100 - (100 / (requirements.length + 1)) * multiplier, 0);
-  }
+const UpdatePw = ({ id }: pwProps) => {
   const [value, setValue] = useInputState("");
-  const strength = getStrength(value);
-  const checks = requirements.map((requirement, index) => (
-    <PasswordRequirement
-      key={index}
-      label={requirement.label}
-      meets={requirement.re.test(value)}
-    />
-  ));
-  const bars = Array(4)
-    .fill(0)
-    .map((_, index) => (
-      <Progress
-        styles={{ bar: { transitionDuration: "0ms" } }}
-        value={
-          value.length > 0 && index === 0
-            ? 100
-            : strength >= ((index + 1) / 4) * 100
-            ? 100
-            : 0
-        }
-        color={strength > 80 ? "teal" : strength > 50 ? "yellow" : "red"}
-        key={index}
-        size={4}
-      />
-    ));
-
+  const updatePwMutation = api.user.updatePassword.useMutation();
+  const handleSubmit = async () => {
+    if (id != null && id != undefined && value.length > 5) {
+      const saltRounds = bcrypt.genSaltSync(10);
+      const hashedPassword = bcrypt.hashSync(value, saltRounds);
+      await updatePwMutation.mutateAsync({
+        id: id,
+        password: hashedPassword,
+      });
+      notifications.show({
+        title: "Success",
+        message: "The password has been updated. Refreshing...",
+        color: "blue",
+      });
+      setTimeout(function () {
+        window.location.reload();
+      }, 2000);
+    } else {
+      notifications.show({
+        title: "Failed",
+        message:
+          "The new password must fullfil the requirement. Please try again.",
+        color: "red",
+      });
+    }
+  };
   return (
     <div>
       <PasswordInput
@@ -87,17 +68,17 @@ const UpdatePw = () => {
         required
       />
 
-      <Group spacing={5} grow mt="xs" mb="md">
-        {bars}
-      </Group>
-
       <PasswordRequirement
         label="Has at least 6 characters"
         meets={value.length > 5}
       />
-      {checks}
 
-      <Button variant="default" fullWidth mt="md">
+      <Button
+        variant="default"
+        fullWidth
+        mt="md"
+        onClick={() => void handleSubmit()}
+      >
         Submit
       </Button>
     </div>
