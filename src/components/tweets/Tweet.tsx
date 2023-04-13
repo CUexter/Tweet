@@ -22,9 +22,8 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import TweetComposer from "./TweetComposer";
-
 import Like from "../like";
+import TweetComposer from "./TweetComposer";
 
 const useStyles = createStyles((theme) => ({
   body: {
