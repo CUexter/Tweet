@@ -10,6 +10,12 @@
 const config = {
   reactStrictMode: false,
   pageExtensions: ["page.ts", "page.tsx", "page.js", "page.jsx"],
+  images: {
+    domains: [
+      `${process.env.S3_UPLOAD_BUCKET}.s3.amazonaws.com`,
+      `${process.env.S3_UPLOAD_BUCKET}.s3.${process.env.S3_UPLOAD_REGION}.amazonaws.com`,
+    ],
+  },
   /**
    * If you have the "experimental: { appDir: true }" setting enabled, then you
    * must comment the below `i18n` config out.

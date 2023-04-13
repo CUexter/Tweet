@@ -304,6 +304,7 @@ export const UserRouter = createTRPCRouter({
         tag_name: z.string(),
         emailVisibility: z.boolean(),
         profile_desc: z.string(),
+        image: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -312,6 +313,7 @@ export const UserRouter = createTRPCRouter({
       user.tag_name = input.tag_name;
       user.emailVisibility = input.emailVisibility;
       user.profile_desc = input.profile_desc;
+      user.image = input.image || "";
       const updateUser = await ctx.prisma.user.update({
         where: {
           id: user.id,
@@ -328,14 +330,18 @@ export const UserRouter = createTRPCRouter({
         emailVisibility: z.boolean(),
         email: z.string().email(),
         profile_desc: z.string(),
+        profile_picture: z.string(),
+        image: z.string().optional(),
       })
     )
     .mutation(async ({ ctx, input }) => {
       const user = ctx.user;
-      user.display_name = input.display_name;
-      user.emailVisibility = input.emailVisibility;
-      user.email = input.email;
-      user.profile_desc = input.profile_desc;
+      user.display_name = input.display_name || user.display_name;
+      user.emailVisibility = input.emailVisibility || user.emailVisibility;
+      user.email = input.email || user.email;
+      user.profile_desc = input.profile_desc || user.profile_desc;
+      user.profile_picture = input.profile_picture || "";
+      user.image = input.image || "";
       const updateUser = await ctx.prisma.user.update({
         where: {
           id: user.id,
