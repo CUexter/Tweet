@@ -20,7 +20,7 @@ export const LikeRouter = createTRPCRouter({
       });
       return result;
     }),
-  checkLike: protectedProcedure
+  checkLike: publicProcedure
     .input(
       z.object({
         user_id: z.string(),
@@ -68,7 +68,7 @@ export const LikeRouter = createTRPCRouter({
       });
       return result;
     }),
-  checkDislike: protectedProcedure
+  checkDislike: publicProcedure
     .input(
       z.object({
         user_id: z.string(),
