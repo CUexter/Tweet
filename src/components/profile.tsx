@@ -18,10 +18,22 @@ import Timeline from "./Timeline";
 
 const UserProfile = ({ id }: Pick<User, "id">) => {
   const { data: userInfo } = api.user.getUserInfo.useQuery({ id });
+  const utils = api.useContext();
+  const checkFollow = api.follow.isFollowing.useQuery({ followee_id: id });
+  const follow = api.follow.handleFollow.useMutation({
+    onSuccess: () => {
+      void utils.user.getUserInfo.invalidate();
+      void utils.follow.isFollowing.invalidate();
+    },
+  });
   const theirTweetFilter = {
     original_tweet: null,
     user_id: id,
   };
+  const handleFollow = () => {
+    follow.mutate({ followee_id: id });
+  };
+
   return (
     <>
       <Head>
@@ -82,8 +94,16 @@ const UserProfile = ({ id }: Pick<User, "id">) => {
             </div>
           </Group>
 
-          <Button variant="light" color="blue" fullWidth mt="md" radius="md">
-            Follow
+          <Button
+            variant="light"
+            color="blue"
+            fullWidth
+            mt="md"
+            radius="md"
+            onClick={handleFollow}
+            type="button"
+          >
+            {checkFollow.data !== null ? "Unfollow" : "Follow"}
           </Button>
           <Title order={3}>Their tweet:</Title>
           <Card>
