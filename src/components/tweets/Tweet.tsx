@@ -112,6 +112,7 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
               </ActionIcon>
             </Group>
             <Group>
+              {/* @ts-expect-error Server Component */}
               <Like id={tweetID} />
             </Group>
           </Group>
