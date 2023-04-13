@@ -110,6 +110,20 @@ export const UserRouter = createTRPCRouter({
     return user;
   }),
 
+  getFollowing: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.following.findMany({
+        where: {
+          doing_following_ID: input.id,
+        },
+      });
+    }),
+
   updateName: protectedProcedure
     .input(
       z.object({

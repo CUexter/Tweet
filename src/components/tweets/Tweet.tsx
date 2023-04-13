@@ -17,7 +17,7 @@ import { useDisclosure } from "@mantine/hooks";
 import {
   IconArrowAutofitLeft,
   IconArrowBackUp,
-  IconDotsVertical,
+  IconLink,
 } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
@@ -117,7 +117,7 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
               </Group>
             </Link>
             <ActionIcon component={Link} href={`/tweet/${tweetID}`}>
-              <IconDotsVertical />
+              <IconLink />
             </ActionIcon>
           </Group>
           <Text className={classes.body} size="sm">
