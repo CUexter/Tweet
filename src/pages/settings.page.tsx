@@ -135,7 +135,9 @@ const ProfileSettings = () => {
             />
 
             <Group position="right" mt="md">
-              <Button type="submit">Submit</Button>
+              <Button type="submit" variant="outline" color="blue">
+                Submit
+              </Button>
             </Group>
           </form>
         </Box>
