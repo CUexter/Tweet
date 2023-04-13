@@ -12,6 +12,7 @@ import {
   Title,
 } from "@mantine/core";
 import { hasLength, useForm } from "@mantine/form";
+import { notifications } from "@mantine/notifications";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -67,6 +68,11 @@ const ProfileSettings = () => {
   const onSubmit = (values: typeof form.values) => {
     updateUser.mutate(values);
     if (updateUser.isSuccess) {
+      notifications.show({
+        title: "Success",
+        message: "Submit success",
+        color: "blue",
+      });
       void router.push("/");
     }
   };
