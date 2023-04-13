@@ -32,7 +32,7 @@ const TweetComposer = ({ original_id: replying_to_id }: ComposerProp) => {
 
   const handleSubmit = (values: typeof form.values) => {
     let send = {
-      user_id: sessionData?.user.id,
+      user_id: sessionData.user.id,
       is_public: true,
       TweetText: {
         tweet_text: values.tweet_text,
