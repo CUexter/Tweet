@@ -11,6 +11,7 @@ import { useState } from "react";
 
 const Like = (id) => {
   const [isLoading, setIsLoading] = useState(true);
+
   const count = api.like.checkCount.useQuery(
     {
       tweet_id: id.id,
@@ -83,6 +84,7 @@ const Like = (id) => {
         })
         .then(() => {
           void likeQuery.refetch();
+          void count.refetch();
         })
         .catch((e) => {
           console.log(e);
@@ -133,6 +135,7 @@ const Like = (id) => {
         })
         .then(() => {
           void dislikeQuery.refetch();
+          void count.refetch();
         })
         .catch((e) => {
           console.log(e);
@@ -175,6 +178,8 @@ const Like = (id) => {
 
   return (
     <>
+      <p>{isLoading ? "Loading..." : ""}</p>
+
       {!isLoading && (
         <>
           <Text size="sm">{count.data}</Text>
