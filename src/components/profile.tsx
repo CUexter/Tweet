@@ -13,7 +13,6 @@ import {
   Title,
 } from "@mantine/core";
 import Head from "next/head";
-import { useState } from "react";
 
 import Timeline from "./Timeline";
 
@@ -21,14 +20,10 @@ const UserProfile = ({ id }: Pick<User, "id">) => {
   const { data: userInfo } = api.user.getUserInfo.useQuery({ id });
   const utils = api.useContext();
   const checkFollow = api.follow.isFollowing.useQuery({ followee_id: id });
-  const [isFollowed, setIsFollowed] = useState(
-    checkFollow.data !== null ? true : false
-  );
   const follow = api.follow.handleFollow.useMutation({
     onSuccess: () => {
       void utils.user.getUserInfo.invalidate();
       void utils.follow.isFollowing.invalidate();
-      setIsFollowed((prev) => !prev);
     },
   });
   const theirTweetFilter = {
@@ -106,8 +101,9 @@ const UserProfile = ({ id }: Pick<User, "id">) => {
             mt="md"
             radius="md"
             onClick={handleFollow}
+            type="button"
           >
-            {isFollowed ? "Unfollow" : "Follow"}
+            {checkFollow.data !== null ? "Unfollow" : "Follow"}
           </Button>
           <Title order={3}>Their tweet:</Title>
           <Card>
