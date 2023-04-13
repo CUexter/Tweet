@@ -91,7 +91,9 @@ const ProfileSettings = () => {
         title: "Success",
         message: "settings saved successfully",
       });
-      void router.push("/");
+      setTimeout(function () {
+        void router.push("/");
+      }, 2000);
     },
   });
 
@@ -102,7 +104,7 @@ const ProfileSettings = () => {
   return (
     <>
       <Head>
-        <title>Settings</title>
+        <title>Setting</title>
         <meta name="description" content="for CSCI3100" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
