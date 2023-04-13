@@ -1,15 +1,17 @@
 import { api } from "@/utils/api";
+import { Carousel } from "@mantine/carousel";
 import {
   ActionIcon,
   Button,
   Card,
   FileButton,
   Group,
+  Image,
   Textarea,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
-import { IconPhoto } from "@tabler/icons-react";
+import { IconCircleX, IconPhoto } from "@tabler/icons-react";
 import { useSession } from "next-auth/react";
 import { usePresignedUpload } from "next-s3-upload";
 
@@ -27,8 +29,10 @@ const TweetComposer = ({ original_id: replying_to_id }: ComposerProp) => {
       images: [] as string[],
     },
     validate: {
-      tweet_text: (value) =>
-        value.length > 0 ? null : "Tweet cannot be empty",
+      tweet_text: (value, values) =>
+        value.length > 0 || values.images.length > 0
+          ? null
+          : "Tweet cannot be empty",
     },
   });
   const utils = api.useContext();
@@ -47,7 +51,8 @@ const TweetComposer = ({ original_id: replying_to_id }: ComposerProp) => {
         return url;
       })
     );
-    form.setValues({ images: urls });
+    const originalUrls = form.values.images;
+    form.setValues({ images: originalUrls.concat(urls) });
   };
 
   if (!sessionData) return <></>;
@@ -59,6 +64,7 @@ const TweetComposer = ({ original_id: replying_to_id }: ComposerProp) => {
       TweetText: {
         tweet_text: values.tweet_text,
       },
+      images: values.images,
     };
     send = is_reply ? { ...send, ...{ original_id: replying_to_id } } : send;
     try {
@@ -90,12 +96,15 @@ const TweetComposer = ({ original_id: replying_to_id }: ComposerProp) => {
         />
         <Group position="apart">
           <FileButton
-            onChange={() => void uploadImages}
+            onChange={(files) => {
+              if (files) {
+                void uploadImages(files);
+              }
+            }}
             multiple
-            accept="image/png,image/jpeg"
           >
-            {() => (
-              <ActionIcon color="blue" size="sm">
+            {(props) => (
+              <ActionIcon color="blue" size="sm" {...props}>
                 <IconPhoto />
               </ActionIcon>
             )}
@@ -105,6 +114,32 @@ const TweetComposer = ({ original_id: replying_to_id }: ComposerProp) => {
           </Button>
         </Group>
       </form>
+      {form.values.images.length > 0 && (
+        <Card.Section>
+          <Carousel align="start" slideGap="xl" slideSize="33.333%">
+            {form.values.images.map((image, i) => (
+              <Carousel.Slide key={i}>
+                <div className="relative">
+                  <Image alt="images" src={image} />
+                  <ActionIcon
+                    color="red"
+                    variant="outline"
+                    className="absolute top-2 z-40 right-2"
+                    radius="xl"
+                    onClick={() => {
+                      const urls = form.values.images;
+                      urls.splice(i, 1);
+                      form.setValues({ images: urls });
+                    }}
+                  >
+                    <IconCircleX />
+                  </ActionIcon>
+                </div>
+              </Carousel.Slide>
+            ))}
+          </Carousel>
+        </Card.Section>
+      )}
     </Card>
   );
 };

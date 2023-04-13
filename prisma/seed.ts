@@ -50,6 +50,22 @@ async function main() {
                 },
               ],
             },
+            TweetAttachments: {
+              create: [
+                {
+                  id: "ta1",
+                  attachment_type: "image",
+                  attachment_url:
+                    "https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80",
+                },
+                {
+                  id: "ta2",
+                  attachment_type: "image",
+                  attachment_url:
+                    "https://thumbs.dreamstime.com/b/beautiful-butterflies-snow-wild-grass-blue-pink-background-snowfall-artistic-winter-christmas-natural-image-spring-127504876.jpg",
+                },
+              ],
+            },
           },
         ],
       },
