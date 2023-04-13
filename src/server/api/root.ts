@@ -1,11 +1,8 @@
 import { AuthRouter } from "./routers/auth";
 import { exampleRouter } from "./routers/example";
-<<<<<<< HEAD
 import { FollowRouter } from "./routers/follow";
-import { RetweetRouter } from "./routers/retweet";
-=======
 import { LikeRouter } from "./routers/like";
->>>>>>> 1cd083e (test: dislike)
+import { RetweetRouter } from "./routers/retweet";
 import { TweetRouter } from "./routers/tweet";
 import { UserRouter } from "./routers/user";
 import { createTRPCRouter } from "./trpc";
@@ -20,12 +17,9 @@ export const appRouter = createTRPCRouter({
   user: UserRouter,
   tweet: TweetRouter,
   auth: AuthRouter,
-<<<<<<< HEAD
   retweet: RetweetRouter,
   follow: FollowRouter,
-=======
   like: LikeRouter,
->>>>>>> 1cd083e (test: dislike)
 });
 
 // export type definition of API

@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const LikeRouter = createTRPCRouter({
-  like: publicProcedure
+  like: protectedProcedure
     .input(
       z.object({
         user_id: z.string(),
@@ -20,7 +20,7 @@ export const LikeRouter = createTRPCRouter({
       });
       return result;
     }),
-  checkLike: publicProcedure
+  checkLike: protectedProcedure
     .input(
       z.object({
         user_id: z.string(),
@@ -37,7 +37,7 @@ export const LikeRouter = createTRPCRouter({
       });
       return obj;
     }),
-  unLike: publicProcedure
+  unLike: protectedProcedure
     .input(
       z.object({
         id: z.string(),
@@ -51,7 +51,7 @@ export const LikeRouter = createTRPCRouter({
       });
       return result;
     }),
-  dislike: publicProcedure
+  dislike: protectedProcedure
     .input(
       z.object({
         user_id: z.string(),
@@ -68,7 +68,7 @@ export const LikeRouter = createTRPCRouter({
       });
       return result;
     }),
-  checkDislike: publicProcedure
+  checkDislike: protectedProcedure
     .input(
       z.object({
         user_id: z.string(),
@@ -85,7 +85,7 @@ export const LikeRouter = createTRPCRouter({
       });
       return obj;
     }),
-  undislike: publicProcedure
+  undislike: protectedProcedure
     .input(
       z.object({
         id: z.string(),
@@ -98,5 +98,27 @@ export const LikeRouter = createTRPCRouter({
         where: { id: id },
       });
       return result;
+    }),
+  checkCount: protectedProcedure
+    .input(
+      z.object({
+        tweet_id: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const obj3 = await ctx.prisma.like.findMany({
+        where: {
+          tweet_id: input.tweet_id,
+          is_liked: true,
+        },
+      });
+      const obj4 = await ctx.prisma.like.findMany({
+        where: {
+          tweet_id: input.tweet_id,
+          is_liked: false,
+        },
+      });
+
+      return obj3.length - obj4.length;
     }),
 });

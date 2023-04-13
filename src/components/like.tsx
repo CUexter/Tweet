@@ -1,5 +1,5 @@
 import { api } from "@/utils/api";
-import { Button } from "@mantine/core";
+import { ActionIcon, Text } from "@mantine/core";
 import {
   IconThumbDown,
   IconThumbDownFilled,
@@ -9,7 +9,7 @@ import {
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
-const Like = () => {
+const Like = (id) => {
   //check if it is liked or dislike or both not
   //if user onclick like
   //
@@ -17,10 +17,8 @@ const Like = () => {
   const { data: session } = useSession();
   const uid = session?.user.id;
 
-  console.log(uid);
-  if (!uid) {
-    return <div>Loading...</div>;
-  }
+  //console.log(uid, id.id);
+
   const [isLoading, setIsLoading] = useState(true);
   const likeMutation = api.like.like.useMutation();
   const unLikeMutation = api.like.unLike.useMutation();
@@ -29,7 +27,7 @@ const Like = () => {
   const likeQuery = api.like.checkLike.useQuery(
     {
       user_id: uid,
-      tweet_id: "1234", //hardcode for now, please change this
+      tweet_id: id.id,
     },
     {
       onSuccess: () => {
@@ -40,7 +38,7 @@ const Like = () => {
   const dislikeQuery = api.like.checkDislike.useQuery(
     {
       user_id: uid,
-      tweet_id: "1234", //hardcode for now, please change this
+      tweet_id: id.id,
     },
     {
       onSuccess: () => {
@@ -48,10 +46,20 @@ const Like = () => {
       },
     }
   );
-  const text1 = likeQuery.data ? "Liked" : "Unliked";
-  const text2 = dislikeQuery.data ? "Disliked" : "UnDisliked";
+
+  const count = api.like.checkCount.useQuery(
+    {
+      tweet_id: id.id,
+    },
+    {
+      onSuccess: () => {
+        setIsLoading(false);
+      },
+    }
+  );
 
   console.log(likeQuery.data);
+  console.log("here", count.data);
 
   async function handleLikeClick() {
     if (likeQuery.data) {
@@ -88,10 +96,11 @@ const Like = () => {
       await likeMutation
         .mutateAsync({
           user_id: uid,
-          tweet_id: "1234", //hardcode for now, please change this
+          tweet_id: id.id,
         })
         .then(() => {
           void likeQuery.refetch();
+          void count.refetch();
         })
         .catch(() => {
           console.log("error");
@@ -135,10 +144,11 @@ const Like = () => {
       }
       await DislikeMutation.mutateAsync({
         user_id: uid,
-        tweet_id: "1234", //hardcode for now, please change this
+        tweet_id: id.id,
       })
         .then(() => {
           void dislikeQuery.refetch();
+          void count.refetch();
         })
         .catch(() => {
           console.log("error");
@@ -152,14 +162,23 @@ const Like = () => {
   return (
     <>
       {!isLoading && (
-        <div>
-          <Button variant="light" onClick={handleLikeClick}>
-            {likeQuery.data ? <IconThumbUpFilled /> : <IconThumbUp />}
-          </Button>
-          <Button variant="light" onClick={handleDislikeClick}>
-            {dislikeQuery.data ? <IconThumbDownFilled /> : <IconThumbDown />}
-          </Button>
-        </div>
+        <>
+          <Text size="sm">{count.data}</Text>
+          <div>
+            <ActionIcon
+              onClick={handleLikeClick}
+              color={likeQuery.data ? "blue" : "gray"}
+            >
+              {likeQuery.data ? <IconThumbUpFilled /> : <IconThumbUp />}
+            </ActionIcon>
+            <ActionIcon
+              onClick={handleDislikeClick}
+              color={dislikeQuery.data ? "blue" : "gray"}
+            >
+              {dislikeQuery.data ? <IconThumbDownFilled /> : <IconThumbDown />}
+            </ActionIcon>
+          </div>
+        </>
       )}
     </>
   );
