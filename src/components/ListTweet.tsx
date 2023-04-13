@@ -19,11 +19,7 @@ const ListTweet = ({ title, filter }: ListTweetProp) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="justify-center">
-        <Center>
-          <Grid>
-            <Timeline whereFilter={filter}></Timeline>
-          </Grid>
-        </Center>
+        <Timeline whereFilter={filter}></Timeline>
       </main>
     </>
   );

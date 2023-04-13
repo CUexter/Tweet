@@ -19,8 +19,19 @@ import Timeline from "./Timeline";
 const UserProfile = ({ id }: Pick<User, "id">) => {
   const { data: userInfo } = api.user.getUserInfo.useQuery({ id });
   const theirTweetFilter = {
-    original_tweet: null,
-    user_id: id,
+    OR: [
+      {
+        original_tweet: null,
+        user_id: id,
+      },
+      {
+        retweeted_by: {
+          some: {
+            id: id,
+          },
+        },
+      },
+    ],
   };
   return (
     <>
@@ -28,7 +39,7 @@ const UserProfile = ({ id }: Pick<User, "id">) => {
         <title>{userInfo?.display_name}</title>
       </Head>
       <Center>
-        <Card>
+        <Card className="w-4/5">
           <Card.Section>
             <Image
               src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
@@ -87,7 +98,7 @@ const UserProfile = ({ id }: Pick<User, "id">) => {
           </Button>
           <Title order={3}>Their tweet:</Title>
           <Card>
-            <Timeline whereFilter={theirTweetFilter}></Timeline>
+            <Timeline whereFilter={theirTweetFilter} />
           </Card>
         </Card>
       </Center>
