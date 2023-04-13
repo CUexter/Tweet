@@ -16,13 +16,13 @@ import {
   IconArrowAutofitLeft,
   IconArrowBackUp,
   IconDotsVertical,
-  IconHeart,
 } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
+import Like from "../like";
 import TweetComposer from "./TweetComposer";
 
 const useStyles = createStyles((theme) => ({
@@ -70,7 +70,6 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
     return <>It not here</>;
   }
 
-  const likes = tweetData.Likes.length;
   const replies = tweetData.replied_by.length;
   const retweets = tweetData.retweeted_by.length;
 
@@ -111,7 +110,7 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
             <Group>
               <Text size="sm">{retweets}</Text>
               <ActionIcon
-                color={haveRetweeted ? "green" : "gray"}
+                color={haveRetweeted ? "blue" : "gray"}
                 onClick={() => {
                   retweet.mutate({ id: tweetID });
                 }}
@@ -120,10 +119,8 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
               </ActionIcon>
             </Group>
             <Group>
-              <Text size="sm">{likes}</Text>
-              <ActionIcon onClick={() => console.log("placeholder for like")}>
-                <IconHeart size="1.5rem" />
-              </ActionIcon>
+              {/* @ts-expect-error Server Component */}
+              <Like id={tweetID} />
             </Group>
           </Group>
         </Card>
