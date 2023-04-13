@@ -5,7 +5,18 @@ import { notifications } from "@mantine/notifications";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-const TweetComposer = () => {
+interface ComposerProp {
+  original_id?: string;
+  close?: () => void;
+  redirect?: boolean;
+}
+
+const TweetComposer = ({
+  original_id: replying_to_id,
+  close,
+  redirect,
+}: ComposerProp) => {
+  const is_reply = replying_to_id === undefined ? false : true;
   const router = useRouter();
   const { data: sessionData } = useSession();
 
@@ -22,19 +33,29 @@ const TweetComposer = () => {
   const postTweet = api.tweet.createTweet.useMutation({
     onSuccess: () => {
       void utils.tweet.getLotTweets.invalidate();
+      if (is_reply) {
+        void utils.tweet.getTweet.invalidate({ id: replying_to_id });
+        if (close) {
+          close();
+        }
+        if (redirect) {
+          void router.replace(`tweet/${replying_to_id!}`);
+        }
+      }
     },
   });
 
   if (!sessionData) return <></>;
 
   const handleSubmit = (values: typeof form.values) => {
-    const send = {
+    let send = {
       user_id: sessionData?.user.id,
       is_public: true,
       TweetText: {
         tweet_text: values.tweet_text,
       },
     };
+    send = is_reply ? { ...send, ...{ original_id: replying_to_id } } : send;
     try {
       postTweet.mutate(send);
       notifications.show({
