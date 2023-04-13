@@ -98,7 +98,9 @@ const Register = () => {
         )}
 
         <Group position="right" mt="md">
-          <Button type="submit">Submit</Button>
+          <Button variant="light" type="submit">
+            Submit
+          </Button>
         </Group>
       </form>
     </Box>
