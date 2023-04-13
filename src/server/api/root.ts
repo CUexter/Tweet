@@ -1,7 +1,7 @@
 import { AuthRouter } from "./routers/auth";
 import { exampleRouter } from "./routers/example";
-import { RetweetRouter } from "./routers/retweet";
 import { FollowRouter } from "./routers/follow";
+import { RetweetRouter } from "./routers/retweet";
 import { TweetRouter } from "./routers/tweet";
 import { UserRouter } from "./routers/user";
 import { createTRPCRouter } from "./trpc";
