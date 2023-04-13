@@ -26,7 +26,26 @@ const Register = () => {
         value === values.password ? null : "Passwords do not match",
     },
   });
-  const register = api.auth.registerUser.useMutation();
+
+  const register = api.auth.registerUser.useMutation({
+    onSuccess() {
+      notifications.show({
+        title: "Success",
+        message: "You are now registered",
+        color: "blue",
+      });
+      void signIn();
+    },
+    onError(error) {
+      notifications.show({
+        message: error.toString(),
+        title: "Oops! Registration went wrong",
+        color: "red",
+      });
+      console.error("Error:", error);
+      setErrorMessage("User registration failed");
+    },
+  });
 
   const handleSubmit = (values: typeof form.values) => {
     const send = {
@@ -34,28 +53,7 @@ const Register = () => {
       email: values.email,
       password: values.password,
     };
-    try {
-      register.mutate(send);
-
-      if (register.isSuccess) {
-        void signIn();
-        notifications.show({
-          title: "Success",
-          message: "You are now registered",
-          color: "blue",
-        });
-      } else {
-        throw new Error("Invalid");
-      }
-    } catch (error) {
-      notifications.show({
-        message: "User registration failed",
-        title: "Oops! Registration went wrong",
-        color: "red",
-      });
-      console.error("Error:", error);
-      setErrorMessage("User registration failed");
-    }
+    register.mutate(send);
   };
 
   return (

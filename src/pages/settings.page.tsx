@@ -29,16 +29,6 @@ const ProfileSettings = () => {
   /*   resetRef.current?.(); */
   /* }; */
 
-  const { data: session } = useSession();
-  const { data: userInfo } = api.user.getMyInfo.useQuery();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!session?.user) {
-      void router.push("/");
-    }
-  }, [session, router]);
-
   const isEmailIfPresent = (value: string | undefined | null) => {
     if (!value) {
       return null;
@@ -48,10 +38,10 @@ const ProfileSettings = () => {
   };
   const form = useForm({
     initialValues: {
-      display_name: userInfo?.display_name || "",
+      display_name: "",
       emailVisibility: true,
-      email: userInfo?.email || "",
-      profile_desc: userInfo?.profile_desc || "",
+      email: "",
+      profile_desc: "",
     },
 
     validate: {
@@ -62,19 +52,37 @@ const ProfileSettings = () => {
       ),
     },
   });
+  const { data: session } = useSession();
+  const { data: userInfo } = api.user.getMyInfo.useQuery(undefined, {
+    onSuccess(data) {
+      form.setValues({
+        display_name: data.display_name || "",
+        emailVisibility: data.emailVisibility || true,
+        email: data.email || "",
+        profile_desc: data.profile_desc || "",
+      });
+    },
+  });
+  const router = useRouter();
 
-  const updateUser = api.user.updateUserInfo.useMutation();
+  useEffect(() => {
+    if (!session?.user) {
+      void router.push("/");
+    }
+  }, [session, router]);
+
+  const updateUser = api.user.updateUserInfo.useMutation({
+    onSuccess() {
+      notifications.show({
+        title: "Success",
+        message: "settings saved successfully",
+      });
+      void router.push("/");
+    },
+  });
 
   const onSubmit = (values: typeof form.values) => {
     updateUser.mutate(values);
-    if (updateUser.isSuccess) {
-      notifications.show({
-        title: "Success",
-        message: "Submit success",
-        color: "blue",
-      });
-      void router.push("/");
-    }
   };
 
   return (

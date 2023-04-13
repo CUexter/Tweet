@@ -1,9 +1,8 @@
 ## [1.9.1](https://github.com/CUexter/Tweet/compare/v1.9.0...v1.9.1) (2023-04-13)
 
-
 ### Bug Fixes
 
-* button style fix ([#97](https://github.com/CUexter/Tweet/issues/97)) ([7e71aac](https://github.com/CUexter/Tweet/commit/7e71aacb98dab09a9608b17f1248d80e37441d5a))
+- button style fix ([#97](https://github.com/CUexter/Tweet/issues/97)) ([7e71aac](https://github.com/CUexter/Tweet/commit/7e71aacb98dab09a9608b17f1248d80e37441d5a))
 
 # [1.9.0](https://github.com/CUexter/Tweet/compare/v1.8.0...v1.9.0) (2023-04-13)
 

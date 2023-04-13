@@ -14,6 +14,7 @@ import {
 } from "@mantine/core";
 import { hasLength, useForm } from "@mantine/form";
 import { useDebouncedValue } from "@mantine/hooks";
+import { notifications } from "@mantine/notifications";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -79,13 +80,18 @@ const NewUserWelcome = () => {
 
   duplicate = data || false;
 
-  const updateUser = api.user.createNewUserInfo.useMutation();
+  const updateUser = api.user.createNewUserInfo.useMutation({
+    onSuccess() {
+      notifications.show({
+        title: "successfully saved",
+        message: "Welcome to tweet",
+      });
+      void router.replace("/");
+    },
+  });
 
   const onSubmit = (values: typeof form.values) => {
     updateUser.mutate(values);
-    if (updateUser.isSuccess) {
-      void router.replace("/");
-    }
   };
 
   return (
