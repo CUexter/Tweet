@@ -37,12 +37,16 @@ const Register = () => {
     try {
       register.mutate(send);
 
-      notifications.show({
-        title: "Success",
-        message: "You are now registered",
-        color: "blue",
-      });
-      void signIn();
+      if (register.isSuccess) {
+        void signIn();
+        notifications.show({
+          title: "Success",
+          message: "You are now registered",
+          color: "blue",
+        });
+      } else {
+        throw new Error("Invalid");
+      }
     } catch (error) {
       notifications.show({
         message: "User registration failed",
