@@ -33,6 +33,7 @@ interface pwProps {
 const UpdatePw = ({ id }: pwProps) => {
   const [value, setValue] = useInputState("");
   const updatePwMutation = api.user.updatePassword.useMutation();
+
   const handleSubmit = async () => {
     if (id != null && id != undefined && value.length > 7) {
       const saltRounds = bcrypt.genSaltSync(10);

@@ -1,6 +1,7 @@
 import { api } from "@/utils/api";
 import { Avatar, Button, Paper, Text, createStyles, rem } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
+import { useSession } from "next-auth/react";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -32,24 +33,33 @@ interface UserCardImageProps {
 const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
   const deleteMutation = api.user.deleteUser.useMutation();
   const deleteTweetMutation = api.user.deleteRelatedTweet.useMutation();
+  const { data: sessionData } = useSession();
 
   const handleClick = async () => {
     if (window.confirm("Are you sure you want to delete?") && data != null) {
-      console.log("Del target: " + data.id);
-      await deleteTweetMutation
-        .mutateAsync({ id: data.id })
-        .catch((e) => console.log(e));
-      await deleteMutation
-        .mutateAsync({ id: data.id })
-        .catch((e) => console.log(e));
-      notifications.show({
-        title: "Success",
-        message: "This use has been deleted successfully. Refreshing...",
-        color: "blue",
-      });
-      setTimeout(function () {
-        window.location.reload();
-      }, 2000);
+      if (data.id != sessionData?.user.id) {
+        console.log("Del target: " + data.id);
+        await deleteTweetMutation
+          .mutateAsync({ id: data.id })
+          .catch((e) => console.log(e));
+        await deleteMutation
+          .mutateAsync({ id: data.id })
+          .catch((e) => console.log(e));
+        notifications.show({
+          title: "Success",
+          message: "This use has been deleted successfully. Refreshing...",
+          color: "blue",
+        });
+        setTimeout(function () {
+          window.location.reload();
+        }, 2000);
+      } else {
+        notifications.show({
+          title: "Fail",
+          message: "You cannot delete yourself!",
+          color: "red",
+        });
+      }
     }
   };
 
