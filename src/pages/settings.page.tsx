@@ -50,6 +50,18 @@ const ProfileSettings = () => {
       ),
     },
   });
+  const { data: session } = useSession();
+  const { data: userInfo } = api.user.getMyInfo.useQuery(undefined, {
+    onSuccess(data) {
+      form.setValues({
+        display_name: data.display_name || "",
+        emailVisibility: data.emailVisibility || true,
+        email: data.email || "",
+        profile_desc: data.profile_desc || "",
+      });
+    },
+  });
+  const router = useRouter();
 
   const submitProfile = async (file: File) => {
     const { url } = await uploadToS3(file);
