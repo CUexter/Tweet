@@ -1,6 +1,7 @@
 import { api } from "@/utils/api";
 import { Avatar, Button, Paper, Text, createStyles, rem } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
+import bcrypt from "bcrypt";
 
 const useStyles = createStyles((theme) => ({
   card: {

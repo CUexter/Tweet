@@ -318,7 +318,7 @@ const UpdateUser = ({ data, isOpen }: UsersProps) => {
         size="30%"
         centered
       >
-        <UpdatePw />
+        <UpdatePw id={data?.id} />
       </Modal>
       <Modal
         opened={isInput}

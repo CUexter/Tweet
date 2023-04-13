@@ -1,6 +1,9 @@
+import { api } from "@/utils/api";
 import { Box, Button, Center, PasswordInput, Text } from "@mantine/core";
 import { useInputState } from "@mantine/hooks";
+import { notifications } from "@mantine/notifications";
 import { IconCheck, IconX } from "@tabler/icons-react";
+import bcrypt from "bcryptjs";
 
 function PasswordRequirement({
   meets,
@@ -23,11 +26,34 @@ function PasswordRequirement({
   );
 }
 
-const UpdatePw = () => {
+interface pwProps {
+  id: string | null | undefined;
+}
+
+const UpdatePw = ({ id }: pwProps) => {
   const [value, setValue] = useInputState("");
-  const handleSubmit = () => {
-    const saltRounds = 10;
-    //const hashedPassword = await bcrypt.hash(value, saltRounds);
+  const updatePwMutation = api.user.updatePassword.useMutation();
+  const handleSubmit = async () => {
+    if (id != null && id != undefined && value.length > 5) {
+      const saltRounds = bcrypt.genSaltSync(10);
+      const hashedPassword = bcrypt.hashSync(value, saltRounds);
+      await updatePwMutation.mutateAsync({
+        id: id,
+        password: hashedPassword,
+      });
+      notifications.show({
+        title: "Success",
+        message: "The password has been updated.",
+        color: "blue",
+      });
+    } else {
+      notifications.show({
+        title: "Failed",
+        message:
+          "The new password must fullfil the requirement. Please try again.",
+        color: "red",
+      });
+    }
   };
   return (
     <div>

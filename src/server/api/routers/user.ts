@@ -175,9 +175,27 @@ export const UserRouter = createTRPCRouter({
       }
     }),
 
-  updatePassword: protectedProcedure.query(({ ctx }) => {
-    return;
-  }),
+  updatePassword: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        password: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      const { id, password } = input;
+      console.log("New Name:" + id);
+      if (id !== null) {
+        return ctx.prisma.user.update({
+          where: {
+            id: id,
+          },
+          data: {
+            password: password,
+          },
+        });
+      }
+    }),
 
   deleteRelatedTweet: protectedProcedure
     .input(
