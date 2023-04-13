@@ -15,7 +15,7 @@ interface UsersTableProps {
         email: string | null;
         display_name: string | null;
         tag_name: string | null;
-        profile_picture: string | null;
+        image: string | null;
       }[]
     | undefined;
 }
@@ -27,7 +27,7 @@ const UserListTable = ({ data }: UsersTableProps) => {
       <tr key={item.display_name}>
         <td>
           <Group spacing="sm">
-            <Avatar size={30} src={item.profile_picture} radius={30} />
+            <Avatar size={30} src={item.image} radius={30} />
             <Text fz="sm" fw={500}>
               {item.display_name}
             </Text>
