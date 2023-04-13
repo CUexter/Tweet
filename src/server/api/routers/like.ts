@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const LikeRouter = createTRPCRouter({
   like: protectedProcedure
@@ -99,7 +99,7 @@ export const LikeRouter = createTRPCRouter({
       });
       return result;
     }),
-  checkCount: protectedProcedure
+  checkCount: publicProcedure
     .input(
       z.object({
         tweet_id: z.string(),

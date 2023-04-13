@@ -10,16 +10,41 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 const Like = (id) => {
-  //check if it is liked or dislike or both not
-  //if user onclick like
-  //
+  const [isLoading, setIsLoading] = useState(true);
+  const count = api.like.checkCount.useQuery(
+    {
+      tweet_id: id.id,
+    },
+    {
+      onSuccess: () => {
+        setIsLoading(false);
+      },
+    }
+  );
 
   const { data: session } = useSession();
   const uid = session?.user.id;
 
+  if (!uid) {
+    return (
+      !isLoading && (
+        <>
+          <Text size="sm">{count.data}</Text>
+          <div>
+            <ActionIcon>
+              <IconThumbUp />
+            </ActionIcon>
+            <ActionIcon>
+              <IconThumbDown />
+            </ActionIcon>
+          </div>
+        </>
+      )
+    );
+  }
+
   //console.log(uid, id.id);
 
-  const [isLoading, setIsLoading] = useState(true);
   const likeMutation = api.like.like.useMutation();
   const unLikeMutation = api.like.unLike.useMutation();
   const DislikeMutation = api.like.dislike.useMutation();
@@ -38,17 +63,6 @@ const Like = (id) => {
   const dislikeQuery = api.like.checkDislike.useQuery(
     {
       user_id: uid,
-      tweet_id: id.id,
-    },
-    {
-      onSuccess: () => {
-        setIsLoading(false);
-      },
-    }
-  );
-
-  const count = api.like.checkCount.useQuery(
-    {
       tweet_id: id.id,
     },
     {
