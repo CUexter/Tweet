@@ -299,7 +299,7 @@ export const UserRouter = createTRPCRouter({
       user.tag_name = input.tag_name;
       user.emailVisibility = input.emailVisibility;
       user.profile_desc = input.profile_desc;
-      user.image = input.image || user.image;
+      user.image = input.image || "";
       const updateUser = await ctx.prisma.user.update({
         where: {
           id: user.id,
@@ -326,8 +326,8 @@ export const UserRouter = createTRPCRouter({
       user.emailVisibility = input.emailVisibility || user.emailVisibility;
       user.email = input.email || user.email;
       user.profile_desc = input.profile_desc || user.profile_desc;
-      user.profile_picture = input.profile_picture || user.profile_picture;
-      user.image = input.image || user.image;
+      user.profile_picture = input.profile_picture || "";
+      user.image = input.image || "";
       const updateUser = await ctx.prisma.user.update({
         where: {
           id: user.id,

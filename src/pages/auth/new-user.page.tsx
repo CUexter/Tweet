@@ -94,12 +94,15 @@ const NewUserWelcome = () => {
 
   duplicate = data || false;
 
+  const utils = api.useContext();
+
   const updateUser = api.user.createNewUserInfo.useMutation({
     onSuccess() {
       notifications.show({
         title: "successfully saved",
         message: "Welcome to tweet",
       });
+      void utils.user.getMyHeaderInfo.invalidate();
       void router.replace("/");
     },
   });
@@ -138,6 +141,7 @@ const NewUserWelcome = () => {
 
                 <Group position="center" my="1rem">
                   <FileButton
+                    accept="image/png,image/jpeg"
                     onChange={(file) => {
                       if (file) {
                         void submitAvatar(file);
@@ -195,6 +199,7 @@ const NewUserWelcome = () => {
 
               <Group position="center" my="1rem">
                 <FileButton
+                  accept="image/png,image/jpeg"
                   onChange={(file) => {
                     if (file) {
                       void submitProfile(file);

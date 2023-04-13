@@ -85,12 +85,14 @@ const ProfileSettings = () => {
     }
   }, [session, router]);
 
+  const utils = api.useContext();
   const updateUser = api.user.updateUserInfo.useMutation({
     onSuccess() {
       notifications.show({
         title: "Success",
         message: "settings saved successfully",
       });
+      void utils.user.getMyHeaderInfo.invalidate();
       setTimeout(function () {
         void router.push("/");
       }, 2000);
@@ -133,6 +135,7 @@ const ProfileSettings = () => {
                         void submitAvatar(file);
                       }
                     }}
+                    accept="image/png,image/jpeg"
                   >
                     {(props) => (
                       <Button variant="outline" {...props}>
@@ -184,6 +187,7 @@ const ProfileSettings = () => {
 
               <Group position="center" my="1rem">
                 <FileButton
+                  accept="image/png,image/jpeg"
                   onChange={(file) => {
                     if (file) {
                       void submitProfile(file);

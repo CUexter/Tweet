@@ -118,6 +118,7 @@ const TweetComposer = ({
                 void uploadImages(files);
               }
             }}
+            accept="image/png,image/jpeg"
             multiple
           >
             {(props) => (
