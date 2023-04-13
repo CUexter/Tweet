@@ -42,7 +42,7 @@ const HeaderSearch = () => {
   const { colorScheme } = useMantineColorScheme();
 
   return (
-    <Header height={56} className={classes.header} mb={120}>
+    <Header height={56} className={classes.header} mb={"2em"}>
       <div className={classes.inner}>
         <Group>
           <ActionIcon component={Link} href="/">

@@ -1,6 +1,5 @@
 import type { Prisma } from "@prisma/client";
 
-import { Center, Grid } from "@mantine/core";
 import Head from "next/head";
 
 import Timeline from "./Timeline";

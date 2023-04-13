@@ -14,16 +14,11 @@ const Home = () => {
   const { data: userFollowing } = api.user.getFollowing.useQuery({
     id: sessionData.user.id,
   });
-  let filterFollowing;
-  if (!userFollowing || userFollowing.length === 0) {
-    filterFollowing = filterAll;
-  } else {
-    filterFollowing = {
-      user_id: {
-        in: userFollowing.map((following) => following.being_followed_ID),
-      },
-    };
-  }
+  const filterFollowing = {
+    user_id: {
+      in: userFollowing?.map((following) => following.being_followed_ID),
+    },
+  };
 
   return (
     <>
@@ -33,7 +28,7 @@ const Home = () => {
           <Tabs.Tab value="all">All</Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="following" pt="xs">
-          <ListTweet title="Explore" filter={filterFollowing}></ListTweet>
+          <ListTweet title="Following" filter={filterFollowing}></ListTweet>
         </Tabs.Panel>
         <Tabs.Panel value="all" pt="xs">
           <ListTweet title="Explore" filter={filterAll}></ListTweet>
