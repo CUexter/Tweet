@@ -1,8 +1,17 @@
 import { api } from "@/utils/api";
-import { Button, Card, Textarea } from "@mantine/core";
+import {
+  ActionIcon,
+  Button,
+  Card,
+  FileButton,
+  Group,
+  Textarea,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
+import { IconPhoto } from "@tabler/icons-react";
 import { useSession } from "next-auth/react";
+import { usePresignedUpload } from "next-s3-upload";
 
 interface ComposerProp {
   original_id?: string;
@@ -15,6 +24,7 @@ const TweetComposer = ({ original_id: replying_to_id }: ComposerProp) => {
   const form = useForm({
     initialValues: {
       tweet_text: "",
+      images: [] as string[],
     },
     validate: {
       tweet_text: (value) =>
@@ -27,6 +37,18 @@ const TweetComposer = ({ original_id: replying_to_id }: ComposerProp) => {
       void utils.tweet.getLotTweets.invalidate();
     },
   });
+
+  const { uploadToS3 } = usePresignedUpload();
+
+  const uploadImages = async (files: File[]) => {
+    const urls = await Promise.all(
+      files.map(async (f) => {
+        const { url } = await uploadToS3(f);
+        return url;
+      })
+    );
+    form.setValues({ images: urls });
+  };
 
   if (!sessionData) return <></>;
 
@@ -66,11 +88,22 @@ const TweetComposer = ({ original_id: replying_to_id }: ComposerProp) => {
           label="Tweet"
           {...form.getInputProps("tweet_text")}
         />
-        <div className="flex justify-end">
+        <Group position="apart">
+          <FileButton
+            onChange={() => void uploadImages}
+            multiple
+            accept="image/png,image/jpeg"
+          >
+            {() => (
+              <ActionIcon color="blue" size="sm">
+                <IconPhoto />
+              </ActionIcon>
+            )}
+          </FileButton>
           <Button variant="subtle" type="submit">
             Tweet
           </Button>
-        </div>
+        </Group>
       </form>
     </Card>
   );
