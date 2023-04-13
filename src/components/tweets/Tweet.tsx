@@ -21,6 +21,7 @@ import {
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import TweetComposer from "./TweetComposer";
 
@@ -37,6 +38,8 @@ interface TweetProp {
 }
 const Tweet = ({ tweetID, tweetData }: TweetProp) => {
   const [opened, { open, close }] = useDisclosure(false);
+  const router = useRouter();
+  const { id } = router.query;
   const { classes } = useStyles();
   // if they didn't pass in any tweetData, get it
   ({ data: tweetData } = api.tweet.getTweet.useQuery(
@@ -132,7 +135,11 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
           title="Write your reply"
           centered
         >
-          <TweetComposer original_id={tweetID} />
+          <TweetComposer
+            original_id={tweetID}
+            close={close}
+            redirect={tweetID !== id}
+          />
         </Modal>
       </div>
     </>
