@@ -76,7 +76,9 @@ const NewUserWelcome = () => {
   };
 
   const submitAvatar = async (file: File) => {
+    console.log("why");
     const { url } = await uploadToS3(file);
+    console.log(url);
     form.setValues({ image: url });
   };
 
@@ -128,7 +130,7 @@ const NewUserWelcome = () => {
                   <Avatar
                     size="xl"
                     radius="xl"
-                    src={session?.user.image}
+                    src={form.values.image}
                     color="indigo"
                   ></Avatar>
                 </Center>
