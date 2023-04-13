@@ -10,9 +10,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 interface likeProps {
-  id: {
-    id: string;
-  };
+  id: string;
 }
 
 const Like = ({ id }: likeProps) => {
@@ -20,7 +18,7 @@ const Like = ({ id }: likeProps) => {
 
   const count = api.like.checkCount.useQuery(
     {
-      tweet_id: id.id,
+      tweet_id: id,
     },
     {
       onSuccess: () => {
@@ -50,7 +48,7 @@ const Like = ({ id }: likeProps) => {
     );
   }
 
-  //console.log(uid, id.id);
+  console.log("id: ", id);
 
   const likeMutation = api.like.like.useMutation();
   const unLikeMutation = api.like.unLike.useMutation();
@@ -59,7 +57,7 @@ const Like = ({ id }: likeProps) => {
   const likeQuery = api.like.checkLike.useQuery(
     {
       user_id: uid,
-      tweet_id: id.id,
+      tweet_id: id,
     },
     {
       onSuccess: () => {
@@ -70,7 +68,7 @@ const Like = ({ id }: likeProps) => {
   const dislikeQuery = api.like.checkDislike.useQuery(
     {
       user_id: uid,
-      tweet_id: id.id,
+      tweet_id: id,
     },
     {
       onSuccess: () => {
@@ -118,7 +116,7 @@ const Like = ({ id }: likeProps) => {
       await likeMutation
         .mutateAsync({
           user_id: uid as string,
-          tweet_id: id.id,
+          tweet_id: id,
         })
         .then(() => {
           void likeQuery.refetch();
@@ -167,7 +165,7 @@ const Like = ({ id }: likeProps) => {
       }
       await DislikeMutation.mutateAsync({
         user_id: uid as string,
-        tweet_id: id.id,
+        tweet_id: id,
       })
         .then(() => {
           void dislikeQuery.refetch();
