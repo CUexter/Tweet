@@ -1,10 +1,46 @@
 import ListTweet from "@/components/ListTweet";
+import { api } from "@/utils/api";
+import { Tabs } from "@mantine/core";
+import { useSession } from "next-auth/react";
 
 const Home = () => {
-  const filter = {
+  const { data: sessionData } = useSession();
+  const filterAll = {
     original_tweet: null,
   };
-  return <ListTweet title="Explore" filter={filter}></ListTweet>;
+  if (!sessionData) {
+    return <ListTweet title="Explore" filter={filterAll}></ListTweet>;
+  }
+  const { data: userFollowing } = api.user.getFollowing.useQuery({
+    id: sessionData.user.id,
+  });
+  let filterFollowing;
+  if (!userFollowing || userFollowing.length === 0) {
+    filterFollowing = filterAll;
+  } else {
+    filterFollowing = {
+      user_id: {
+        in: userFollowing.map((following) => following.being_followed_ID),
+      },
+    };
+  }
+
+  return (
+    <>
+      <Tabs defaultValue="following">
+        <Tabs.List position="center">
+          <Tabs.Tab value="following">Following</Tabs.Tab>
+          <Tabs.Tab value="all">All</Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value="following" pt="xs">
+          <ListTweet title="Explore" filter={filterFollowing}></ListTweet>
+        </Tabs.Panel>
+        <Tabs.Panel value="all" pt="xs">
+          <ListTweet title="Explore" filter={filterAll}></ListTweet>
+        </Tabs.Panel>
+      </Tabs>
+    </>
+  );
 };
 
 export default Home;
