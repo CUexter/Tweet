@@ -1,9 +1,8 @@
 # [1.10.0](https://github.com/CUexter/Tweet/compare/v1.9.2...v1.10.0) (2023-04-13)
 
-
 ### Features
 
-* like/dislike functionality ([#96](https://github.com/CUexter/Tweet/issues/96)) ([381384d](https://github.com/CUexter/Tweet/commit/381384deb570baa63a30f43bbfcf285792fb0153))
+- like/dislike functionality ([#96](https://github.com/CUexter/Tweet/issues/96)) ([381384d](https://github.com/CUexter/Tweet/commit/381384deb570baa63a30f43bbfcf285792fb0153))
 
 ## [1.9.2](https://github.com/CUexter/Tweet/compare/v1.9.1...v1.9.2) (2023-04-13)
 
