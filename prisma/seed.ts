@@ -100,6 +100,7 @@ async function main() {
       id: "l1",
       user_id: "uid2",
       tweet_id: "t1",
+      is_liked: true,
     },
     update: {},
   });
