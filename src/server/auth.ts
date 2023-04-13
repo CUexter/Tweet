@@ -78,7 +78,7 @@ export const authOptions: NextAuthOptions = {
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
         username: {
-          label: "Username Or Email",
+          label: "Tag name Or Email",
           type: "text",
           placeholder: "jsmith",
         },
@@ -92,7 +92,7 @@ export const authOptions: NextAuthOptions = {
           where: {
             OR: [
               {
-                name: credentials.username,
+                tag_name: credentials.username,
               },
               {
                 email: credentials.username,

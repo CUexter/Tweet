@@ -43,9 +43,12 @@ const UpdatePw = ({ id }: pwProps) => {
       });
       notifications.show({
         title: "Success",
-        message: "The password has been updated.",
+        message: "The password has been updated. Refreshing...",
         color: "blue",
       });
+      setTimeout(function () {
+        window.location.reload();
+      }, 2000);
     } else {
       notifications.show({
         title: "Failed",

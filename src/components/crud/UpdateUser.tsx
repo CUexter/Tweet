@@ -94,29 +94,33 @@ const UpdateUser = ({ data, isOpen }: UsersProps) => {
         } else {
           notifications.show({
             title: "Success",
-            message: "The name has been updated.",
+            message: "The name has been updated. Refreshing...",
             color: "blue",
           });
           await updateNameMutation.mutateAsync({
             id: data.id,
             name: newName,
           });
-          window.location.reload();
+          setTimeout(function () {
+            window.location.reload();
+          }, 2000);
         }
       }
       if (newTagName != "") {
         // Check if the new tag name already exists
         if (targetTag == null) {
-          notifications.show({
-            title: "Success",
-            message: "The tag name has been updated.",
-            color: "blue",
-          });
-          window.location.reload();
           await updateTagNameMutation.mutateAsync({
             id: data.id,
             tag_name: newTagName,
           });
+          notifications.show({
+            title: "Success",
+            message: "The tag name has been updated. Refreshing...",
+            color: "blue",
+          });
+          setTimeout(function () {
+            window.location.reload();
+          }, 2000);
         } else if (newTagName == data.tag_name) {
           notifications.show({
             title: "Failed",
@@ -136,16 +140,18 @@ const UpdateUser = ({ data, isOpen }: UsersProps) => {
       if (newEmail != "") {
         // Check if the new email already exists
         if (targetEmail == null) {
-          notifications.show({
-            title: "Success",
-            message: "The email has been updated.",
-            color: "blue",
-          });
           await updateEmailMutation.mutateAsync({
             id: data.id,
             email: newEmail,
           });
-          window.location.reload();
+          notifications.show({
+            title: "Success",
+            message: "The email has been updated. Refreshing...",
+            color: "blue",
+          });
+          setTimeout(function () {
+            window.location.reload();
+          }, 2000);
         } else if (newEmail == data.email) {
           notifications.show({
             title: "Failed",

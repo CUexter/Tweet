@@ -1,7 +1,6 @@
 import { api } from "@/utils/api";
 import { Avatar, Button, Paper, Text, createStyles, rem } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import bcrypt from "bcrypt";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -45,9 +44,12 @@ const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
         .catch((e) => console.log(e));
       notifications.show({
         title: "Success",
-        message: "This use has been deleted successfully.",
+        message: "This use has been deleted successfully. Refreshing...",
         color: "blue",
       });
+      setTimeout(function () {
+        window.location.reload();
+      }, 2000);
     }
   };
 
