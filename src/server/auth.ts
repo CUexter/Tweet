@@ -1,3 +1,4 @@
+import type { User } from "@prisma/client";
 import type { GetServerSidePropsContext } from "next";
 import type { DefaultSession, NextAuthOptions } from "next-auth";
 
@@ -22,6 +23,7 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      is_admin: boolean;
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
@@ -43,20 +45,14 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
-        token.email = user.email;
-        token.name = user.name;
-        token.image = user.image;
+        token.user = user;
       }
       console.log(token);
 
       return token;
     },
     session({ session, token }) {
-      session.user.id = token.id as string;
-      session.user.name = token.name;
-      session.user.email = token.email;
-      session.user.image = token.image as string | null;
+      session.user = token.user as User;
       return session;
     },
   },
@@ -78,7 +74,7 @@ export const authOptions: NextAuthOptions = {
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
         username: {
-          label: "Username Or Email",
+          label: "Tag name Or Email",
           type: "text",
           placeholder: "jsmith",
         },
@@ -92,7 +88,7 @@ export const authOptions: NextAuthOptions = {
           where: {
             OR: [
               {
-                name: credentials.username,
+                tag_name: credentials.username,
               },
               {
                 email: credentials.username,
@@ -110,7 +106,13 @@ export const authOptions: NextAuthOptions = {
         );
 
         if (user && pwCorrect) {
-          const result = _.pick(user, ["id", "name", "tag_name", "image"]);
+          const result = _.pick(user, [
+            "id",
+            "name",
+            "tag_name",
+            "image",
+            "is_admin",
+          ]);
           return result;
         } else {
           console.log("return null");

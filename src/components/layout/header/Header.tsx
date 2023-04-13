@@ -6,6 +6,7 @@ import {
   Header,
   createStyles,
   rem,
+  useMantineColorScheme,
 } from "@mantine/core";
 import { IconHome } from "@tabler/icons-react";
 import { signIn, useSession } from "next-auth/react";
@@ -38,6 +39,7 @@ const useStyles = createStyles((theme) => ({
 const HeaderSearch = () => {
   const { classes } = useStyles();
   const { data: sessionData } = useSession();
+  const { colorScheme } = useMantineColorScheme();
 
   return (
     <Header height={56} className={classes.header} mb={120}>
@@ -51,12 +53,18 @@ const HeaderSearch = () => {
         <Group>
           <ToggleDarkMode />
           {sessionData === null ? (
-            <Button.Group>
-              <Button compact onClick={() => void signIn()}>
-                Sign in
-              </Button>
-              <SignUpButton />
-            </Button.Group>
+            <>
+              <Button.Group>
+                <Button
+                  compact
+                  variant={colorScheme === "dark" ? "light" : "outline"}
+                  onClick={() => void signIn()}
+                >
+                  Sign in
+                </Button>
+                <SignUpButton />
+              </Button.Group>
+            </>
           ) : (
             <AccountHeaderMenu />
           )}

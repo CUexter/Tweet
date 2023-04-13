@@ -1,0 +1,88 @@
+import { api } from "@/utils/api";
+import { Avatar, Button, Paper, Text, createStyles, rem } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
+
+const useStyles = createStyles((theme) => ({
+  card: {
+    backgroundColor:
+      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
+  },
+
+  avatar: {
+    border: `${rem(2)} solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white
+    }`,
+  },
+}));
+
+interface UserCardImageProps {
+  data:
+    | {
+        id: string;
+        display_name: string | null;
+        email: string | null;
+        tag_name: string | null;
+        profile_picture: string | null;
+      }
+    | null
+    | undefined;
+  isOpen: boolean;
+}
+
+const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
+  const deleteMutation = api.user.deleteUser.useMutation();
+  const deleteTweetMutation = api.user.deleteRelatedTweet.useMutation();
+
+  const handleClick = async () => {
+    if (window.confirm("Are you sure you want to delete?") && data != null) {
+      console.log("Del target: " + data.id);
+      await deleteTweetMutation
+        .mutateAsync({ id: data.id })
+        .catch((e) => console.log(e));
+      await deleteMutation
+        .mutateAsync({ id: data.id })
+        .catch((e) => console.log(e));
+      notifications.show({
+        title: "Success",
+        message: "This use has been deleted successfully. Refreshing...",
+        color: "blue",
+      });
+      setTimeout(function () {
+        window.location.reload();
+      }, 2000);
+    }
+  };
+
+  if (isOpen == false) return null;
+
+  return (
+    <Paper
+      radius="md"
+      withBorder
+      p="lg"
+      sx={(theme) => ({
+        backgroundColor:
+          theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
+      })}
+    >
+      <Avatar src={data?.profile_picture} size={120} radius={120} mx="auto" />
+      <Text ta="center" fz="lg" weight={500} mt="md">
+        {data?.display_name}
+      </Text>
+      <Text ta="center" c="dimmed" fz="sm">
+        {data?.email} • {data?.tag_name}
+      </Text>
+
+      <Button
+        variant="default"
+        fullWidth
+        mt="md"
+        onClick={() => void handleClick()}
+      >
+        Delete
+      </Button>
+    </Paper>
+  );
+};
+
+export default DeleteUser;
