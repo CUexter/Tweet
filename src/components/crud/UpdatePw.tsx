@@ -33,8 +33,9 @@ interface pwProps {
 const UpdatePw = ({ id }: pwProps) => {
   const [value, setValue] = useInputState("");
   const updatePwMutation = api.user.updatePassword.useMutation();
+
   const handleSubmit = async () => {
-    if (id != null && id != undefined && value.length > 5) {
+    if (id != null && id != undefined && value.length > 7) {
       const saltRounds = bcrypt.genSaltSync(10);
       const hashedPassword = bcrypt.hashSync(value, saltRounds);
       await updatePwMutation.mutateAsync({
@@ -69,8 +70,8 @@ const UpdatePw = ({ id }: pwProps) => {
       />
 
       <PasswordRequirement
-        label="Has at least 6 characters"
-        meets={value.length > 5}
+        label="Has at least 8 characters"
+        meets={value.length > 7}
       />
 
       <Button

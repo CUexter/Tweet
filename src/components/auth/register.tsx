@@ -3,10 +3,12 @@ import { Box, Button, Checkbox, Group, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
 
   const form = useForm({
     initialValues: {
@@ -31,10 +33,12 @@ const Register = () => {
     onSuccess() {
       notifications.show({
         title: "Success",
-        message: "You are now registered",
+        message: "You are now registered. Redirecting...",
         color: "blue",
       });
-      void signIn();
+      setTimeout(function () {
+        void signIn(undefined, { callbackUrl: "/auth/new-user" });
+      }, 2000);
     },
     onError(error) {
       notifications.show({
