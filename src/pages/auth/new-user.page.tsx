@@ -224,7 +224,7 @@ const NewUserWelcome = () => {
           </Grid>
         </Container>
 
-        <Group position="right" mt="md">
+        <Group position="center" mt="md">
           <Button variant="light" type="submit">
             Submit
           </Button>

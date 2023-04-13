@@ -211,7 +211,7 @@ const ProfileSettings = () => {
             </Grid.Col>
           </Grid>
         </Container>
-        <Group position="right" mt="md">
+        <Group position="center" mt="md">
           <Button type="submit" variant="outline" color="blue">
             Submit
           </Button>
