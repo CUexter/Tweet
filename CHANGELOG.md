@@ -1,6 +1,16 @@
+## [1.9.2](https://github.com/CUexter/Tweet/compare/v1.9.1...v1.9.2) (2023-04-13)
+
+### Bug Fixes
+
+# <<<<<<< HEAD
+
+- mutate onsuccess function instead of isSuccess ([#98](https://github.com/CUexter/Tweet/issues/98)) ([700c73c](https://github.com/CUexter/Tweet/commit/700c73c31d290f51b32259d9f073ae6a6cfb5131))
+
 ## [1.9.1](https://github.com/CUexter/Tweet/compare/v1.9.0...v1.9.1) (2023-04-13)
 
 ### Bug Fixes
+
+> > > > > > > main
 
 - button style fix ([#97](https://github.com/CUexter/Tweet/issues/97)) ([7e71aac](https://github.com/CUexter/Tweet/commit/7e71aacb98dab09a9608b17f1248d80e37441d5a))
 
