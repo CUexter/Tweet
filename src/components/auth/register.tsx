@@ -37,7 +37,6 @@ const Register = () => {
       void signIn();
     },
     onError(error) {
-
       notifications.show({
         message: error.toString(),
         title: "Oops! Registration went wrong",
