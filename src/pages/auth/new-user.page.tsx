@@ -5,8 +5,11 @@ import {
   Button,
   Center,
   Checkbox,
-  Container /* FileButton, */,
+  Container,
+  FileButton,
+  Grid,
   Group,
+  Image,
   Text,
   TextInput,
   Textarea,
@@ -16,6 +19,7 @@ import { hasLength, useForm } from "@mantine/form";
 import { useDebouncedValue } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { useSession } from "next-auth/react";
+import { usePresignedUpload } from "next-s3-upload";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -23,13 +27,7 @@ import { useEffect } from "react";
 /* import { useRef, useState } from "react"; */
 
 const NewUserWelcome = () => {
-  /* const [file, setFile] = useState<File | null>(null); */
-  /* const resetRef = useRef<() => void>(null); */
-  /**/
-  /* const clearFile = () => { */
-  /*   setFile(null); */
-  /*   resetRef.current?.(); */
-  /* }; */
+  const { uploadToS3 } = usePresignedUpload();
 
   const { data: session } = useSession();
   const { data: newUser } = api.user.checkNewUser.useQuery();
@@ -56,6 +54,8 @@ const NewUserWelcome = () => {
       emailVisibility: true,
       email: session?.user.email || "",
       profile_desc: "Hi I am new to Tweet",
+      image: session?.user.image,
+      profile_picture: "",
     },
 
     validate: {
@@ -69,6 +69,16 @@ const NewUserWelcome = () => {
       },
     },
   });
+
+  const submitProfile = async (file: File) => {
+    const { url } = await uploadToS3(file);
+    form.setValues({ profile_picture: url });
+  };
+
+  const submitAvatar = async (file: File) => {
+    const { url } = await uploadToS3(file);
+    form.setValues({ image: url });
+  };
 
   const [debouncedTagName] = useDebouncedValue(form.values.tag_name, 200, {
     leading: true,
@@ -101,73 +111,118 @@ const NewUserWelcome = () => {
         <meta name="description" content="for CSCI3100" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container>
-        <Center my="2rem">
-          <Title> Welcome ! Please allow us to know you better</Title>
-        </Center>
-        <Center mb="2em">
-          <Text> You can always change these in the user settings later</Text>
-        </Center>
-        <Box maw={300} mx="auto">
-          <Center>
-            <Avatar
-              size="xl"
-              radius="xl"
-              src={session?.user.image}
-              color="indigo"
-            ></Avatar>
+
+      <form onSubmit={form.onSubmit(onSubmit)}>
+        <Container>
+          <Center my="2rem">
+            <Title> Welcome ! Please allow us to know you better</Title>
           </Center>
-          {/* <Group position="center" my="1rem"> */}
-          {/*   <FileButton */}
-          {/*     resetRef={resetRef} */}
-          {/*     onChange={setFile} */}
-          {/*     accept="image/png,image/jpeg" */}
-          {/*   > */}
-          {/*     {(props) => <Button {...props}>Upload image</Button>} */}
-          {/*   </FileButton> */}
-          {/*   <Button disabled={!file} color="red" onClick={clearFile}> */}
-          {/*     Reset */}
-          {/*   </Button> */}
-          {/* </Group> */}
-          <form onSubmit={form.onSubmit(onSubmit)}>
-            <TextInput
-              withAsterisk
-              label="Display Name"
-              placeholder="your@email.com"
-              {...form.getInputProps("display_name")}
-            />
-            <TextInput
-              label="Your email"
-              placeholder="your@email.com"
-              {...form.getInputProps("email")}
-            />
-            <TextInput
-              withAsterisk
-              label="tagname"
-              placeholder="@tag_name"
-              {...form.getInputProps("tag_name")}
-            />
+          <Center mb="2em">
+            <Text> You can always change these in the user settings later</Text>
+          </Center>
 
-            <Textarea
-              label="Your Profile Description"
-              placeholder="Describe about yourself"
-              {...form.getInputProps("profile_desc")}
-            />
+          <Grid>
+            <Grid.Col span={6}>
+              <Box maw={300} mx="auto">
+                <Center>
+                  <Avatar
+                    size="xl"
+                    radius="xl"
+                    src={session?.user.image}
+                    color="indigo"
+                  ></Avatar>
+                </Center>
 
-            <Checkbox
-              mt="md"
-              label="My email will be visible to others"
-              {...form.getInputProps("emailVisibility", { type: "checkbox" })}
-            />
+                <Group position="center" my="1rem">
+                  <FileButton
+                    onChange={(file) => {
+                      if (file) {
+                        void submitAvatar(file);
+                      }
+                    }}
+                  >
+                    {(props) => (
+                      <Button variant="outline" {...props}>
+                        Upload Avatar
+                      </Button>
+                    )}
+                  </FileButton>
+                  <Button
+                    variant="outline"
+                    disabled={form.values.image === ""}
+                    onClick={() => form.setValues({ image: "" })}
+                  >
+                    Reset
+                  </Button>
+                </Group>
+                <TextInput
+                  withAsterisk
+                  label="Display Name"
+                  placeholder="your@email.com"
+                  {...form.getInputProps("display_name")}
+                />
+                <TextInput
+                  label="Your email"
+                  placeholder="your@email.com"
+                  {...form.getInputProps("email")}
+                />
+                <TextInput
+                  withAsterisk
+                  label="tagname"
+                  placeholder="@tag_name"
+                  {...form.getInputProps("tag_name")}
+                />
 
-            <Group position="right" mt="md">
-              <Button variant="light" type="submit">
-                Submit
-              </Button>
-            </Group>
-          </form>
-        </Box>
-      </Container>
+                <Textarea
+                  label="Your Profile Description"
+                  placeholder="Describe about yourself"
+                  {...form.getInputProps("profile_desc")}
+                />
+
+                <Checkbox
+                  mt="md"
+                  label="My email will be visible to others"
+                  {...form.getInputProps("emailVisibility", {
+                    type: "checkbox",
+                  })}
+                />
+              </Box>
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <Image src={form.values.profile_picture} alt="profile_picture" />
+
+              <Group position="center" my="1rem">
+                <FileButton
+                  onChange={(file) => {
+                    if (file) {
+                      void submitProfile(file);
+                    }
+                  }}
+                >
+                  {(props) => (
+                    <Button variant="outline" {...props}>
+                      Upload Profile Picture
+                    </Button>
+                  )}
+                </FileButton>
+                <Button
+                  variant="outline"
+                  disabled={form.values.profile_picture === ""}
+                  onClick={() => form.setValues({ profile_picture: "" })}
+                >
+                  Reset
+                </Button>
+              </Group>
+            </Grid.Col>
+          </Grid>
+        </Container>
+
+        <Group position="right" mt="md">
+          <Button variant="light" type="submit">
+            Submit
+          </Button>
+        </Group>
+      </form>
     </>
   );
 };

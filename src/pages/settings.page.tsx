@@ -5,8 +5,11 @@ import {
   Button,
   Center,
   Checkbox,
-  Container /* FileButton, */,
+  Container,
+  FileButton,
+  Grid,
   Group,
+  Image,
   TextInput,
   Textarea,
   Title,
@@ -14,21 +17,14 @@ import {
 import { hasLength, useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import { useSession } from "next-auth/react";
+import { usePresignedUpload } from "next-s3-upload";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-
-/* import { useRef, useState } from "react"; */
+import { useEffect, useState } from "react";
 
 const ProfileSettings = () => {
-  /* const [file, setFile] = useState<File | null>(null); */
-  /* const resetRef = useRef<() => void>(null); */
-  /**/
-  /* const clearFile = () => { */
-  /*   setFile(null); */
-  /*   resetRef.current?.(); */
-  /* }; */
-
+  const { uploadToS3 } = usePresignedUpload();
+  const [qTimes, setQTimes] = useState(0);
   const isEmailIfPresent = (value: string | undefined | null) => {
     if (!value) {
       return null;
@@ -42,6 +38,8 @@ const ProfileSettings = () => {
       emailVisibility: true,
       email: "",
       profile_desc: "",
+      profile_picture: "",
+      image: "",
     },
 
     validate: {
@@ -52,15 +50,31 @@ const ProfileSettings = () => {
       ),
     },
   });
+
+  const submitProfile = async (file: File) => {
+    const { url } = await uploadToS3(file);
+    form.setValues({ profile_picture: url });
+  };
+
+  const submitAvatar = async (file: File) => {
+    const { url } = await uploadToS3(file);
+    form.setValues({ image: url });
+  };
+
   const { data: session } = useSession();
-  const { data: userInfo } = api.user.getMyInfo.useQuery(undefined, {
+  api.user.getMyInfo.useQuery(undefined, {
     onSuccess(data) {
-      form.setValues({
-        display_name: data.display_name || "",
-        emailVisibility: data.emailVisibility || true,
-        email: data.email || "",
-        profile_desc: data.profile_desc || "",
-      });
+      if (qTimes === 0) {
+        form.setValues({
+          display_name: data.display_name || "",
+          emailVisibility: data.emailVisibility || true,
+          email: data.email || "",
+          profile_desc: data.profile_desc || "",
+          profile_picture: data.profile_picture || "",
+          image: data.image || "",
+        });
+      }
+      setQTimes(qTimes + 1);
     },
   });
   const router = useRouter();
@@ -88,68 +102,111 @@ const ProfileSettings = () => {
   return (
     <>
       <Head>
-        <title>Welcome new user</title>
+        <title>Settings</title>
         <meta name="description" content="for CSCI3100" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container>
-        <Center my="2rem">
-          <Title> Edit your profile:</Title>
-        </Center>
-        <Box maw={300} mx="auto">
-          <Center>
-            <Avatar
-              size="xl"
-              radius="xl"
-              src={session?.user.image}
-              color="indigo"
-            ></Avatar>
+
+      <form onSubmit={form.onSubmit(onSubmit)}>
+        <Container>
+          <Center my="2rem">
+            <Title> Edit your profile:</Title>
           </Center>
-          {/* <Group position="center" my="1rem"> */}
-          {/*   <FileButton */}
-          {/*     resetRef={resetRef} */}
-          {/*     onChange={setFile} */}
-          {/*     accept="image/png,image/jpeg" */}
-          {/*   > */}
-          {/*     {(props) => <Button {...props}>Upload image</Button>} */}
-          {/*   </FileButton> */}
-          {/*   <Button disabled={!file} color="red" onClick={clearFile}> */}
-          {/*     Reset */}
-          {/*   </Button> */}
-          {/* </Group> */}
-          <form onSubmit={form.onSubmit(onSubmit)}>
-            <TextInput
-              label="Display Name"
-              placeholder="Your Name"
-              {...form.getInputProps("display_name")}
-            />
+          <Grid>
+            <Grid.Col span={6}>
+              <Box maw={300} mx="auto">
+                <Center>
+                  <Avatar
+                    size="xl"
+                    radius="xl"
+                    src={form.values.image}
+                    color="indigo"
+                  />
+                </Center>
 
-            <TextInput
-              label="Your email"
-              placeholder="your@email.com"
-              {...form.getInputProps("email")}
-            />
+                <Group position="center" my="1rem">
+                  <FileButton
+                    onChange={(file) => {
+                      if (file) {
+                        void submitAvatar(file);
+                      }
+                    }}
+                  >
+                    {(props) => (
+                      <Button variant="outline" {...props}>
+                        Upload image
+                      </Button>
+                    )}
+                  </FileButton>
+                  <Button
+                    variant="outline"
+                    disabled={form.values.image === ""}
+                    onClick={() => form.setValues({ image: "" })}
+                  >
+                    Reset
+                  </Button>
+                </Group>
+                <TextInput
+                  label="Display Name"
+                  placeholder="Your Name"
+                  {...form.getInputProps("display_name")}
+                />
 
-            <Textarea
-              label="Your Profile Description"
-              placeholder="Describe about yourself"
-              {...form.getInputProps("profile_desc")}
-            />
+                <TextInput
+                  label="Your email"
+                  placeholder="your@email.com"
+                  {...form.getInputProps("email")}
+                />
 
-            <Checkbox
-              mt="md"
-              label="My email will be visible to others"
-              {...form.getInputProps("emailVisibility", { type: "checkbox" })}
-            />
+                <Textarea
+                  label="Your Profile Description"
+                  placeholder="Describe about yourself"
+                  {...form.getInputProps("profile_desc")}
+                />
 
-            <Group position="right" mt="md">
-              <Button type="submit" variant="outline" color="blue">
-                Submit
-              </Button>
-            </Group>
-          </form>
-        </Box>
-      </Container>
+                <Checkbox
+                  mt="md"
+                  label="My email will be visible to others"
+                  {...form.getInputProps("emailVisibility", {
+                    type: "checkbox",
+                  })}
+                />
+              </Box>
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <Image src={form.values.profile_picture} alt="profile_picture" />
+
+              <Group position="center" my="1rem">
+                <FileButton
+                  onChange={(file) => {
+                    if (file) {
+                      void submitProfile(file);
+                    }
+                  }}
+                >
+                  {(props) => (
+                    <Button variant="outline" {...props}>
+                      Upload Profile Picture
+                    </Button>
+                  )}
+                </FileButton>
+                <Button
+                  variant="outline"
+                  disabled={form.values.profile_picture === ""}
+                  onClick={() => form.setValues({ profile_picture: "" })}
+                >
+                  Reset
+                </Button>
+              </Group>
+            </Grid.Col>
+          </Grid>
+        </Container>
+        <Group position="right" mt="md">
+          <Button type="submit" variant="outline" color="blue">
+            Submit
+          </Button>
+        </Group>
+      </form>
     </>
   );
 };
