@@ -161,7 +161,7 @@ async function main() {
       password: "$2a$10$EGwRCF5pvWN5PakWjbhYTOVhtrWp/wOwb7i3qOhIIAICtm1Dhzftq",
       emailVerified: new Date(2023, 3, 2),
       display_name: "Chris",
-      tag_name: "chirs123",
+      tag_name: "chris123",
       profile_desc: "YO HI!",
       image:
         "https://resizing.flixster.com/dpI-g-9p6W_Nlhc2f0-cwEmM00Q=/218x280/v2/https://flxt.tmsimg.com/assets/249381_v9_bb.jpg",
