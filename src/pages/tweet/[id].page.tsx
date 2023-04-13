@@ -1,5 +1,6 @@
 import Tweet from "@/components/tweets/Tweet";
 import { api } from "@/utils/api";
+import { Text } from "@mantine/core";
 import { useRouter } from "next/router";
 
 // interface TweetPageProp {}
@@ -18,10 +19,10 @@ const TweetPage = () => {
 
   return (
     <>
-      <div className="mx-auto w-1/3 border h-screen">
+      <div className="mx-auto w-3/4 h-screen">
         {/* Main tweet */}
         <Tweet tweetID={tid} />
-        {/* Tweets below are tweets that reply to the main tweet */}
+        <Text className="mx-auto w-3/4 my-4 px-1"> Replies: </Text>
         {replies_id.map((id) => (
           <Tweet key={id} tweetID={id} />
         ))}

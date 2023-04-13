@@ -26,6 +26,7 @@ const Register = () => {
         value === values.password ? null : "Passwords do not match",
     },
   });
+
   const register = api.auth.registerUser.useMutation({
     onSuccess() {
       notifications.show({
@@ -36,6 +37,7 @@ const Register = () => {
       void signIn();
     },
     onError(error) {
+
       notifications.show({
         message: error.toString(),
         title: "Oops! Registration went wrong",

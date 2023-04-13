@@ -40,11 +40,10 @@ const SearchField = ({ op }: AdminProps) => {
       if (targetUser) {
         setOnUpdate(true);
       } else {
-        console.log("Pressed and show notifications");
         notifications.show({
           title: "Failed",
-          message: "The user has been deleted successfully",
-          color: "blue",
+          message: "Cannot find this user, please try again.",
+          color: "red",
         });
       }
     } else if (op == "delete") {
@@ -53,6 +52,12 @@ const SearchField = ({ op }: AdminProps) => {
       // Find user in the database
       if (targetUser) {
         setOnDelete(true);
+      } else {
+        notifications.show({
+          title: "Failed",
+          message: "Cannot find this user, please try again.",
+          color: "red",
+        });
       }
     }
   };

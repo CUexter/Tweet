@@ -1,6 +1,6 @@
 {
   "name": "tweet",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -55,10 +55,12 @@
     "@trpc/next": "^10.19.1",
     "@trpc/react-query": "^10.19.1",
     "@trpc/server": "^10.19.1",
+    "@types/bcryptjs": "^2.4.2",
     "@types/node": "18.14.6",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
     "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
     "cookies-next": "^2.1.1",
     "dayjs": "^1.11.7",
     "embla-carousel-react": "^7.1.0",

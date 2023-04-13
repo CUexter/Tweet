@@ -43,6 +43,11 @@ export const UserRouter = createTRPCRouter({
                 contains: searchTerm,
               },
             },
+            {
+              email: {
+                contains: searchTerm,
+              },
+            },
           ],
         },
         select: {
@@ -66,7 +71,7 @@ export const UserRouter = createTRPCRouter({
       const { tag_name } = input;
       const target = await ctx.prisma.user.findUnique({
         select: {
-          name: true,
+          display_name: true,
           id: true,
           tag_name: true,
           email: true,
@@ -74,6 +79,25 @@ export const UserRouter = createTRPCRouter({
         },
         where: {
           tag_name: tag_name,
+        },
+      });
+      return target;
+    }),
+
+  findEmail: publicProcedure
+    .input(
+      z.object({
+        email: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const { email } = input;
+      const target = await ctx.prisma.user.findUnique({
+        select: {
+          id: true,
+        },
+        where: {
+          email: email,
         },
       });
       return target;
@@ -151,9 +175,27 @@ export const UserRouter = createTRPCRouter({
       }
     }),
 
-  updatePassword: protectedProcedure.query(({ ctx }) => {
-    return;
-  }),
+  updatePassword: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        password: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      const { id, password } = input;
+      console.log("New Name:" + id);
+      if (id !== null) {
+        return ctx.prisma.user.update({
+          where: {
+            id: id,
+          },
+          data: {
+            password: password,
+          },
+        });
+      }
+    }),
 
   deleteRelatedTweet: protectedProcedure
     .input(

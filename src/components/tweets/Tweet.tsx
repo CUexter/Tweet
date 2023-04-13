@@ -13,8 +13,11 @@ import {
 import {
   IconArrowAutofitLeft,
   IconArrowBackUp,
+  IconDotsVertical,
   IconHeart,
 } from "@tabler/icons-react";
+import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -42,6 +45,20 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
   //   { enabled: false }
   // ));
   // if null after private query, it doesn't exist
+
+  const utils = api.useContext();
+  const { data: session } = useSession();
+  const { data: haveRetweeted } = api.retweet.checkRetweet.useQuery(
+    { id: tweetID },
+    { enabled: session?.user !== undefined }
+  );
+
+  const retweet = api.retweet.retweet.useMutation({
+    onSuccess() {
+      void utils.tweet.getTweet.invalidate({ id: tweetID });
+      void utils.retweet.checkRetweet.invalidate({ id: tweetID });
+    },
+  });
   if (!tweetData) {
     return <>It not here</>;
   }
@@ -49,6 +66,7 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
   const likes = tweetData.Likes.length;
   const replies = tweetData.replied_by.length;
   const retweets = tweetData.retweeted_by.length;
+
   return (
     <>
       <Head>
@@ -59,19 +77,28 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
         <meta name="description" content="for CSCI3100" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="mx-auto">
+      <div className="mx-auto w-3/4">
         <Card withBorder>
-          <Link href={`/profile/${tweetData.user.id}`}>
-            <Group>
-              <Avatar src={tweetData.user.image} color={"yellow"} radius="xl" />
-              <div>
-                <Text size="sm">{tweetData.user.display_name}</Text>
-                <Text size="xs" color="dimmed">
-                  {tweetData.created_at.toString()}
-                </Text>
-              </div>
-            </Group>
-          </Link>
+          <Group position="apart">
+            <Link href={`/profile/${tweetData.user.id}`}>
+              <Group>
+                <Avatar
+                  src={tweetData.user.image}
+                  color={"yellow"}
+                  radius="xl"
+                />
+                <div>
+                  <Text size="sm">{tweetData.user.display_name}</Text>
+                  <Text size="xs" color="dimmed">
+                    {dayjs(tweetData.created_at).format()}
+                  </Text>
+                </div>
+              </Group>
+            </Link>
+            <ActionIcon component={Link} href={`/tweet/${tweetID}`}>
+              <IconDotsVertical />
+            </ActionIcon>
+          </Group>
           <Text className={classes.body} size="sm">
             {tweetData.TweetText[0]?.tweet_text}
           </Text>
@@ -85,7 +112,10 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
             <Group>
               <Text size="sm">{retweets}</Text>
               <ActionIcon
-                onClick={() => console.log("placeholder for retweet")}
+                color={haveRetweeted ? "green" : "gray"}
+                onClick={() => {
+                  retweet.mutate({ id: tweetID });
+                }}
               >
                 <IconArrowAutofitLeft size="1.5rem" />
               </ActionIcon>
