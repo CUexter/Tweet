@@ -1,14 +1,19 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const FollowRouter = createTRPCRouter({
-  hello: publicProcedure
-    .input(z.object({ text: z.string() }))
-    .query(({ input }) => {
-      return {
-        greeting: `Hello ${input.text}`,
-      };
+  isFollowing: protectedProcedure
+    .input(z.object({ followee_id: z.string() }))
+    .query(({ ctx, input }) => {
+      const { followee_id } = input;
+      const { id: follower_id } = ctx.session.user;
+      return ctx.prisma.following.findFirst({
+        where: {
+          doing_following_ID: follower_id,
+          being_followed_ID: followee_id,
+        },
+      });
     }),
 
   handleFollow: protectedProcedure
@@ -30,7 +35,11 @@ export const FollowRouter = createTRPCRouter({
             id: existingInfo.id,
           },
         });
-        return unfollow;
+
+        if (!unfollow) {
+          throw new Error("Something went wrong");
+        }
+        return { action: "unfollow" };
       } else {
         const follow = await ctx.prisma.following.create({
           data: {
@@ -38,7 +47,11 @@ export const FollowRouter = createTRPCRouter({
             being_followed_ID: followee_id,
           },
         });
-        return follow;
+
+        if (!follow) {
+          throw new Error("Something went wrong");
+        }
+        return { action: "follow" };
       }
     }),
 });
