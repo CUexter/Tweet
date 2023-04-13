@@ -9,7 +9,13 @@ import {
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
-const Like = (id) => {
+interface likeProps {
+  id: {
+    id: string;
+  };
+}
+
+const Like = ({ id }: likeProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const count = api.like.checkCount.useQuery(
@@ -111,7 +117,7 @@ const Like = (id) => {
 
       await likeMutation
         .mutateAsync({
-          user_id: uid,
+          user_id: uid as string,
           tweet_id: id.id,
         })
         .then(() => {
@@ -160,7 +166,7 @@ const Like = (id) => {
           });
       }
       await DislikeMutation.mutateAsync({
-        user_id: uid,
+        user_id: uid as string,
         tweet_id: id.id,
       })
         .then(() => {
@@ -185,13 +191,13 @@ const Like = (id) => {
           <Text size="sm">{count.data}</Text>
           <div>
             <ActionIcon
-              onClick={handleLikeClick}
+              onClick={() => void handleLikeClick()}
               color={likeQuery.data ? "blue" : "gray"}
             >
               {likeQuery.data ? <IconThumbUpFilled /> : <IconThumbUp />}
             </ActionIcon>
             <ActionIcon
-              onClick={handleDislikeClick}
+              onClick={() => void handleDislikeClick()}
               color={dislikeQuery.data ? "blue" : "gray"}
             >
               {dislikeQuery.data ? <IconThumbDownFilled /> : <IconThumbDown />}
