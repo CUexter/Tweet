@@ -54,7 +54,7 @@ const NewUserWelcome = () => {
       emailVisibility: true,
       email: session?.user.email || "",
       profile_desc: "Hi I am new to Tweet",
-      image: session?.user.image,
+      image: session?.user.image || "",
       profile_picture: "",
     },
 
