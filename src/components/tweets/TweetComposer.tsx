@@ -103,7 +103,7 @@ const TweetComposer = ({
   };
 
   return (
-    <Card className="pt-2">
+    <Card className="pt-2" shadow="sm" withBorder>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Textarea
           variant="unstyled"
