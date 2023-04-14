@@ -245,6 +245,23 @@ export const UserRouter = createTRPCRouter({
       }
     }),
 
+  deleteSession: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      const { id } = input;
+      if (id !== null) {
+        return ctx.prisma.session.delete({
+          select: {
+              userId: id,
+          },
+        });
+      }
+    }),
+
   getMyHeaderInfo: protectedProcedure.query(({ ctx }) => {
     const user = ctx.user;
     _.pick(user, ["image", "name", "display_name", "is_admin"]);

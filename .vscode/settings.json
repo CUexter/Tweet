@@ -7,5 +7,17 @@
   },
   "typescript.tsdk": "node_modules/.pnpm/typescript@4.9.4/node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "conventionalCommits.scopes": ["debugger"]
+  "conventionalCommits.scopes": [
+    "debugger"
+  ],
+  "favorites.resources": [
+    {
+      "filePath": "prisma",
+      "group": "Default"
+    },
+    {
+      "filePath": "src",
+      "group": "Default"
+    }
+  ]
 }

@@ -36,12 +36,14 @@ const Like = ({ id }: likeProps) => {
         <>
           <Text size="sm">{count.data}</Text>
           <div>
-            <ActionIcon>
-              <IconThumbUp />
-            </ActionIcon>
-            <ActionIcon>
-              <IconThumbDown />
-            </ActionIcon>
+            <div>
+              <ActionIcon onClick={() => void signIn()}>
+                <IconThumbUp />
+              </ActionIcon>
+              <ActionIcon onClick={() => void signIn()}>
+                <IconThumbDown />
+              </ActionIcon>
+            </div>
           </div>
         </>
       )
