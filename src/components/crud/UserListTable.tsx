@@ -1,12 +1,4 @@
-import {
-  Anchor,
-  Avatar,
-  Group,
-  ScrollArea,
-  Table,
-  Text,
-  useMantineTheme,
-} from "@mantine/core";
+import { Anchor, Avatar, Group, ScrollArea, Table, Text } from "@mantine/core";
 
 interface UsersTableProps {
   data:
@@ -22,7 +14,6 @@ interface UsersTableProps {
 }
 
 const UserListTable = ({ data }: UsersTableProps) => {
-  const theme = useMantineTheme();
   if (data) {
     const rows = data.map((item) => (
       <tr key={item.display_name}>

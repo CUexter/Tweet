@@ -28,7 +28,6 @@ import type { inferAsyncReturnType } from "@trpc/server";
 
 import { getServerAuthSession } from "@/server/auth";
 import { prisma } from "@/server/db";
-import { Prisma } from "@prisma/client";
 import { TRPCError, initTRPC } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import { type Session } from "next-auth";

@@ -1,18 +1,5 @@
-import { Button, TextInput, createStyles } from "@mantine/core";
+import { Button, TextInput } from "@mantine/core";
 import { useState } from "react";
-
-const useStyles = createStyles((theme) => ({
-  invalid: {
-    backgroundColor:
-      theme.colorScheme === "dark"
-        ? theme.fn.rgba(theme.colors.red[8], 0.15)
-        : theme.colors.red[0],
-  },
-
-  icon: {
-    color: theme.colors.red[theme.colorScheme === "dark" ? 7 : 6],
-  },
-}));
 
 interface fieldProps {
   label: string;
