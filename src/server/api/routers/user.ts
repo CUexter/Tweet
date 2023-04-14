@@ -256,7 +256,7 @@ export const UserRouter = createTRPCRouter({
       if (id !== null) {
         return ctx.prisma.session.delete({
           select: {
-              userId: id,
+            userId: id,
           },
         });
       }
