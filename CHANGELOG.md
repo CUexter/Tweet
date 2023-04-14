@@ -1,3 +1,11 @@
+# [1.11.0](https://github.com/CUexter/Tweet/compare/v1.10.2...v1.11.0) (2023-04-14)
+
+
+### Features
+
+* **db:** migrate to postgresql ([#106](https://github.com/CUexter/Tweet/issues/106)) ([d560fe5](https://github.com/CUexter/Tweet/commit/d560fe5344935bfcbff93fb3ab87b233c4bc52a8))
+* migrate to planetscale ([#107](https://github.com/CUexter/Tweet/issues/107)) ([078fec5](https://github.com/CUexter/Tweet/commit/078fec5aa424032599ac7b90ae90ab78f25c9668))
+
 ## [1.10.2](https://github.com/CUexter/Tweet/compare/v1.10.1...v1.10.2) (2023-04-14)
 
 ### Bug Fixes
