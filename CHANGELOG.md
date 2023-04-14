@@ -1,9 +1,8 @@
 # [1.12.0](https://github.com/CUexter/Tweet/compare/v1.11.0...v1.12.0) (2023-04-14)
 
-
 ### Features
 
-* if not logged in, buttons in tweet redirect ([#108](https://github.com/CUexter/Tweet/issues/108)) ([bb99075](https://github.com/CUexter/Tweet/commit/bb99075ccaf3ff2b9c334525b74f4c5e44c1fdc0))
+- if not logged in, buttons in tweet redirect ([#108](https://github.com/CUexter/Tweet/issues/108)) ([bb99075](https://github.com/CUexter/Tweet/commit/bb99075ccaf3ff2b9c334525b74f4c5e44c1fdc0))
 
 # [1.11.0](https://github.com/CUexter/Tweet/compare/v1.10.2...v1.11.0) (2023-04-14)
 
