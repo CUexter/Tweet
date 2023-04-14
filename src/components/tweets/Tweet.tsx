@@ -20,7 +20,7 @@ import {
   IconLink,
 } from "@tabler/icons-react";
 import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -126,7 +126,7 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
           <Group className="justify-evenly pt-4">
             <Group>
               <Text size="sm">{replies}</Text>
-              <ActionIcon onClick={open}>
+              <ActionIcon onClick={session ? open : () => void signIn()}>
                 <IconArrowBackUp size="1.5rem" />
               </ActionIcon>
             </Group>
@@ -134,9 +134,13 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
               <Text size="sm">{retweets}</Text>
               <ActionIcon
                 color={haveRetweeted ? "blue" : "gray"}
-                onClick={() => {
-                  retweet.mutate({ id: tweetID });
-                }}
+                onClick={
+                  session
+                    ? () => {
+                        retweet.mutate({ id: tweetID });
+                      }
+                    : () => void signIn()
+                }
               >
                 <IconArrowAutofitLeft size="1.5rem" />
               </ActionIcon>
