@@ -1,3 +1,4 @@
+import UpdatePw from "@/components/crud/UpdatePw";
 import { api } from "@/utils/api";
 import {
   Avatar,
@@ -10,6 +11,7 @@ import {
   Grid,
   Group,
   Image,
+  Modal,
   TextInput,
   Textarea,
   Title,
@@ -25,6 +27,7 @@ import { useEffect, useState } from "react";
 const ProfileSettings = () => {
   const { uploadToS3 } = usePresignedUpload();
   const [qTimes, setQTimes] = useState(0);
+  const [isUpdatePw, setIsUpdatePw] = useState(false);
   const isEmailIfPresent = (value: string | undefined | null) => {
     if (!value) {
       return null;
@@ -211,12 +214,28 @@ const ProfileSettings = () => {
             </Grid.Col>
           </Grid>
         </Container>
-        <Group position="right" mt="md">
+        <Group position="center" mt="md">
+          <Button
+            variant="outline"
+            color="red  "
+            onClick={() => setIsUpdatePw(true)}
+          >
+            Update Password
+          </Button>
           <Button type="submit" variant="outline" color="blue">
             Submit
           </Button>
         </Group>
       </form>
+      <Modal
+        opened={isUpdatePw}
+        onClose={() => setIsUpdatePw(false)}
+        title="Update Password"
+        size="30%"
+        centered
+      >
+        <UpdatePw id={session?.user.id} />
+      </Modal>
     </>
   );
 };

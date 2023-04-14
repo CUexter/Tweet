@@ -96,7 +96,7 @@ const Tweet = ({ tweetID, tweetData }: TweetProp) => {
   return (
     <>
       <div className="mx-auto w-3/4">
-        <Card withBorder>
+        <Card withBorder shadow="md">
           {attachements.length > 0 && (
             <Card.Section>{attachementDisplay}</Card.Section>
           )}
