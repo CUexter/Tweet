@@ -92,7 +92,7 @@ model Tweet {
   TweetText        TweetText[]
   Tweets_hashtags  Tweets_hashtag[]
   Likes            Like[]
-  original_tweet   Tweet?             @relation("ReplyOriginal", fields: [original_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  original_tweet   Tweet?             @relation("ReplyOriginal", fields: [original_id], references: [id], onUpdate: NoAction, onDelete: NoAction)
   original_id      String?
   replied_by       Tweet[]            @relation("ReplyOriginal")
   retweeted_by     User[]             @relation("retweets")
