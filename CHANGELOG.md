@@ -1,3 +1,9 @@
+## [1.10.2](https://github.com/CUexter/Tweet/compare/v1.10.1...v1.10.2) (2023-04-14)
+
+### Bug Fixes
+
+- Post stage fixv2.0 ([#105](https://github.com/CUexter/Tweet/issues/105)) ([0f143ac](https://github.com/CUexter/Tweet/commit/0f143ac67de26f71e8e765d3c24f465987a6ad03))
+
 ## [1.10.1](https://github.com/CUexter/Tweet/compare/v1.10.0...v1.10.1) (2023-04-13)
 
 ### Bug Fixes
