@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/CUexter/Tweet/compare/v1.12.0...v1.13.0) (2023-04-14)
+
+
+### Features
+
+* like buttons redirect to signIn if not login ([#109](https://github.com/CUexter/Tweet/issues/109)) ([ef72d04](https://github.com/CUexter/Tweet/commit/ef72d04730775e411938adb7d6f70773e4352b95))
+
 # [1.12.0](https://github.com/CUexter/Tweet/compare/v1.11.0...v1.12.0) (2023-04-14)
 
 ### Features
