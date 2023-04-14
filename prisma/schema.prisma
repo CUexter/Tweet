@@ -7,12 +7,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-  // Further reading:
-  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-  url      = env("DATABASE_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
 }
 
 model Example {
@@ -148,10 +144,9 @@ model Like {
   user       User     @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
   tweet      Tweet    @relation(fields: [tweet_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
   tweet_id   String
-  is_liked  Boolean  
+  is_liked   Boolean
 
-  @@unique ([user_id, tweet_id])       
-
+  @@unique([user_id, tweet_id])
 }
 
 model Poll {
@@ -181,13 +176,13 @@ model Votes {
 }
 
 model TweetAttachments {
-  id             String   @id @default(cuid())
-  created_at     DateTime @default(now())
-  updated_at     DateTime @updatedAt
-  tweet          Tweet    @relation(fields: [tweet_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  tweet_id       String
+  id              String   @id @default(cuid())
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+  tweet           Tweet    @relation(fields: [tweet_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  tweet_id        String
   attachment_type String //migrate to enum when setup to use mysql/planetscale
-  attachment_url String
+  attachment_url  String
 }
 
 model Conversations {
