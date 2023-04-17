@@ -45,7 +45,7 @@ dependencies:
     version: 6.0.7(@mantine/core@6.0.7)(@mantine/hooks@6.0.7)(react-dom@18.2.0)(react@18.2.0)
   '@mantine/tiptap':
     specifier: ^6.0.7
-    version: 6.0.7(@mantine/core@6.0.7)(@mantine/hooks@6.0.7)(@tabler/icons-react@2.15.0)(@tiptap/extension-link@2.0.0-beta.212)(@tiptap/react@2.0.0-beta.212)(react@18.2.0)
+    version: 6.0.7(@mantine/core@6.0.7)(@mantine/hooks@6.0.7)(@tabler/icons-react@2.15.0)(@tiptap/extension-link@2.0.3)(@tiptap/react@2.0.0-beta.212)(react@18.2.0)
   '@next-auth/prisma-adapter':
     specifier: ^1.0.5
     version: 1.0.5(@prisma/client@4.12.0)(next-auth@4.22.0)
@@ -65,8 +65,8 @@ dependencies:
     specifier: ^4.29.1
     version: 4.29.1(react-dom@18.2.0)(react@18.2.0)
   '@tiptap/extension-link':
-    specifier: 2.0.0-beta.212
-    version: 2.0.0-beta.212(@tiptap/core@2.0.2)(@tiptap/pm@2.0.2)
+    specifier: 2.0.3
+    version: 2.0.3(@tiptap/core@2.0.2)(@tiptap/pm@2.0.2)
   '@tiptap/react':
     specifier: 2.0.0-beta.212
     version: 2.0.0-beta.212(@tiptap/core@2.0.2)(@tiptap/pm@2.0.2)(react-dom@18.2.0)(react@18.2.0)
@@ -3846,7 +3846,7 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@mantine/tiptap@6.0.7(@mantine/core@6.0.7)(@mantine/hooks@6.0.7)(@tabler/icons-react@2.15.0)(@tiptap/extension-link@2.0.0-beta.212)(@tiptap/react@2.0.0-beta.212)(react@18.2.0):
+  /@mantine/tiptap@6.0.7(@mantine/core@6.0.7)(@mantine/hooks@6.0.7)(@tabler/icons-react@2.15.0)(@tiptap/extension-link@2.0.3)(@tiptap/react@2.0.0-beta.212)(react@18.2.0):
     resolution: {integrity: sha512-5m1zwYSefC1kBOrKxU7hO+SxaO5ZP0v0RCllqf+O4iaTavVelGXyPcPYg5F+r/SweQMH8JvcomC+1uJOMZiPBQ==}
     peerDependencies:
       '@mantine/core': 6.0.7
@@ -3860,7 +3860,7 @@ packages:
       '@mantine/hooks': 6.0.7(react@18.2.0)
       '@mantine/utils': 6.0.7(react@18.2.0)
       '@tabler/icons-react': 2.15.0(react@18.2.0)
-      '@tiptap/extension-link': 2.0.0-beta.212(@tiptap/core@2.0.2)(@tiptap/pm@2.0.2)
+      '@tiptap/extension-link': 2.0.3(@tiptap/core@2.0.2)(@tiptap/pm@2.0.2)
       '@tiptap/react': 2.0.0-beta.212(@tiptap/core@2.0.2)(@tiptap/pm@2.0.2)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
     dev: false
@@ -6058,15 +6058,15 @@ packages:
       '@tiptap/core': 2.0.2(@tiptap/pm@2.0.2)
     dev: false
 
-  /@tiptap/extension-link@2.0.0-beta.212(@tiptap/core@2.0.2)(@tiptap/pm@2.0.2):
-    resolution: {integrity: sha512-FRhJHBIYpObrZXWvLgLW3lx+GYnkOJsJrkrKqkS5t5MdGDpsreKgqkxA06tQjNYx13xkt2HeaeUIuQENiB1d4Q==}
+  /@tiptap/extension-link@2.0.3(@tiptap/core@2.0.2)(@tiptap/pm@2.0.2):
+    resolution: {integrity: sha512-H72tXQ5rkVCkAhFaf08fbEU7EBUCK0uocsqOF+4th9sOlrhfgyJtc8Jv5EXPDpxNgG5jixSqWBo0zKXQm9s9eg==}
     peerDependencies:
-      '@tiptap/core': ^2.0.0-beta.209
-      '@tiptap/pm': ^2.0.0-beta.209
+      '@tiptap/core': ^2.0.0
+      '@tiptap/pm': ^2.0.0
     dependencies:
       '@tiptap/core': 2.0.2(@tiptap/pm@2.0.2)
       '@tiptap/pm': 2.0.2(@tiptap/core@2.0.2)
-      linkifyjs: 3.0.5
+      linkifyjs: 4.1.1
     dev: false
 
   /@tiptap/extension-list-item@2.0.2(@tiptap/core@2.0.2):
@@ -9005,7 +9005,7 @@ packages:
       eslint: 8.32.0
       eslint-import-resolver-node: 0.3.7
       eslint-import-resolver-typescript: 3.5.5(@typescript-eslint/parser@5.58.0)(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.27.5)(eslint@8.32.0)
-      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.58.0)(eslint-import-resolver-typescript@3.5.5)(eslint@8.32.0)
+      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.58.0)(eslint@8.32.0)
       eslint-plugin-jsx-a11y: 6.7.1(eslint@8.32.0)
       eslint-plugin-react: 7.32.2(eslint@8.32.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.32.0)
@@ -9045,7 +9045,7 @@ packages:
       enhanced-resolve: 5.12.0
       eslint: 8.32.0
       eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.58.0)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.32.0)
-      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.58.0)(eslint-import-resolver-typescript@3.5.5)(eslint@8.32.0)
+      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.58.0)(eslint@8.32.0)
       get-tsconfig: 4.5.0
       globby: 13.1.4
       is-core-module: 2.12.0
@@ -9088,7 +9088,36 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-import@2.27.5(@typescript-eslint/parser@5.58.0)(eslint-import-resolver-typescript@3.5.5)(eslint@8.32.0):
+  /eslint-module-utils@2.7.4(@typescript-eslint/parser@5.58.0)(eslint-import-resolver-node@0.3.7)(eslint@8.32.0):
+    resolution: {integrity: sha512-j4GT+rqzCoRKHwURX7pddtIPGySnX9Si/cgMI5ztrcqOPtk5dDEeZ34CQVPphnqkJytlc97Vuk05Um2mJ3gEQA==}
+    engines: {node: '>=4'}
+    peerDependencies:
+      '@typescript-eslint/parser': '*'
+      eslint: '*'
+      eslint-import-resolver-node: '*'
+      eslint-import-resolver-typescript: '*'
+      eslint-import-resolver-webpack: '*'
+    peerDependenciesMeta:
+      '@typescript-eslint/parser':
+        optional: true
+      eslint:
+        optional: true
+      eslint-import-resolver-node:
+        optional: true
+      eslint-import-resolver-typescript:
+        optional: true
+      eslint-import-resolver-webpack:
+        optional: true
+    dependencies:
+      '@typescript-eslint/parser': 5.58.0(eslint@8.32.0)(typescript@4.9.4)
+      debug: 3.2.7
+      eslint: 8.32.0
+      eslint-import-resolver-node: 0.3.7
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /eslint-plugin-import@2.27.5(@typescript-eslint/parser@5.58.0)(eslint@8.32.0):
     resolution: {integrity: sha512-LmEt3GVofgiGuiE+ORpnvP+kAm3h6MLZJ4Q5HCyHADofsb4VzXFsRiWj3c0OFiV+3DWFh0qg3v9gcPlfc3zRow==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -9106,7 +9135,7 @@ packages:
       doctrine: 2.1.0
       eslint: 8.32.0
       eslint-import-resolver-node: 0.3.7
-      eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.58.0)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.32.0)
+      eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.58.0)(eslint-import-resolver-node@0.3.7)(eslint@8.32.0)
       has: 1.0.3
       is-core-module: 2.12.0
       is-glob: 4.0.3
@@ -11246,8 +11275,8 @@ packages:
       uc.micro: 1.0.6
     dev: false
 
-  /linkifyjs@3.0.5:
-    resolution: {integrity: sha512-1Y9XQH65eQKA9p2xtk+zxvnTeQBG7rdAXSkUG97DmuI/Xhji9uaUzaWxRj6rf9YC0v8KKHkxav7tnLX82Sz5Fg==}
+  /linkifyjs@4.1.1:
+    resolution: {integrity: sha512-zFN/CTVmbcVef+WaDXT63dNzzkfRBKT1j464NJQkV7iSgJU0sLBus9W0HBwnXK13/hf168pbrx/V/bjEHOXNHA==}
     dev: false
 
   /lint-staged@13.2.1:
