@@ -68,7 +68,7 @@
     "next": "13.1.4",
     "next-auth": "^4.22.0",
     "next-s3-upload": "^0.3.0",
-    "pocketbase": "^0.10.2",
+    "pocketbase": "^0.13.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "superjson": "^1.12.2",
