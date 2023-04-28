@@ -124,7 +124,7 @@ export const UserRouter = createTRPCRouter({
         },
       });
     }),
-  
+
   // Update user display name by searching their unique id in the db
   updateName: protectedProcedure
     .input(
@@ -170,7 +170,7 @@ export const UserRouter = createTRPCRouter({
         });
       }
     }),
-  
+
   // Update user display name by searching their unique id in the db
   updateEmail: protectedProcedure
     .input(
@@ -194,7 +194,7 @@ export const UserRouter = createTRPCRouter({
       }
     }),
 
-	// Update user password (need to be hashed first) by searching their unique id in the db
+  // Update user password (need to be hashed first) by searching their unique id in the db
   updatePassword: protectedProcedure
     .input(
       z.object({
@@ -216,9 +216,9 @@ export const UserRouter = createTRPCRouter({
         });
       }
     }),
-	
-	// Prerequisites for deleting a user (need to delete sequentially to prevent errors)
-	// Delete a user's all related tweets
+
+  // Prerequisites for deleting a user (need to delete sequentially to prevent errors)
+  // Delete a user's all related tweets
   deleteRelatedTweet: protectedProcedure
     .input(
       z.object({
@@ -234,7 +234,7 @@ export const UserRouter = createTRPCRouter({
       });
     }),
 
-	// Delete a user's session
+  // Delete a user's session
   deleteUserSession: protectedProcedure
     .input(
       z.object({
@@ -252,8 +252,8 @@ export const UserRouter = createTRPCRouter({
         });
       }
     }),
-	
-		// Delete a user
+
+  // Delete a user
   deleteUser: protectedProcedure
     .input(
       z.object({
@@ -271,7 +271,7 @@ export const UserRouter = createTRPCRouter({
         });
       }
     }),
-	// End of delete operation
+  // End of delete operation
 
   getMyHeaderInfo: protectedProcedure.query(({ ctx }) => {
     const user = ctx.user;
