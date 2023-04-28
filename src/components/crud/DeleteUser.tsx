@@ -31,7 +31,7 @@ const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
           .mutateAsync({ id: data.id })
           .catch((e) => console.log(e));
         await deleteUserSessionMutation
-          .mutateAsync({ id: data.id})
+          .mutateAsync({ id: data.id })
           .catch((e) => console.log(e));
         await deleteMutation
           .mutateAsync({ id: data.id })
