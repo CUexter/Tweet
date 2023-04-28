@@ -1,5 +1,5 @@
 import { api } from "@/utils/api";
-import { Button, Center, TextInput, createStyles } from "@mantine/core";
+import { Button, Center, createStyles, TextInput } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { useState } from "react";
 
@@ -16,6 +16,7 @@ const useStyles = createStyles(() => ({
   },
 }));
 
+// Operation being called (update or delete)
 interface AdminProps {
   op: string;
 }
@@ -32,12 +33,14 @@ const SearchField = ({ op }: AdminProps) => {
   });
 
   console.log(targetUser);
-
+  
+  // Event triggered when the search button is clicked
   const handle = () => {
     if (op == "update") {
       console.log(tagName);
       // Find user in the database
       if (targetUser) {
+        // if targetUser is found, set the update state to be true to allow the update modal to be visible
         setOnUpdate(true);
       } else {
         notifications.show({
@@ -51,6 +54,7 @@ const SearchField = ({ op }: AdminProps) => {
       console.log(targetUser);
       // Find user in the database
       if (targetUser) {
+        // if targetUser is found, set the delete state to be true to allow the delete modal to be visible
         setOnDelete(true);
       } else {
         notifications.show({

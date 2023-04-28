@@ -1,5 +1,6 @@
 import { Anchor, Avatar, Group, ScrollArea, Table, Text } from "@mantine/core";
 
+// Data received containing the info of all the users
 interface UsersTableProps {
   data:
     | {

@@ -17,6 +17,7 @@ import { useState } from "react";
 import UpdateField from "./UpdateField";
 import UpdatePw from "./UpdatePw";
 
+// Data received containing the info of the target user
 interface UsersProps {
   data:
     | {
