@@ -20,6 +20,7 @@ interface UserCardImageProps {
 const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
   const deleteMutation = api.user.deleteUser.useMutation();
   const deleteTweetMutation = api.user.deleteRelatedTweet.useMutation();
+  const deleteUserSessionMutation = api.user.deleteUserSession.useMutation();
   const { data: sessionData } = useSession();
 
   const handleClick = async () => {
@@ -28,6 +29,9 @@ const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
         console.log("Del target: " + data.id);
         await deleteTweetMutation
           .mutateAsync({ id: data.id })
+          .catch((e) => console.log(e));
+        await deleteUserSessionMutation
+          .mutateAsync({ id: data.id})
           .catch((e) => console.log(e));
         await deleteMutation
           .mutateAsync({ id: data.id })
