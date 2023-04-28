@@ -140,7 +140,7 @@ export const UserRouter = createTRPCRouter({
             id: id,
           },
           data: {
-            name: name,
+            display_name: name,
           },
         });
       }
@@ -225,6 +225,24 @@ export const UserRouter = createTRPCRouter({
           user_id: id,
         },
       });
+    }),
+
+  deleteUserSession: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      const { id } = input;
+      console.log("Target: " + id);
+      if (id !== null) {
+        return ctx.prisma.user.delete({
+          where: {
+            id: id,
+          },
+        });
+      }
     }),
 
   deleteUser: protectedProcedure
