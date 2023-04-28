@@ -1,5 +1,5 @@
 import { api } from "@/utils/api";
-import { Button, Center, createStyles, TextInput } from "@mantine/core";
+import { Button, Center, TextInput, createStyles } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { useState } from "react";
 
@@ -33,7 +33,7 @@ const SearchField = ({ op }: AdminProps) => {
   });
 
   console.log(targetUser);
-  
+
   // Event triggered when the search button is clicked
   const handle = () => {
     if (op == "update") {

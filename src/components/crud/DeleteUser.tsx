@@ -51,8 +51,7 @@ const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
         setTimeout(function () {
           window.location.reload();
         }, 2000);
-      }
-      else {
+      } else {
         notifications.show({
           title: "Fail",
           message: "You cannot delete yourself!",
