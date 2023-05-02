@@ -18,7 +18,6 @@ export default (allStagedFile) => {
   ];
 
   if (e2eFiles.length > 0) {
-    operations.push("pnpm run test:e2e");
   }
 
   if (cssFiles.length > 0) {

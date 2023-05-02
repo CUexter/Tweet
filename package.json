@@ -18,7 +18,7 @@
     "prettier": "prettier --write --ignore-unknown .",
     "cleandb": "rimraf prisma/db.sqlite & pnpm prisma db push & pnpm run db-seed",
     "test:e2e": "pnpm run cleandb & playwright test",
-    "codegen:e2e": "pnpm run dev & playwright codegen",
+    "codegen:e2e": "playwright codegen",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
     "test": "vitest run --passWithNoTests",
