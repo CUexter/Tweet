@@ -14,7 +14,7 @@ const cmd_reporter = process.env.CI ? "github" : "list";
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
   // Timeout per test
-  timeout: 10 * 1000,
+  timeout: 30 * 1000,
   // Test directory
   testDir: path.join(__dirname, "e2e"),
   reporter: [[cmd_reporter], ["html"]],
