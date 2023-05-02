@@ -6,7 +6,7 @@ import {
   IconThumbUp,
   IconThumbUpFilled,
 } from "@tabler/icons-react";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
 
 interface likeProps {
@@ -36,12 +36,14 @@ const Like = ({ id }: likeProps) => {
         <>
           <Text size="sm">{count.data}</Text>
           <div>
-            <ActionIcon>
-              <IconThumbUp />
-            </ActionIcon>
-            <ActionIcon>
-              <IconThumbDown />
-            </ActionIcon>
+            <div>
+              <ActionIcon onClick={() => void signIn()}>
+                <IconThumbUp />
+              </ActionIcon>
+              <ActionIcon onClick={() => void signIn()}>
+                <IconThumbDown />
+              </ActionIcon>
+            </div>
           </div>
         </>
       )
@@ -189,13 +191,17 @@ const Like = ({ id }: likeProps) => {
           <Text size="sm">{count.data}</Text>
           <div>
             <ActionIcon
-              onClick={() => void handleLikeClick()}
+              onClick={
+                session ? () => void handleLikeClick() : () => void signIn()
+              }
               color={likeQuery.data ? "blue" : "gray"}
             >
               {likeQuery.data ? <IconThumbUpFilled /> : <IconThumbUp />}
             </ActionIcon>
             <ActionIcon
-              onClick={() => void handleDislikeClick()}
+              onClick={
+                session ? () => void handleDislikeClick() : () => void signIn()
+              }
               color={dislikeQuery.data ? "blue" : "gray"}
             >
               {dislikeQuery.data ? <IconThumbDownFilled /> : <IconThumbDown />}
