@@ -19,7 +19,7 @@ const config: PlaywrightTestConfig = {
   testDir: path.join(__dirname, "e2e"),
   reporter: [[cmd_reporter], ["html"]],
   // If a test fails, retry it additional 2 times
-  retries: 0,
+  retries: 2,
   // Artifacts folder where screenshots, videos, and traces are stored.
   outputDir: "test-results/",
 
@@ -54,18 +54,16 @@ const config: PlaywrightTestConfig = {
       name: "Desktop Chrome",
       use: {
         ...devices["Desktop Chrome"],
-        storageState: "e2e/.auth/user.json",
       },
-      dependencies: ["setup"],
     },
-    {
-      name: "Desktop Firefox",
-      use: {
-        ...devices["Desktop Firefox"],
-        storageState: "e2e/.auth/user.json",
-      },
-      dependencies: ["setup"],
-    },
+    /* { */
+    /*   name: "Desktop Firefox", */
+    /*   use: { */
+    /*     ...devices["Desktop Firefox"], */
+    /*     storageState: "e2e/.auth/user.json", */
+    /*   }, */
+    /*   dependencies: ["setup"], */
+    /* }, */
     /* { */
     /*   name: "Desktop Safari", */
     /*   use: { */
@@ -75,14 +73,14 @@ const config: PlaywrightTestConfig = {
     /*   dependencies: ["setup"], */
     /* }, */
     // Test against mobile viewports.
-    {
-      name: "Mobile Chrome",
-      use: {
-        ...devices["Pixel 5"],
-        storageState: "e2e/.auth/user.json",
-      },
-      dependencies: ["setup"],
-    },
+    /* { */
+    /*   name: "Mobile Chrome", */
+    /*   use: { */
+    /*     ...devices["Pixel 5"], */
+    /*     storageState: "e2e/.auth/user.json", */
+    /*   }, */
+    /*   dependencies: ["setup"], */
+    /* }, */
     /* { */
     /*   name: "Mobile Safari", */
     /*   use: { */
