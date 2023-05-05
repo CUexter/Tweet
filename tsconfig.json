@@ -33,7 +33,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "**/*.cjs",
-    "**/*.mjs"
-, "e2e/signup/emptyName.spec.ts"  ],
+    "**/*.mjs",
+    "e2e/signup/emptyName.spec.ts"
+  ],
   "exclude": ["node_modules", "lint-staged.config.mjs"]
 }
