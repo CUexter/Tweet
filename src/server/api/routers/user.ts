@@ -61,7 +61,7 @@ export const UserRouter = createTRPCRouter({
         },
       });
     }),
-
+  // Return user's basic info if the tag_name is found
   findUser: publicProcedure
     .input(
       z.object({
@@ -85,6 +85,7 @@ export const UserRouter = createTRPCRouter({
       return target;
     }),
 
+  // Return user's basic info if the email is found
   findEmail: publicProcedure
     .input(
       z.object({
@@ -124,6 +125,7 @@ export const UserRouter = createTRPCRouter({
       });
     }),
 
+  // Update user display name by searching their unique id in the db
   updateName: protectedProcedure
     .input(
       z.object({
@@ -140,12 +142,13 @@ export const UserRouter = createTRPCRouter({
             id: id,
           },
           data: {
-            name: name,
+            display_name: name,
           },
         });
       }
     }),
 
+  // Update user tag name by searching their unique id in the db
   updateTagName: protectedProcedure
     .input(
       z.object({
@@ -168,6 +171,7 @@ export const UserRouter = createTRPCRouter({
       }
     }),
 
+  // Update user display name by searching their unique id in the db
   updateEmail: protectedProcedure
     .input(
       z.object({
@@ -190,6 +194,7 @@ export const UserRouter = createTRPCRouter({
       }
     }),
 
+  // Update user password (need to be hashed first) by searching their unique id in the db
   updatePassword: protectedProcedure
     .input(
       z.object({
@@ -212,6 +217,8 @@ export const UserRouter = createTRPCRouter({
       }
     }),
 
+  // Prerequisites for deleting a user (need to delete sequentially to prevent errors)
+  // Delete a user's all related tweets
   deleteRelatedTweet: protectedProcedure
     .input(
       z.object({
@@ -227,6 +234,26 @@ export const UserRouter = createTRPCRouter({
       });
     }),
 
+  // Delete a user's session
+  deleteUserSession: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      const { id } = input;
+      console.log("Target: " + id);
+      if (id !== null) {
+        return ctx.prisma.user.delete({
+          where: {
+            id: id,
+          },
+        });
+      }
+    }),
+
+  // Delete a user
   deleteUser: protectedProcedure
     .input(
       z.object({
@@ -244,6 +271,7 @@ export const UserRouter = createTRPCRouter({
         });
       }
     }),
+  // End of delete operation
 
   getMyHeaderInfo: protectedProcedure.query(({ ctx }) => {
     const user = ctx.user;

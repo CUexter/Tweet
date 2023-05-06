@@ -26,6 +26,7 @@ function PasswordRequirement({
   );
 }
 
+// Pros to store the target user's id
 interface pwProps {
   id: string | null | undefined;
 }
@@ -34,9 +35,11 @@ const UpdatePw = ({ id }: pwProps) => {
   const [value, setValue] = useInputState("");
   const updatePwMutation = api.user.updatePassword.useMutation();
 
+  // Event triggered when the update button is clicked
   const handleSubmit = async () => {
     if (id != null && id != undefined && value.length > 7) {
       const saltRounds = bcrypt.genSaltSync(10);
+      // hash the password before sending the request
       const hashedPassword = bcrypt.hashSync(value, saltRounds);
       await updatePwMutation.mutateAsync({
         id: id,

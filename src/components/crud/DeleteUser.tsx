@@ -3,6 +3,7 @@ import { Avatar, Button, Paper, Text } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { useSession } from "next-auth/react";
 
+// Data received containing the info of the target user
 interface UserCardImageProps {
   data:
     | {
@@ -18,15 +19,24 @@ interface UserCardImageProps {
 }
 
 const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
+  // Mutation for sending a delete request to the server
   const deleteMutation = api.user.deleteUser.useMutation();
   const deleteTweetMutation = api.user.deleteRelatedTweet.useMutation();
+  const deleteUserSessionMutation = api.user.deleteUserSession.useMutation();
+
+  // Receive the current session data
   const { data: sessionData } = useSession();
 
+  // Event triggered when the delete button is clicked
   const handleClick = async () => {
     if (window.confirm("Are you sure you want to delete?") && data != null) {
+      // Check if the current user is deleting his/her account
       if (data.id != sessionData?.user.id) {
         console.log("Del target: " + data.id);
         await deleteTweetMutation
+          .mutateAsync({ id: data.id })
+          .catch((e) => console.log(e));
+        await deleteUserSessionMutation
           .mutateAsync({ id: data.id })
           .catch((e) => console.log(e));
         await deleteMutation
@@ -37,6 +47,7 @@ const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
           message: "This use has been deleted successfully. Refreshing...",
           color: "blue",
         });
+        // 2 seconds before refreshing the page
         setTimeout(function () {
           window.location.reload();
         }, 2000);
@@ -50,6 +61,7 @@ const DeleteUser = ({ data, isOpen }: UserCardImageProps) => {
     }
   };
 
+  // Do not render if this modal is not visible
   if (isOpen == false) return null;
 
   return (
