@@ -16,6 +16,7 @@ import { useSession } from "next-auth/react";
 import { usePresignedUpload } from "next-s3-upload";
 import { useRouter } from "next/router";
 
+// Prop for type checking
 interface ComposerProp {
   original_id?: string;
   close?: () => void;
@@ -27,10 +28,11 @@ const TweetComposer = ({
   close,
   redirect,
 }: ComposerProp) => {
+  // If replying_to_id is undefined, then this is a new tweet, otherwise it's a reply
   const is_reply = replying_to_id === undefined ? false : true;
   const router = useRouter();
   const { data: sessionData } = useSession();
-
+  // Format and validation for the tweet form
   const form = useForm({
     initialValues: {
       tweet_text: "",
@@ -44,6 +46,7 @@ const TweetComposer = ({
     },
   });
   const utils = api.useContext();
+  // Invalidate certain caches depending on if it's a reply or not
   const postTweet = api.tweet.createTweet.useMutation({
     onSuccess: () => {
       void utils.tweet.getLotTweets.invalidate();
@@ -71,9 +74,9 @@ const TweetComposer = ({
     const originalUrls = form.values.images;
     form.setValues({ images: originalUrls.concat(urls) });
   };
-
+  // If you are not logged in, display nothing
   if (!sessionData) return <></>;
-
+  // This runs when you press the tweet button
   const handleSubmit = (values: typeof form.values) => {
     let send = {
       user_id: sessionData.user.id,
@@ -83,6 +86,7 @@ const TweetComposer = ({
       },
       images: values.images,
     };
+    // If it's a reply, add the original tweet id to the request
     send = is_reply ? { ...send, ...{ original_id: replying_to_id } } : send;
     try {
       postTweet.mutate(send);
@@ -103,7 +107,7 @@ const TweetComposer = ({
   };
 
   return (
-    <Card className="pt-2" shadow="sm" withBorder>
+    <Card className="pt-2" shadow="sm" withBorder id="tweetComposer">
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Textarea
           variant="unstyled"
@@ -120,6 +124,7 @@ const TweetComposer = ({
             }}
             accept="image/png,image/jpeg"
             multiple
+            inputProps={{ id: "uploadImage" }}
           >
             {(props) => (
               <ActionIcon color="blue" size="sm" {...props}>
@@ -149,6 +154,7 @@ const TweetComposer = ({
                       urls.splice(i, 1);
                       form.setValues({ images: urls });
                     }}
+                    id={`closeButton-${i}`}
                   >
                     <IconCircleX />
                   </ActionIcon>

@@ -55,7 +55,7 @@ export const TweetRouter = createTRPCRouter({
       }
       return post;
     }),
-
+  // API for posting tweets (both regular and reply)
   createTweet: protectedProcedure
     .input(
       z.object({

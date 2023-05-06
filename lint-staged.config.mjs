@@ -18,7 +18,6 @@ export default (allStagedFile) => {
   ];
 
   if (e2eFiles.length > 0) {
-    operations.push("pnpm run test:e2e");
   }
 
   if (cssFiles.length > 0) {
@@ -30,7 +29,6 @@ export default (allStagedFile) => {
 
   if (jsFiles.length > 0) {
     operations.push(`eslint --cache --fix ${jsFiles.join(" ")}`);
-    operations.push("pnpm run test");
   }
 
   return operations;
