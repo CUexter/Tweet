@@ -103,7 +103,7 @@ const TweetComposer = ({
   };
 
   return (
-    <Card className="pt-2" shadow="sm" withBorder>
+    <Card className="pt-2" shadow="sm" withBorder id="tweetComposer">
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Textarea
           variant="unstyled"
@@ -120,6 +120,7 @@ const TweetComposer = ({
             }}
             accept="image/png,image/jpeg"
             multiple
+            inputProps={{ id: "uploadImage" }}
           >
             {(props) => (
               <ActionIcon color="blue" size="sm" {...props}>
@@ -149,6 +150,7 @@ const TweetComposer = ({
                       urls.splice(i, 1);
                       form.setValues({ images: urls });
                     }}
+                    id={`closeButton-${i}`}
                   >
                     <IconCircleX />
                   </ActionIcon>

@@ -12,14 +12,21 @@ import {
   Text,
   Title,
 } from "@mantine/core";
+import { signIn, useSession } from "next-auth/react";
 import Head from "next/head";
 
 import Timeline from "./Timeline";
 
 const UserProfile = ({ id }: Pick<User, "id">) => {
   const { data: userInfo } = api.user.getUserInfo.useQuery({ id });
+  const { data: sessionData } = useSession();
   const utils = api.useContext();
-  const checkFollow = api.follow.isFollowing.useQuery({ followee_id: id });
+  const checkFollow = api.follow.isFollowing.useQuery(
+    { followee_id: id },
+    {
+      enabled: sessionData?.user !== undefined,
+    }
+  );
   const follow = api.follow.handleFollow.useMutation({
     onSuccess: () => {
       void utils.user.getUserInfo.invalidate();
@@ -42,7 +49,11 @@ const UserProfile = ({ id }: Pick<User, "id">) => {
     ],
   };
   const handleFollow = () => {
-    follow.mutate({ followee_id: id });
+    if (sessionData?.user !== undefined) {
+      follow.mutate({ followee_id: id });
+    } else {
+      void signIn();
+    }
   };
 
   return (
@@ -82,7 +93,7 @@ const UserProfile = ({ id }: Pick<User, "id">) => {
               <Text ta="center" fz="lg" fw={500}>
                 Followers
               </Text>
-              <Text ta="center" fz="sm" c="dimmed">
+              <Text ta="center" fz="sm" c="dimmed" id="followerCount">
                 {userInfo?._count.being_followed}
               </Text>
             </div>
@@ -91,7 +102,7 @@ const UserProfile = ({ id }: Pick<User, "id">) => {
               <Text ta="center" fz="lg" fw={500}>
                 Following
               </Text>
-              <Text ta="center" fz="sm" c="dimmed">
+              <Text ta="center" fz="sm" c="dimmed" id="followingCount">
                 {userInfo?._count.following}
               </Text>
             </div>
@@ -100,7 +111,7 @@ const UserProfile = ({ id }: Pick<User, "id">) => {
               <Text ta="center" fz="lg" fw={500}>
                 Tweets
               </Text>
-              <Text ta="center" fz="sm" c="dimmed">
+              <Text ta="center" fz="sm" c="dimmed" id="tweetCount">
                 {userInfo?._count.Tweet}
               </Text>
             </div>
@@ -115,7 +126,7 @@ const UserProfile = ({ id }: Pick<User, "id">) => {
             onClick={handleFollow}
             type="button"
           >
-            {checkFollow.data !== null ? "Unfollow" : "Follow"}
+            {checkFollow.data ? "Unfollow" : "Follow"}
           </Button>
           <Title order={3}>Their tweet:</Title>
           <Card>

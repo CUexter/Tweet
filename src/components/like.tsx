@@ -50,8 +50,6 @@ const Like = ({ id }: likeProps) => {
     );
   }
 
-  console.log("id: ", id);
-
   const likeMutation = api.like.like.useMutation();
   const unLikeMutation = api.like.unLike.useMutation();
   const DislikeMutation = api.like.dislike.useMutation();
@@ -78,9 +76,6 @@ const Like = ({ id }: likeProps) => {
       },
     }
   );
-
-  console.log(likeQuery.data);
-  console.log("here", count.data);
 
   async function handleLikeClick() {
     if (likeQuery.data) {

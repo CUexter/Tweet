@@ -1,5 +1,7 @@
 import { prisma } from "@/server/db";
+import bcrypt from "bcrypt";
 
+const alicePw = "aliceiscute";
 async function main() {
   // hashtag
   const hashtag1 = await prisma.hashtag.upsert({
@@ -61,6 +63,8 @@ async function main() {
     update: {},
   });
 
+  const saltRounds = 10;
+  const hashAliPw = await bcrypt.hash(alicePw, saltRounds);
   await prisma.user.upsert({
     where: {
       id: "uid1",
@@ -69,6 +73,7 @@ async function main() {
       id: "uid1",
       name: "alice",
       email: "alice@gmail.com",
+      password: hashAliPw,
       emailVerified: new Date(2023, 3, 1),
       display_name: "Alice Li",
       tag_name: "alice2733",
