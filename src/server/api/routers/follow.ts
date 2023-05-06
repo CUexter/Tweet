@@ -3,6 +3,7 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const FollowRouter = createTRPCRouter({
+  // API to check whether the user is following this user
   isFollowing: protectedProcedure
     .input(z.object({ followee_id: z.string() }))
     .query(({ ctx, input }) => {
@@ -15,7 +16,7 @@ export const FollowRouter = createTRPCRouter({
         },
       });
     }),
-
+  // API to handle follows: Follow if not yet, unfollow if already following
   handleFollow: protectedProcedure
     .input(z.object({ followee_id: z.string() }))
     .mutation(async ({ ctx, input }) => {
